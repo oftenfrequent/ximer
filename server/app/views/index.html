@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/" />
+    <title>Fullstack Academy Generated Application</title>
+    <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" type="text/css" href="/style.css" />
+    <script src="/lodash/index.js"></script>
+    <script src="/angular/angular.js"></script>
+    <script src="/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="/angular-bootstrap/dist/ui-bootstrap.js"></script>
+    <script src="/socket.io-client/socket.io.js"></script>
+    <script src="/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.min.js"></script>
+</head>
+<body ng-app="FullstackGeneratedApp">
+    <navbar></navbar>
+    <div ui-view></div>
+        <button id="play">PLAY</button>
+
+
+    <script>
+        var wavfiles = [
+            "/api/wav/percussionvocalssynths.wav",
+            "/api/wav/bass-loop-3_synths.wav",
+            "/api/wav/drum-loop-32_drums.wav",
+            "/api/wav/drum-loop-41_drums_loop.wav",
+            // "/api/wav/pad-synth-loop-8.wav",
+            "/api/wav/synth-loop-7.wav",
+            "/api/wav/vocal-loop-3.wav"
+        ];
+        var inits = 0;
+
+        var addInits = function() {
+            inits++;
+            console.log('INITs', inits);
+                Tone.Transport.bpm = 123;
+
+            
+            
+            if(inits === 7) {
+            }
+        }
+
+        var player = [];
+        wavfiles.forEach(function(wav, index) {
+            console.log(index)
+            player[index] = new Tone.Player(wav, addInits());
+        });
+
+        var clear = window.setInterval(function(){
+            player.forEach(function (file, index) {
+                file.loop = true;
+                file.toMaster();
+                    // file.start("0:0:0");
+                // } else {
+                    // file.start();
+                // }
+                // file.loopStart = "+4m";
+            });
+            window.clearInterval(clear);
+        }, 6000);
+
+
+        $('#play').click(function() {
+            console.log('HERE')
+        });
+        Tone.Transport.start();
+        Tone.Transport.setInterval(function(){
+            console.log('Blah');
+        }, "1m");
+    </script>
+</body>
+</html>
