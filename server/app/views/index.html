@@ -67,32 +67,27 @@
             inits++;
                 Tone.Transport.bpm.value = 123;
         }
-        sample.forEach(function (samp) {
-            samp.player.loop = true;
-            samp.player.toMaster();
-            console.log("SAMP", samp);
-        })
 
         // var player = [];
         // wavfiles.forEach(function(wav, index) {
         //     console.log(index)
         //     player[index] = new Tone.Player(wav, addInits());
         // });
-        Tone.Transport.setInterval(function(time){
-            console.log(Tone.Transport.position)
-            var measure = parseInt(Tone.Transport.position.split(':')[0]);
-            sample.forEach(function (samp) {
-                console.log('SAMP start', samp.playtime);
-                if(samp.playtime === measure) {
-                    console.log('START!!!!');
-                    samp.player.start();
-                }
-                else if (samp.stoptime === measure) samp.player.stop();
-            });
-            console.log('MEASURE', measure);
-            // console.log(sampler);
-            // sampler.triggerAttack("A");
-        }, "1m");
+        // Tone.Transport.setInterval(function(time){
+        //     console.log(Tone.Transport.position)
+        //     var measure = parseInt(Tone.Transport.position.split(':')[0]);
+        //     sample.forEach(function (samp) {
+        //         console.log('SAMP start', samp.playtime);
+        //         if(samp.playtime === measure) {
+        //             console.log('START!!!!');
+        //             samp.player.start();
+        //         }
+        //         else if (samp.stoptime === measure) samp.player.stop();
+        //     });
+        //     console.log('MEASURE', measure);
+        //     // console.log(sampler);
+        //     // sampler.triggerAttack("A");
+        // }, "1m");
 
         var clear = window.setInterval(function(){
             // player.forEach(function (file, index) {
@@ -101,6 +96,12 @@
             //     // file.start("1:0:0");
             // });
             Tone.Transport.start();
+            sample.forEach(function (samp) {
+                samp.player.loop = true;
+                samp.player.toMaster();
+                samp.player.start();
+                console.log("SAMP", samp);
+            })
             window.clearInterval(clear);
         }, 4000);
 
