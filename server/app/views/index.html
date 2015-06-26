@@ -21,115 +21,85 @@
 
 
     <script>
-        var sample = [
+
+        var t = Tone.Transport;
+
+        var samples = [
             {
-                playtime : 0,
+                startTime : '0m',
                 player : new Tone.Player("/api/wav/percussionvocalssynths.wav"),
-                stoptime : 16
+                endTime : '16m'
             },
             {
-                playtime : 0,
+                startTime : '0m',
                 player : new Tone.Player("/api/wav/bass-loop-3_synths.wav"),
-                stoptime : 4
+                endTime : '16m'
             },
             {
-                playtime : 4,
+                startTime : '4m',
                 player : new Tone.Player("/api/wav/drum-loop-32_drums.wav"),
-                stoptime : 12
+                endTime : '12m'
             },
             {
-                playtime : 0,
+                startTime : '6m',
                 player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
-                stoptime : 12
+                endTime : '14m'
             },
             {
-                playtime : 8,
+                startTime : '4m',
                 player : new Tone.Player("/api/wav/synth-loop-7.wav"),
-                stoptime : 16
+                endTime : '8m'
             },
             {
-                playtime : 8,
+                startTime : '11m',
                 player : new Tone.Player("/api/wav/vocal-loop-3.wav"),
-                stoptime : 16
+                endTime : '15:1'
             }
         ];
-        // var wavfiles = [
-        //     "/api/wav/percussionvocalssynths.wav",
-        //     "/api/wav/bass-loop-3_synths.wav",
-        //     "/api/wav/drum-loop-32_drums.wav",
-        //     "/api/wav/drum-loop-41_drums_loop.wav",
-        //     // "/api/wav/pad-synth-loop-8.wav",
-        //     "/api/wav/synth-loop-7.wav",
-        //     "/api/wav/vocal-loop-3.wav"
-        // ];
-        var inits = 0;
-        var addInits = function() {
-            inits++;
-                Tone.Transport.bpm.value = 123;
-        }
-        sample.forEach(function (samp) {
-            samp.player.loop = true;
-            samp.player.toMaster();
-            console.log("SAMP", samp);
-        })
 
-        // var player = [];
-        // wavfiles.forEach(function(wav, index) {
-        //     console.log(index)
-        //     player[index] = new Tone.Player(wav, addInits());
-        // });
-        Tone.Transport.setInterval(function(time){
-            console.log(Tone.Transport.position)
-            var measure = parseInt(Tone.Transport.position.split(':')[0]);
-            sample.forEach(function (samp) {
-                console.log('SAMP start', samp.playtime);
-                if(samp.playtime === measure) {
-                    console.log('START!!!!');
-                    samp.player.start();
-                }
-                else if (samp.stoptime === measure) samp.player.stop();
+        t.bpm.value = 123;
+
+        setTimeout(function () {
+
+            samples.forEach(function (s) {
+
+                s.player.toMaster();
+                s.player.loop = true;
+
+                t.setTimeline(function () {
+                    s.player.stop();
+                    s.player.start();
+                }, s.startTime);
+
+                t.setTimeline(function () {
+                    console.log('End:', t.position);
+                    s.player.stop();
+                }, s.endTime);
+
             });
-            console.log('MEASURE', measure);
-            // console.log(sampler);
-            // sampler.triggerAttack("A");
-        }, "1m");
 
-        var clear = window.setInterval(function(){
-            // player.forEach(function (file, index) {
-            //     file.loop = true;
-            //     file.toMaster();
-            //     // file.start("1:0:0");
-            // });
-            Tone.Transport.start();
-            window.clearInterval(clear);
-        }, 4000);
+            t.start();
 
+        }, 2000);
 
-        // $('#play').click(function() {
-        //     console.log('HERE')
-        //     Tone.Transport.start();
-        // });
+        t.loop = true;
+        t.loopStart = '0m';
+        t.loopEnd = '16m';
 
-        // var synth = new Tone.MonoSynth();
-        // var filter = new Tone.Filter();
+        t.setInterval(function () {
+            console.log(t.position);
+        }, '4n');
 
-        // synth.connect(filter);
-        // filter.toMaster();
+        window.onblur = function () {
+            t.stop();
+            samples.forEach(function (s) {
+                s.player.stop();
+            });
+        };
 
-        // var lfo = new Tone.LFO("16n", 100, 1400);
-        // lfo.connect(filter.frequency);
-        // lfo.sync();
-
-        // var notes = ["C4", "E4", "G4", "A4"];
-        // var position = 0;
-
-        // Tone.Transport.setInterval(function(time){
-        //     console.log('TIME', time);
-        //     var note = notes[position++];
-        //     position = position % notes.length;
-        //     synth.triggerAttackRelease(note, "8n", time);
-        // }, "4n");
-        // Tone.Transport.start();
+        window.onfocus = function () {
+            t.start();
+        };
 
     </script>
 </body>
