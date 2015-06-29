@@ -2,6 +2,7 @@
   box-sizing: border-box; }
 
 body {
+  color: #FFF;
   background: #202630;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
@@ -56,11 +57,25 @@ navbar {
   margin-top: -20px;
   overflow: scroll; }
 
-.quarter-note {
+.measures {
   display: inline-block;
   height: 100%;
   border: 1px solid #502640;
-  margin: 0px -3px; }
+  min-height: 100px;
+  min-width: 200px;
+  float: left; }
+
+.over {
+  background: #983552; }
+
+.item {
+  min-height: 100px;
+  min-width: 200px;
+  background: #983552;
+  float: right; }
+
+.drag {
+  opacity: 0.5; }
 
 #login-form {
   width: 60%;

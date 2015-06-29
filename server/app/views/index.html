@@ -6,129 +6,99 @@
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/angular-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
+    <script src="/lib/angular-drag-and-drop-lists.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.min.js"></script>
+    
 </head>
 <body ng-app="FullstackGeneratedApp">
     <navbar></navbar>
 
-    <div class="row">
-        <div class="main-timeline pull-right col-xs-9">
-            <div class="track-row" task_id="1" style="width: 10000px; height: 120px;">
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-            </div>
-            <div class="track-row" task_id="1" style="width: 10000px; height: 120px;">
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-            </div>
-            <div class="track-row" task_id="1" style="width: 10000px; height: 120px;">
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-            </div>
-            <div class="track-row" task_id="1" style="width: 10000px; height: 120px;">
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
-                <div class="quarter-note" style="width:70px;"></div>
+    <div ng-controller="DragDropCtrl">
+
+    <div class="item" style="position: absolute;" id="item1" draggable></div>
+
+        <div class="row">
+            <div class="main-timeline pull-right col-xs-9">
+                <div class="track-row" task_id="1" style="width: 3000px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 3000px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 3000px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 3000px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 3000px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
             </div>
         </div>
+
     </div>
 
 
@@ -140,7 +110,6 @@
 
     <script>
         var t = Tone.Transport;
-
 
         var samples = [
             {
