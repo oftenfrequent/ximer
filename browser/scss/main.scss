@@ -2,6 +2,11 @@
   box-sizing: border-box;
 }
 
+body {
+	background: #202630;
+	font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
 @mixin clearfix {
   &:after {
     content: "";
