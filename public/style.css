@@ -66,12 +66,12 @@ navbar {
   float: left; }
 
 .over {
-  background: #983552; }
+  background: #D63953; }
 
 .item {
   min-height: 100px;
   min-width: 200px;
-  background: #983552;
+  background: #D63953;
   float: right; }
 
 .drag {
