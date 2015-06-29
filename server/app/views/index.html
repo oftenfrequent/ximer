@@ -134,11 +134,13 @@
 
     <div ui-view></div>
         <button id="play">PLAY</button>
+        <button id="stop">STOP</button>
+        <button id="record" onclick="toggleRecording(this);">RECORD</button>
 
 
     <script>
-
         var t = Tone.Transport;
+
 
         var samples = [
             {
@@ -233,8 +235,37 @@
         window.onfocus = function () {
             t.start();
         };
-
         // button for recording, button for dropping loop on timeline
+
+        $('#stop').click(function() {
+            t.clearTimelines();
+
+            samples.forEach(function (s) {
+                s.player.stop();
+            });
+            t.stop();
+        });
+        $('#record').click(function() {
+            var mic = new Tone.Microphone();
+            t.clearTimelines();
+            mic.sync('1m');
+            var met = new Tone.DrumSynth().toMaster();
+
+            t.setTimeline(function () {
+                    met.triggerAttackRelease("C2", "4n");
+                    // met.start();
+            }, '0m');
+
+            t.setTimeline(function () {
+                    mic.start();
+            }, '1m');
+
+            t.setTimeline(function () {
+                    mic.stop();
+            }, '2m');
+
+            t.start();
+        });
     </script>
 
 

@@ -7,7 +7,7 @@ module.exports = router;
 router.use('/', function (req, res, next) {
 	console.log('HERE');
 	next();
-})
+});
 
 router.use('/wav/:loopname', function (req, res, next) {
 	var p = path.join(__dirname, '../../../wav/');
@@ -17,10 +17,8 @@ router.use('/wav/:loopname', function (req, res, next) {
 		else {
 			res.send(data);
 		}
-	})
+	});
 });
-
-router.use('/tutorial', require('./tutorial'));
 router.use('/members', require('./members'));
 
 // Make sure this is after all of
