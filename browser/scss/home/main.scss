@@ -15,9 +15,26 @@
   overflow: scroll;
 }
 
-.quarter-note {
+.measures {
   display: inline-block;
   height: 100%;
   border: 1px solid #502640;
-  margin: 0px -3px;
+  min-height: 100px;
+  min-width: 200px;
+  float: left;
+}
+
+.over {
+  background: #D63953;
+}
+
+.item {
+  min-height: 100px;
+  min-width: 200px;
+  background: #D63953;
+  float: right;
+}
+
+.drag {
+  opacity: 0.5;
 }

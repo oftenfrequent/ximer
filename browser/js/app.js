@@ -1,6 +1,13 @@
 'use strict';
 var app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt']);
 
+app.controller('DragDropCtrl', function($scope) {
+  $scope.handleDrop = function() {
+    // alert('Item has been dropped');
+  }
+});
+
+
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
     $locationProvider.html5Mode(true);
