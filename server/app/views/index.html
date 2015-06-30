@@ -4,8 +4,10 @@
     <base href="/" />
     <title>Fullstack Academy Generated Application</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400,700">
 
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
@@ -13,99 +15,104 @@
     <script src="/angular-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/main.js"></script>
-    <script src="/lib/angular-drag-and-drop-lists.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-    <script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.min.js"></script>
+    <!-- // <script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.min.js"></script> -->
+    <script src="/js/audiodisplay.js"></script>
+    <script src="/js/recorderjs/recorder.js"></script>
+    <script src="/js/main.js"></script>
+
     
 </head>
 <body ng-app="FullstackGeneratedApp">
     <navbar></navbar>
 
-    <div ng-controller="DragDropCtrl">
-
-    <div class="item" style="position: absolute;" id="item1" draggable></div>
+    <div class="timeline-container" ng-controller="TimelineController">
 
         <div class="row">
-            <div class="main-timeline pull-right col-xs-9">
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                </div>
+            <div class="col-xs-3">
+                <div class="tracks over">
+                    <span>Track Title 1</span>
+                    <button class="btn btn-primary" id="record" ng-click="record($event)">record</button>
+                    <a id="save" href="#">dl</a>
 
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
+                    
                 </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
+                <div class="tracks">
                 </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
+                <div class="tracks">
                 </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
+                <div class="tracks">
                 </div>
             </div>
+            <div class="main-timeline col-xs-9">
+                <div class="track-row" task_id="1" style="width: 2500px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 2500px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 2500px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+                <div class="track-row" task_id="1" style="width: 2500px;">
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                    <div class="measures" droppable drop="handleDrop()"></div>
+                </div>
+
+            </div>
         </div>
+
+        <div class="item" style="position: absolute;" id="item1" draggable></div>
 
     </div>
 
 
-    <div ui-view></div>
-        <button id="play">PLAY</button>
-        <button id="stop">STOP</button>
-        <button id="record" onclick="toggleRecording(this);">RECORD</button>
+    <div ui-view style="background: #202630;"></div>
+    <button id="play">PLAY</button>
+    <button id="stop">STOP</button>
+    <button id="record" onclick="toggleRecording(this);">RECORD</button>
 
 
     <script>
@@ -236,6 +243,11 @@
             t.start();
         });
     </script>
+
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
 
 </body>
