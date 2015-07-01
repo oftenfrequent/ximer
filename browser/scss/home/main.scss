@@ -10,9 +10,17 @@
   }
 }
 
+.timeline-container {
+  background: #202630;
+}
+
+.track-row {
+  font-size: 0;
+}
+
 .main-timeline {
-  margin-top: -20px;
-  overflow: scroll;
+  overflow-x: scroll;
+  overflow-y: hidden;
 }
 
 .measures {
@@ -21,7 +29,6 @@
   border: 1px solid #502640;
   min-height: 100px;
   min-width: 200px;
-  float: left;
 }
 
 .over {
@@ -29,12 +36,24 @@
 }
 
 .item {
-  min-height: 100px;
-  min-width: 200px;
+  min-height: 98px;
+  min-width: 198px;
   background: #D63953;
-  float: right;
 }
 
 .drag {
   opacity: 0.5;
+}
+
+.tracks {
+  margin-left: 1em;
+  height: 100%;
+  border: 1px solid #502640;
+  min-height: 100px;
+  min-width: 200px;
+}
+
+div[class*="col-"] {
+    padding-right: 0px;
+    padding-left: 0px;
 }
