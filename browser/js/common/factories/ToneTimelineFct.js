@@ -1,49 +1,59 @@
 'use strict';
 app.factory('ToneTimelineFct', function ($http) {
 
-	var transport = function (loopEnd) {
-		var transport = Tone.Transport;
-		transport.loop = true;
-		transport.loopStart = '0m';
-		transport.loopEnd = loopEnd.toString() + 'm';
-		console.log(transport)
-		return transport;
-	}
+	var getTransport = function (loopEnd) {
+		Tone.Transport.loop = true;
+		Tone.Transport.loopStart = '0m';
+		Tone.Transport.loopEnd = loopEnd.toString() + 'm';
 
-	var changeBpm = function (transport, bpm) {
-		transport.bpm = bpm;
-		return transport;
-	}
+		Tone.Transport.setInterval(function () {
+			console.log(Tone.Transport.position);
+		}, '4n');
+		return Tone.Transport;
+	};
 
-	var stopAll = function (transport, loopArray) {
-		transport.stop();
+	var changeBpm = function (bpm) {
+		Tone.Transport.bpm.value = bpm;
+		return Tone.Transport;
+	};
+
+	var stopAll = function (loopArray) {
+		Tone.Transport.stop();
 		loopArray.forEach(function (loop) {
 			loop.stop();
 		});
-	}
+	};
 
-	var addLoopToTimeline = function (transport, player, startTimeArray) {
-		// console.log('PLAYER', player);
-		// player.start();
+	var addLoopToTimeline = function (player, startTimeArray) {
+
+		if(startTimeArray.indexOf(0) === -1) {
+			Tone.Transport.setTimeline(function() {
+				player.stop();
+			}, "0m")
+
+		}
+
 		startTimeArray.forEach(function (startTime) {
+
 			var startTime = startTime.toString() + 'm';
-			console.log(player, startTime);
-			console.log("TIMELINE", transport);
-			
+
 			Tone.Transport.setTimeline(function () {
-				console.log('SET');
+				console.log('Start', Tone.Transport.position);
 				player.stop();
 				player.start();
 			}, startTime);
+
 			// var stopTime = parseInt(startTime.substr(0, startTime.length-1)) + 1).toString() + startTime.substr(-1,1);
-			// console.log('STOP', stop);
-			// transport.setTimeline(function () {
-			// 	player.stop();
-			// }, stopTime);
+			//// console.log('STOP', stop);
+			//// transport.setTimeline(function () {
+			//// 	player.stop();
+			//// }, stopTime);
+
 		});
-	}
+
+	};
     return {
-        transport: transport,
+        getTransport: getTransport,
         changeBpm: changeBpm,
         addLoopToTimeline: addLoopToTimeline
     };
