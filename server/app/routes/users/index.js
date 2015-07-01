@@ -11,7 +11,7 @@ var ensureAuthenticated = function (req, res, next) {
     }
 };
 
-router.get('/:id', ensureAuthenticated, function (req, res) {
+router.get('/', ensureAuthenticated, function (req, res) {
     userModel.find(req.query).exec().then(function(data){
         res.send(data);
     }, function(err){
@@ -28,7 +28,7 @@ router.post('/', function(req, res){
     });
 });
 
-router.put('/:id', function(req, res){
+router.put('/', function(req, res){
     userModel.update({_id: req.params.id}, req.body);
 });
 
