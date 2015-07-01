@@ -1,12 +1,13 @@
 navbar {
 
   display: block;
-  background: #202630;;
+  background: #202630;
+  margin-bottom: -20px;
 
   fullstack-logo {
     padding-top: 20px;
-    margin-right: 20px;
-    width: 80px;
+    margin: auto;
+    width: 120px;
     padding-bottom: 20px;
   }
 
@@ -29,6 +30,11 @@ navbar {
       color: #f30046;
       background: transparent;
     }
+  }
+
+  .navbar-header {
+    margin: auto;
+    float: none;
   }
 
   .login-button {
