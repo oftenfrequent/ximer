@@ -17,6 +17,7 @@ var schema = new mongoose.Schema({
         ref: 'Project'
     },
     tracks: [{
+        name: String,
         locations: [Number],
         url: String,
         img: String
