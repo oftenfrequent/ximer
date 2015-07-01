@@ -38,7 +38,10 @@
 .item {
   min-height: 98px;
   min-width: 198px;
-  background: #D63953;
+  background: #202630;
+  -webkit-box-shadow:inset 0px 0px 0px 1px #D63953;
+  -moz-box-shadow:inset 0px 0px 0px 1px #D63953;
+  box-shadow:inset 0px 0px 0px 1px #D63953;
 }
 
 .drag {

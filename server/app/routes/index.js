@@ -7,6 +7,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 
+
 var ensureAdminAuthenticated = function(req, res, next) {
     if(req.isAuthenticated()) {
         next();
@@ -18,7 +19,6 @@ var ensureAdminAuthenticated = function(req, res, next) {
 
 //anything below this users need to be authenticated
 router.use('/', ensureAdminAuthenticated);
-
 
 //route to get loops
 router.use('/wav/:loopname', function (req, res, next) {
@@ -34,6 +34,13 @@ router.use('/wav/:loopname', function (req, res, next) {
 
 router.use('/users', require('./users'));
 router.use('/projects', require('./projects'));
+router.use('/aws', require('./aws'));
+
+router.use('/project/:projectId', function (req, res, next) {
+	Project.findById('559371e8f2b61c5582762796').exec().then(function (project) {
+		res.send(project);
+	});
+});
 
 // Make sure this is after all of
 // the registered routes!

@@ -70,26 +70,32 @@ var seedProjects = function (users) {
             owner: users[0]._id,
             tracks: [
                 {
+                    name: "Track 1",
                     locations : [0,1,2,3,4,5,6,7,8,9,12,13,14,15],
                     url : "/api/wav/percussionvocalssynths.wav"
                 },
                 {
+                    name: "Track 2",
                     locations : [4,5,6,7,12,13,14,15,16],
                     url : "/api/wav/bass-loop-3_synths.wav"
                 },
                 {
+                    name: "Track 3",
                     locations : [4,5,6,7,8,9,10,11],
                     url : "/api/wav/drum-loop-32_drums.wav"
                 },
                 {
+                    name: "Track 4",
                     locations : [1,3,5,7,9,11,13,15],
                     url : "/api/wav/drum-loop-41_drums_loop.wav"
                 },
                 {
+                    name: "Track 5",
                     locations : [8,9,10,11],
                     url : "/api/wav/synth-loop-7.wav"
                 },
                 {
+                    name: "Track 6",
                     locations : [12,13,14,15],
                     url : "/api/wav/vocal-loop-3.wav"
                 }],
@@ -101,26 +107,32 @@ var seedProjects = function (users) {
             owner: users[1]._id,
             tracks: [
                 {
+                    name: "Track 1",
                     locations : [4,5,6,7,8,9,10,11],
                     url : "/api/wav/percussionvocalssynths.wav"
                 },
                 {
+                    name: "Track 2",
                     locations : [8,9,10,11],
                     url : "/api/wav/bass-loop-3_synths.wav"
                 },
                 {
+                    name: "Track 3",
                     locations : [0,1,2,3,4,5,6,7,8,9,12,13,14,15],
                     url : "/api/wav/drum-loop-32_drums.wav"
                 },
                 {
+                    name: "Track 4",
                     locations : [1,3,5,7,9,11,13,15],
                     url : "/api/wav/drum-loop-41_drums_loop.wav"
                 },
                 {
+                    name: "Track 5",
                     locations : [4,5,6,7,12,13,14,15,16],
                     url : "/api/wav/synth-loop-7.wav"
                 },
                 {
+                    name: "Track 6",
                     locations : [12,13,14,15],
                     url : "/api/wav/vocal-loop-3.wav"
                 }],
@@ -132,26 +144,32 @@ var seedProjects = function (users) {
             owner: users[2]._id,
             tracks: [
                 {
+                    name: "Track 1",
                     locations : [10,11,12,13,14,15],
                     url : "/api/wav/percussionvocalssynths.wav"
                 },
                 {
+                    name: "Track 2",
                     locations : [8,9,10,11],
                     url : "/api/wav/bass-loop-3_synths.wav"
                 },
                 {
+                    name: "Track 3",
                     locations : [0,2,4,6,8,10,12,13,14,15],
                     url : "/api/wav/drum-loop-32_drums.wav"
                 },
                 {
+                    name: "Track 4",
                     locations : [1,3,5,7,9,11,13,15],
                     url : "/api/wav/drum-loop-41_drums_loop.wav"
                 },
                 {
+                    name: "Track 5",
                     locations : [4,5,6,7,12,13,14,15],
                     url : "/api/wav/synth-loop-7.wav"
                 },
                 {
+                    name: "Track 6",
                     locations : [12,13,14,15],
                     url : "/api/wav/vocal-loop-3.wav"
                 }],
@@ -163,26 +181,32 @@ var seedProjects = function (users) {
             owner: users[3]._id,
             tracks: [
                 {
+                    name: "Track 1",
                     locations : [0,1,2,3,4,5,6,7,8,9,12,13,14,15],
                     url : "/api/wav/percussionvocalssynths.wav"
                 },
                 {
+                    name: "Track 2",
                     locations : [0,1,2,3,4,5,6,7,8,9,12,13,14,15],
                     url : "/api/wav/bass-loop-3_synths.wav"
                 },
                 {
+                    name: "Track 3",
                     locations : [8,9,12,13,14,15],
                     url : "/api/wav/drum-loop-32_drums.wav"
                 },
                 {
+                    name: "Track 4",
                     locations : [6,7,8,9,12,13],
                     url : "/api/wav/drum-loop-41_drums_loop.wav"
                 },
                 {
+                    name: "Track 5",
                     locations : [8,9,10,11],
                     url : "/api/wav/synth-loop-7.wav"
                 },
                 {
+                    name: "Track 6",
                     locations : [12,13,14,15],
                     url : "/api/wav/vocal-loop-3.wav"
                 }],
@@ -194,26 +218,32 @@ var seedProjects = function (users) {
             owner: users[4]._id,
             tracks: [
                 {
+                    name: "Track 1",
                     locations : [12,13,14,15],
                     url : "/api/wav/percussionvocalssynths.wav"
                 },
                 {
+                    name: "Track 2",
                     locations : [4,5,6,7,12,13,14,15,16],
                     url : "/api/wav/bass-loop-3_synths.wav"
                 },
                 {
+                    name: "Track 3",
                     locations : [4,5,6,7,8,9,10,11],
                     url : "/api/wav/drum-loop-32_drums.wav"
                 },
                 {
+                    name: "Track 4",
                     locations : [1,5,9,13],
                     url : "/api/wav/drum-loop-41_drums_loop.wav"
                 },
                 {
+                    name: "Track 5",
                     locations : [4,5,6,7,8,9,10,11],
                     url : "/api/wav/synth-loop-7.wav"
                 },
                 {
+                    name: "Track 6",
                     locations : [0,1,2,3,4,5,6,7,8,9,12,13,14,15],
                     url : "/api/wav/vocal-loop-3.wav"
                 }],
@@ -234,24 +264,23 @@ connectToDb.then(function () {
             process.kill(0);
         }
     }).then(function () {
-        return getCurrentUserData().then(function (users){
-            return seedProjects(users);
-        }).then(function (){
-            return q.ninvoke(Project, 'find',{}).then(function (projectArr) {
-                console.log('PROJarr', projectArr);
-                projectArr.forEach(function (proj) {
-                    User.findById(proj.owner).exec().then(function (user) {
-                        user.projects.push(proj._id);
-                        user.save();
-                    });
+        return getCurrentUserData();
+    }).then(function (users){
+        return seedProjects(users);
+    }).then(function (){
+        return q.ninvoke(Project, 'find', {}).then(function (projectArr) {
+            projectArr.forEach(function (proj) {
+                User.findById(proj.owner).exec().then(function (user) {
+                    user.projects.push(proj._id);
+                    user.save().exec();
                 });
             });
-            //get projects
-            console.log(chalk.green('Seed successful!'));
-            process.kill(0);
         });
-    }).catch(function (err) {
-        console.error(err);
-        process.kill(1);
+
+        console.log(chalk.green('Seed successful!'));
+        process.kill(0);
     });
+}).catch(function (err) {
+    console.error(err);
+    process.kill(1);
 });
