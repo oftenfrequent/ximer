@@ -14,7 +14,8 @@ var schema = new mongoose.Schema({
     },
     tracks: [{
         locations: [Number],
-        url: String
+        url: String,
+        img: String
     }],
     endMeasure: Number,
     bpm: Number
