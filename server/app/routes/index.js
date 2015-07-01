@@ -8,7 +8,6 @@ var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 
 router.use('/', function (req, res, next) {
-	console.log('HERE');
 	next();
 });
 
@@ -24,13 +23,12 @@ router.use('/wav/:loopname', function (req, res, next) {
 });
 
 router.use('/users', require('./users'));
+router.use('/aws', require('./aws'));
 
 router.use('/project/:projectId', function (req, res, next) {
-	Project.findById('5593228a9d2cc2e8ceea4d02').exec().then(function (project) {
+	Project.findById('559371e8f2b61c5582762796').exec().then(function (project) {
 		res.send(project);
 	});
-	
-
 });
 
 // Make sure this is after all of

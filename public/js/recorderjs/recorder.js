@@ -112,7 +112,7 @@ DEALINGS IN THE SOFTWARE.
     var link = document.getElementById("save");
     link.href = url;
     link.download = filename || 'output.wav';
-    window.recordedBlob = blob;
+    window.latestRecording = blob;
   }
 
   window.Recorder = Recorder;
