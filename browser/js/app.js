@@ -1,10 +1,38 @@
 'use strict';
 var app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt']);
 
-app.controller('DragDropCtrl', function($scope) {
-  $scope.handleDrop = function() {
-    // alert('Item has been dropped');
-  }
+app.controller('DragDropCtrl', function ($scope, ProjectFct, TonePlayerFct, ToneTimelineFct) {
+  // $scope.handleDrop = function() {
+  //   alert('Item has been dropped');
+  // };
+    $scope.tracks = [];
+    $scope.loading = true;
+    $scope.transport;
+
+    ProjectFct.getProjectInfo(1234).then(function (data) {
+        var loaded = 0;
+        var project = data.data;
+        console.log('PROJECT', project);
+
+        $scope.transport = ToneTimelineFct.transport(project.endMeasure);
+        ToneTimelineFct.changeBpm($scope.transport, project.bpm);
+
+
+
+        project.tracks.forEach(function (track) {
+            var doneLoading = function () {
+                loaded++;
+                ToneTimelineFct.addLoopToTimeline($scope.transport, track.player, track.locations);
+                if(loaded === project.tracks.length) {
+                    $scope.loading = false;
+                    console.log('STARTING');
+                    $scope.transport.start();
+                }
+            };
+            track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
+            $scope.tracks.push(track);
+        });
+    });
 });
 
 

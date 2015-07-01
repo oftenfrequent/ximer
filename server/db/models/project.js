@@ -3,17 +3,21 @@ var crypto = require('crypto');
 var mongoose = require('mongoose');
 
 var schema = new mongoose.Schema({
-    Name: String,
-    Owner: {
+    name: String,
+    owner: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
-    Forked: {
+    forked: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     },
-    Tracks: [String],
-    BPM: Number
+    tracks: [{
+        locations: [Number],
+        url: String
+    }],
+    endMeasure: Number,
+    bpm: Number
 });
 
 
