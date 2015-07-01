@@ -32,7 +32,6 @@ router.use('/project/:projectId', function (req, res, next) {
 	
 
 });
-router.use('/members', require('./members'));
 
 // Make sure this is after all of
 // the registered routes!
