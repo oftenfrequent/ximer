@@ -113,6 +113,12 @@ DEALINGS IN THE SOFTWARE.
     link.href = url;
     link.download = filename || 'output.wav';
     window.recordedBlob = blob;
+
+    console.log("LINK", link);
+
+    var play = new Tone.Player(link.href, function () {
+      play.start();
+    }).toMaster();
   }
 
   window.Recorder = Recorder;
