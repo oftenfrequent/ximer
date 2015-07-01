@@ -13,8 +13,11 @@ app.config(function($stateProvider) {
 
 });
 
-app.controller('UserController', function($scope, $state, AuthService) {
-
-
+app.controller('UserController', function($scope, $state, AuthService, userFactory) {
+    console.log("scope", $scope);
+    AuthService.getLoggedInUser().then(function(aUser){
+        $scope.theUser = aUser;
+        console.log($scope.theUser);
+    });
 
 });

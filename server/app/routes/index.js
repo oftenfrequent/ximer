@@ -19,7 +19,8 @@ router.use('/wav/:loopname', function (req, res, next) {
 		}
 	});
 });
-router.use('/members', require('./members'));
+
+router.use('/users', require('./users'));
 
 // Make sure this is after all of
 // the registered routes!
