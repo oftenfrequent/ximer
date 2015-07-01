@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
 
-    $stateProvider.state('membersOnly', {
+    $stateProvider.state('userProfile', {
         url: '/userprofile/:theID/',
         templateUrl: 'js/user/userprofile.html',
         controller: 'UserController',
@@ -22,7 +22,7 @@ app.controller('UserController', function($scope, $state, AuthService, userFacto
     });
 
     $scope.displaySettings = function(){
-        
+
     }
 
     $scope.displayProjects = function(){
@@ -35,7 +35,7 @@ app.controller('UserController', function($scope, $state, AuthService, userFacto
     $scope.displayForks = function(){
         userFactory.getForks($scope.theUser._id).then(function(data){
             $scope.forks = data;
-            console.log($scope.projects);
+            console.log($scope.forks);
         });
     }
 

@@ -8,7 +8,7 @@ var userModel = require('mongoose').model('User');
 
 router.get('/', function (req, res) {
     userModel.find(req.query).exec().then(function(data){
-        res.send(data);
+        res.send(data[0].projects);
     }, function(err){
         res.status(500).send(err.message);
     });

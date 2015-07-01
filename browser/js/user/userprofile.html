@@ -1,6 +1,6 @@
 <div class="container">
     <div class="row profile">
-		<div class="col-md-3">
+		<div class="col-md-3" ng-controller="UserController">
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
@@ -23,12 +23,12 @@
 							<i class="glyphicon glyphicon-cog"></i>
 							Account Settings </a>
 						</li>
-						<li ng-click="displayCart()">
+						<li ng-click="displayProjects()">
 							<a href="#">
 							<i class="glyphicon glyphicon-cd"></i>
 							Projects </a>
 						</li>
-						<li ng-click="displayOrdHistory()">
+						<li ng-click="displayForks()">
 							<a href="#">
 							<i class="glyphicon glyphicon-random"></i>
 							Forks </a>
