@@ -26,11 +26,11 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-     }//,
-    // projects: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'Project'
-    // }]
+     },
+    projects: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    }]
 });
 
 // generateSalt, encryptPassword and the pre 'save' and 'correctPassword' operations

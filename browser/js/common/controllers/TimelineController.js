@@ -4,17 +4,18 @@ app.controller('TimelineController', function($scope, RecorderFactory, ProjectFc
   $scope.loading = true;
   $scope.transport;
 
-  ProjectFct.getProjectInfo(1234).then(function (data) {
+  ProjectFct.getProjectInfo('5593228a9d2cc2e8ceea4d02').then(function (data) {
 
       var loaded = 0;
       var project = data.data;
+      console.log('PROJECT', project); 
 
       project.tracks.forEach(function (track) {
           var doneLoading = function () {
               loaded++;
               if(loaded === project.tracks.length) {
                   $scope.loading = false;
-                  Tone.Transport.start();
+                  // Tone.Transport.start();
               }
           };
           track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
@@ -24,8 +25,6 @@ app.controller('TimelineController', function($scope, RecorderFactory, ProjectFc
 
       ToneTimelineFct.getTransport(project.endMeasure);
       ToneTimelineFct.changeBpm(project.bpm);
-
-
 
   });
 

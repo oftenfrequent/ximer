@@ -3,15 +3,15 @@ var router = require('express').Router();
 module.exports = router;
 var userModel = require('mongoose').model('User');
 
-var ensureAuthenticated = function (req, res, next) {
-    if (req.isAuthenticated()) {
-        next();
-    } else {
-        res.status(401).end();
-    }
-};
+// var ensureAuthenticated = function (req, res, next) {
+//     if (req.isAuthenticated()) {
+//         next();
+//     } else {
+//         res.status(401).end();
+//     }
+// };
 
-router.get('/:id', ensureAuthenticated, function (req, res) {
+router.get('/:id', function (req, res) {
     userModel.find(req.query).exec().then(function(data){
         res.send(data);
     }, function(err){

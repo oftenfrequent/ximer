@@ -13,7 +13,7 @@ app.factory('ToneTimelineFct', function ($http) {
 	};
 
 	var changeBpm = function (bpm) {
-		Tone.Transport.bpm = bpm;
+		Tone.Transport.bpm.value = bpm;
 		return Tone.Transport;
 	};
 
@@ -26,11 +26,19 @@ app.factory('ToneTimelineFct', function ($http) {
 
 	var addLoopToTimeline = function (player, startTimeArray) {
 
+		if(startTimeArray.indexOf(0) === -1) {
+			Tone.Transport.setTimeline(function() {
+				player.stop();
+			}, "0m")
+
+		}
+
 		startTimeArray.forEach(function (startTime) {
 
 			var startTime = startTime.toString() + 'm';
 
 			Tone.Transport.setTimeline(function () {
+				console.log('Start', Tone.Transport.position);
 				player.stop();
 				player.start();
 			}, startTime);
