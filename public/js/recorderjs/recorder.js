@@ -107,10 +107,12 @@ DEALINGS IN THE SOFTWARE.
   };
 
   Recorder.setupDownload = function(blob, filename){
+    console.log('blob', blob);
     var url = (window.URL || window.webkitURL).createObjectURL(blob);
     var link = document.getElementById("save");
     link.href = url;
     link.download = filename || 'output.wav';
+    window.recordedBlob = blob;
   }
 
   window.Recorder = Recorder;

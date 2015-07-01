@@ -35,6 +35,8 @@ function saveAudio() {
     audioRecorder.exportWAV( doneEncoding );
     // could get mono instead by saying
     // audioRecorder.exportMonoWAV( doneEncoding );
+
+    
 }
 
 function gotBuffers( buffers ) {
@@ -183,4 +185,4 @@ function initAudio() {
         });
 }
 
-// window.addEventListener('load', initAudio );
+window.addEventListener('load', initAudio );

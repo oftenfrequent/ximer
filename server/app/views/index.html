@@ -24,19 +24,27 @@
     
 </head>
 <body ng-app="FullstackGeneratedApp">
+
     <navbar></navbar>
+    <div id="viz">
+        <canvas id="analyser" width="900" height="50"></canvas>
+        <canvas id="wavedisplay" width="100" height="100"></canvas>
+    </div>
 
     <div class="timeline-container" ng-controller="TimelineController">
 
         <div class="row">
             <div class="col-xs-3">
                 <div class="tracks over">
-                    <span>Track Title 1</span>
-                    <button class="btn btn-primary" id="record" ng-click="record($event)">record</button>
-                    <a id="save" href="#">dl</a>
 
-                    
+                    <span>Track Title 1</span>
+                    <div id="controls">
+                        <button class="btn btn-primary" id="record" ng-click="record($event)">record</button>
+                        <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button>
+                        <a id="save" href="#">DOWNLOAD</a>
+                    </div>
                 </div>
+
                 <div class="tracks">
                 </div>
                 <div class="tracks">

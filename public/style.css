@@ -14,7 +14,8 @@ fullstack-logo {
 
 navbar {
   display: block;
-  background: #202630; }
+  background: #202630;
+  margin-bottom: -20px; }
   navbar fullstack-logo {
     padding-top: 20px;
     margin: auto;
