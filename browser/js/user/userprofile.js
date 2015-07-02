@@ -17,17 +17,19 @@ app.controller('UserController', function($scope, $state, AuthService, userFacto
     console.log("scope", $scope);
     AuthService.getLoggedInUser().then(function(aUser){
         $scope.theUser = aUser;
-        // $stateParams.theID = aUser._id
-        console.log("id", $stateParams);
     });
 
     $scope.displaySettings = function(){
-
+        if($scope.showSettings) $scope.showSettings = false;
+        else $scope.showSettings = true;
+        console.log($scope.showSettings);
     }
 
     $scope.displayProjects = function(){
         userFactory.getAllProjects($scope.theUser._id).then(function(data){
             $scope.projects = data;
+            if($scope.showProjects) $scope.showProjects = false;
+            else $scope.showProjects = true;
             console.log($scope.projects);
         });
     }
@@ -37,6 +39,10 @@ app.controller('UserController', function($scope, $state, AuthService, userFacto
             $scope.forks = data;
             console.log($scope.forks);
         });
+    }
+
+    $scope.createAProject = function(){
+        
     }
 
 });

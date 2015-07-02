@@ -1,22 +1,20 @@
-    <div class="panel-body">
-        <div ng-repeat="project in projects" ng-click=""> 
+    <div class="panel-body" ng-repeat="project in projects" ng-click="displayAProject(this)">
+        <div> 
             <div class="row">
                 <div class="col-xs-2"><img class="img-responsive" src="" ng-click=""></div>
                 <div class="col-xs-4" >
-                    <h4 class="product-name"><strong ></strong></h4><h4><small></small></h4>
+                    <h4 class="project-info"><strong >{{project.name}}</strong></h4><h4><small></small></h4>
                 </div>
 
                 <div class="col-xs-6">
                     <div class="col-xs-6 text-right">
-                        <h6><strong></strong></h6>
+                        <h6 class="project-info"><strong>by {{theUser.username}}</strong></h6>
                     </div>
 
                 </div>
             </div>
            <div class="profile-userbuttons">
-                <!--  <button type="button" class="btn btn-success btn-sm" ng-click="setStatusShipped(aOrder._id)">Ship Order</button>  -->               
-               <!-- <button type="button" class="btn btn-success btn-sm" ng-click="setStatusClosed(aOrder._id)">Close Order</button> -->
-               <audio src="/music/good_enough.mp3" controls>    
+               <audio src="{{}}" controls>    
                     <embed src="" width="300" height="90" loop="false" autostart="false" />
                </audio>
             </div>

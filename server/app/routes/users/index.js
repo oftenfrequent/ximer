@@ -7,7 +7,7 @@ var UserModel = require('mongoose').model('User');
 
 
 router.get('/', function (req, res) {
-    UserModel.find(req.query).exec().then(function(data){
+    UserModel.find(req.query).populate('projects').exec().then(function(data){
         res.send(data[0].projects);
     }, function(err){
         res.status(500).send(err.message);

@@ -186,6 +186,9 @@ body {
   border-left: 2px solid #5b9bd1;
   margin-left: -2px; }
 
+.project-info {
+  color: black; }
+
 /* Profile Content */
 .profile-content {
   margin-left: 20px;

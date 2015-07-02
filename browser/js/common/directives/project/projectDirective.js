@@ -1,13 +1,15 @@
-app.directive('projectDirective', function() {
+app.directive('projectdirective', function() {
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/project/projectDirective.html',
-		link: function (scope){
-	
-		}
+		controller: 'projectdirectiveController'
 	};
 });
 
-app.controller('projectDirectiveController', function($scope, $stateParams, $state){
-	
+app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct){
+
+	$scope.displayAProject = function(something){
+		$state.go('singleProject', {projectID: something.project_id});
+		console.log("displaying a project", projectID);
+	}
 });
