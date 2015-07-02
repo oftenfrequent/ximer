@@ -11,7 +11,7 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
   $scope.tracks = [];
   $scope.loading = true;
 
-  ProjectFct.getProjectInfo('55941589dbc5e635c31f76dc').then(function (project) {
+  ProjectFct.getProjectInfo('559475cc471f6fba58e303e8').then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 

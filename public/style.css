@@ -49,6 +49,10 @@ navbar {
       color: #f30046;
       cursor: pointer; }
 
+.timeline-container {
+  background: #202630;
+  width: 100%; }
+
 #home fullstack-logo {
   padding-top: 30px;
   width: 150px;
@@ -56,9 +60,6 @@ navbar {
 #home h1 {
   margin-top: 40px;
   text-align: center; }
-
-.timeline-container {
-  background: #202630; }
 
 .track-row {
   font-size: 0; }

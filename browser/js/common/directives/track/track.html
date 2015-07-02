@@ -1,0 +1,10 @@
+<div id="controls" class="col-xs-3">
+    <span>{{ track.name }}</span>
+    <button class="btn btn-primary" id="record" ng-click="record($event, $index)">record</button>
+    <a id="save" href="#">DOWNLOAD</a>
+</div>
+<div class="track-row row1" style="width: 12500px;">
+	<!-- Droppable Directive -->
+    <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
+    </div>
+</div>
