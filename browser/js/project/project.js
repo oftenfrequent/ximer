@@ -1,4 +1,13 @@
-app.controller('TimelineController', function($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, TonePlayerFct, ToneTimelineFct) {
+'use strict';
+app.config(function ($stateProvider) {
+    $stateProvider.state('project', {
+        url: '/project',
+        templateUrl: 'js/project/project.html'
+    });
+});
+
+
+app.controller('ProjectController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, TonePlayerFct, ToneTimelineFct, AuthService) {
   
   var wavArray = [];
   
@@ -11,7 +20,7 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
   $scope.tracks = [];
   $scope.loading = true;
 
-  ProjectFct.getProjectInfo('5594c20ad0759cd40ce51e14').then(function (project) {
+  ProjectFct.getProjectInfo('559475cc471f6fba58e303e8').then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 
@@ -42,12 +51,6 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
 
   });
 
-  // AuthService.getLoggedInUser().then(function(aUser){
-  //     $scope.theUser = aUser;
-  //     // $stateParams.theID = aUser._id
-  //     console.log("id", $stateParams);
-  // });
-
   $scope.record = function (e, index) {
 
   	e = e.toElement;
@@ -63,18 +66,17 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
         audioRecorder.record();
 
         window.setTimeout(function() {
-          audioRecorder.stop();
-          e.classList.remove("recording");
-          audioRecorder.getBuffers( gotBuffers );
-          
-          window.setTimeout(function () {
-            $scope.tracks[index].rawAudio = window.latestRecording;
-            $scope.tracks[index].rawImage = window.latestRecordingImage;
+		audioRecorder.stop();
+		e.classList.remove("recording");
+		audioRecorder.getBuffers( gotBuffers );
 
-         
-            // wavArray.push(window.latestRecording);
-            // console.log('wavArray', wavArray);
-          }, 500);
+		window.setTimeout(function () {
+			$scope.tracks[index].rawAudio = window.latestRecording;
+			$scope.tracks[index].rawImage = window.latestRecordingImage;
+			console.log('trackss', $scope.tracks);
+			// wavArray.push(window.latestRecording);
+			// console.log('wavArray', wavArray);
+		}, 500);
           
         }, 2000);
 
@@ -86,22 +88,13 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
 
   $scope.sendToAWS = function () {
 
-       var awsTracks = $scope.tracks.filter(function(track,index){
-              if(track.rawAudio){
-                return true;
-              }
-            })
-    RecorderFct.sendToAWS(awsTracks, '5594c20ad0759cd40ce51e14').then(function (response) {
+    RecorderFct.sendToAWS($scope.tracks).then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 
     });
   };
-
-
-	
-
-
+  $scope.isLoggedIn = function () {
+        return AuthService.isAuthenticated();
+    };
 });
-
-

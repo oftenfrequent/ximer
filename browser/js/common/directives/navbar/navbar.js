@@ -11,7 +11,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
                 AuthService.getLoggedInUser().then(function(user){
                     scope.userID = user._id;
                     scope.items = [
-                        { label: 'Home', state: 'home' },
+                        { label: 'Home', state: 'project' },
                         { label: 'Members Only', state: 'userProfile({theID: userID})', auth: true }
                     ];
                 });
@@ -19,7 +19,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
             setNavbar();
 
             scope.items = [
-                { label: 'Home', state: 'home' },
+                { label: 'Home', state: 'project' },
                 // { label: 'Sign Up', state: 'signup' },
                 { label: 'Members Only', state: 'userProfile', auth: true }
             ];

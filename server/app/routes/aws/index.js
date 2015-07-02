@@ -18,14 +18,15 @@ var Project = mongoose.model('Project');
 router.post('/', function (req, res, next) {
 
 	var tracks = req.body.tracks;
-
+	var projectId= req.body.projectId;
+	console.log('projectId is',projectId)
 	var urlTracks = [];
 	// console.log('tracks', tracks);
 
 	tracks.forEach(function(track){
 		
 		var slicedTrack = track.split(',');
-		console.log('Sliced Track', slicedTrack)
+		// console.log('Sliced Track', slicedTrack)
 		var trackBuffer = new Buffer(slicedTrack[1],'base64'); // the blob
 
 
@@ -40,7 +41,7 @@ router.post('/', function (req, res, next) {
 		 console.log(err)
 		else
 		 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
-		 console.log('data is', data)
+		 // console.log('data is', data)
 
 
 		});

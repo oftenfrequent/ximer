@@ -33,6 +33,24 @@
     
     <script>
 
+        var loop = new Tone.Player("/api/wav/percussionvocalssynths.wav", function () {
+            console.log('LOADED');
+        }).toMaster();
+
+        var timelineId = Tone.Transport.setTimeline(function() {
+            loop.start();
+        }, "1m");
+
+        var timelineId2 = Tone.Transport.setTimeline(function() {
+            loop.start();
+        }, "5m");
+        var timelineId3 = Tone.Transport.setTimeline(function() {
+            loop.start();
+        }, "7m");
+
+        console.log("IDs", timelineId, timelineId2, timelineId3);
+
+
         // var t = Tone.Transport;
 
         // var samples = [
