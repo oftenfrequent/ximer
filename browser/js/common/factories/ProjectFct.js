@@ -5,7 +5,7 @@ app.factory('ProjectFct', function ($http) {
         return $http.get('/api/projects/' + projectId).then(function(response){
             return response.data;
         });
-    }
+    };
 
     return {
         getProjectInfo: getProjectInfo
