@@ -97,6 +97,14 @@
             return data.user;
         }
 
+        this.signup = function (credentials) {
+            console.log(credentials);
+            return $http.post('/signup', credentials)
+                .then( onSuccessfulLogin )
+                .catch(function (response) {
+                    return $q.reject({ message: 'Invalid signup credentials.' });
+                });
+        };
     });
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {
