@@ -19,9 +19,11 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
   $scope.measureLength = 1;
   $scope.tracks = [];
   $scope.loading = true;
-  // $scope.projectid = $stateParams;
 
-  ProjectFct.getProjectInfo($stateParams).then(function (project) {
+  $scope.projectId = $stateParams.projectID;
+  console.log('PARAMS', $stateParams);
+
+  ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 

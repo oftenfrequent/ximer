@@ -14,7 +14,6 @@ app.config(function($stateProvider) {
 });
 
 app.controller('UserController', function($scope, $state, AuthService, userFactory, $stateParams) {
-    console.log("scope", $scope);
     AuthService.getLoggedInUser().then(function(aUser){
         $scope.theUser = aUser;
     });
