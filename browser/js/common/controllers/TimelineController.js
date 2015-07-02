@@ -11,7 +11,7 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
   $scope.tracks = [];
   $scope.loading = true;
 
-  ProjectFct.getProjectInfo('559475cc471f6fba58e303e8').then(function (project) {
+  ProjectFct.getProjectInfo('5594c20ad0759cd40ce51e14').then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 
@@ -70,7 +70,8 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
           window.setTimeout(function () {
             $scope.tracks[index].rawAudio = window.latestRecording;
             $scope.tracks[index].rawImage = window.latestRecordingImage;
-            console.log('trackss', $scope.tracks);
+
+         
             // wavArray.push(window.latestRecording);
             // console.log('wavArray', wavArray);
           }, 500);
@@ -85,7 +86,12 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
 
   $scope.sendToAWS = function () {
 
-    RecorderFct.sendToAWS($scope.tracks).then(function (response) {
+       var awsTracks = $scope.tracks.filter(function(track,index){
+              if(track.rawAudio){
+                return true;
+              }
+            })
+    RecorderFct.sendToAWS(awsTracks, '5594c20ad0759cd40ce51e14').then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 
