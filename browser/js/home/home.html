@@ -1,56 +1,56 @@
 <div ng-controller="HomeController">
-    <!-- <div ng-show="isLoggedIn()">LOGGED IN DAWG</div>
-    <div ng-show="!isLoggedIn()">LOG IN</div> -->
+    
+    <div ng-show="!isLoggedIn()">LOG IN</div>
+    <div ng-show="isLoggedIn()">
+        <div id="viz" style="background: #202630;">
+            <canvas id="analyser" width="1200" height="50"></canvas>
+            <!-- <canvas id="wavedisplay" width="100" height="100"></canvas> -->
+        </div>
 
-    <div id="viz" style="background: #202630;">
-        <canvas id="analyser" width="1200" height="50"></canvas>
-        <!-- <canvas id="wavedisplay" width="100" height="100"></canvas> -->
-    </div>
+        <div class="timeline-container" ng-controller="TimelineController">
+            <div id="wave"></div>
+            <button class="btn btn-primary" ng-click="addTrack()">Add Track</button>
+            <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button>
+            <div class="row">
+                <div class="col-xs-3">
+                    <div ng-repeat="track in tracks" class="tracks">
+                        <span>{{ track.name }}</span>
 
-    <div class="timeline-container" ng-controller="TimelineController">
-        <div id="wave"></div>
-        <button class="btn btn-primary" ng-click="addTrack()">Add Track</button>
-        <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button>
-        <div class="row">
-            <div class="col-xs-3">
-                <div ng-repeat="track in tracks" class="tracks">
-                    <span>{{ track.name }}</span>
-
-                    <div id="controls">
-                        <button class="btn btn-primary" id="record" ng-click="record($event)">record</button>
-                        <a id="save" href="#">DOWNLOAD</a>
-
-                    </div>
-                </div>
-
-            </div>
-            <div class="main-timeline col-xs-9">
-                <div ng-repeat="track in tracks" class="track-row row1" style="width: 12100px;">
-                    <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
-
-                        <div class="item row1" style="position: absolute;" id="item1" draggable>
-                            {{ measure }}
-                            <div id="viz" style="background: #202630;">
-                                <canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
-                            </div>
+                        <div id="controls">
+                            <button class="btn btn-primary" id="record" ng-click="record($event)">record</button>
+                            <a id="save" href="#">DOWNLOAD</a>
 
                         </div>
                     </div>
 
                 </div>
+                <div class="main-timeline col-xs-9">
+                    <div ng-repeat="track in tracks" class="track-row row1" style="width: 12100px;">
+                        <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
+
+                            <div class="item row1" style="position: absolute;" id="item1" draggable>
+                                {{ measure }}
+                                <div id="viz" style="background: #202630;">
+                                    <canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </div>
 
-        <div class="item row1" style="position: absolute;" id="item1" draggable>
-        
-            <div id="viz" style="background: #202630;">
-                <canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
+            <div class="item row1" style="position: absolute;" id="item1" draggable>
+            
+                <div id="viz" style="background: #202630;">
+                    <canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
+                </div>
+
             </div>
 
         </div>
-
     </div>
-
 </div>
 
 
