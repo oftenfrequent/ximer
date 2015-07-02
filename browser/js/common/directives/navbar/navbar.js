@@ -20,6 +20,7 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
             scope.items = [
                 { label: 'Home', state: 'home' },
+                // { label: 'Sign Up', state: 'signup' },
                 { label: 'Members Only', state: 'userProfile', auth: true }
             ];
 
