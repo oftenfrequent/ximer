@@ -1,7 +1,7 @@
 'use strict';
 app.config(function ($stateProvider) {
     $stateProvider.state('project', {
-        url: '/project',
+        url: '/project/:projectID',
         templateUrl: 'js/project/project.html'
     });
 });
@@ -19,8 +19,10 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
   $scope.measureLength = 1;
   $scope.tracks = [];
   $scope.loading = true;
+  $scope.projectId = $stateParams.projectID;
+  console.log('PARAMS', $stateParams);
 
-  ProjectFct.getProjectInfo('559475cc471f6fba58e303e8').then(function (project) {
+  ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 

@@ -9,7 +9,8 @@ app.directive('projectdirective', function() {
 app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct){
 
 	$scope.displayAProject = function(something){
-		$state.go('singleProject', {projectID: something.project_id});
-		console.log("displaying a project", projectID);
+		console.log('THING', something);
+		$state.go('project', {projectID: something._id});
+		// console.log("displaying a project", projectID);
 	}
 });
