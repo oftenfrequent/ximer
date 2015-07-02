@@ -37,7 +37,7 @@ router.use('/projects', require('./projects'));
 router.use('/aws', require('./aws'));
 
 router.use('/project/:projectId', function (req, res, next) {
-	Project.findById('559371e8f2b61c5582762796').exec().then(function (project) {
+	Project.findById('5594ac48b50ff6a42da6071d').exec().then(function (project) {
 		res.send(project);
 	});
 });
