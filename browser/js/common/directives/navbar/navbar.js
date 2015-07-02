@@ -7,16 +7,16 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
         templateUrl: 'js/common/directives/navbar/navbar.html',
         link: function (scope) {
 
-            // var setScope = function(){
-            //     AuthService.getLoggedInUser().then(function(user){
-            //         scope.userID = user._id;
-            //         console.log(scope.userID);
-            //         scope.items = [
-            //             { label: 'Home', state: 'home' },
-            //             { label: 'Members Only', state: 'userProfile({theID: userID})', auth: true }
-            //         ];
-            //     });
-            // }
+            var setNavbar = function(){
+                AuthService.getLoggedInUser().then(function(user){
+                    scope.userID = user._id;
+                    scope.items = [
+                        { label: 'Home', state: 'home' },
+                        { label: 'Members Only', state: 'userProfile({theID: userID})', auth: true }
+                    ];
+                });
+            }
+            setNavbar();
 
             scope.items = [
                 { label: 'Home', state: 'home' },
@@ -47,10 +47,11 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
             };
 
             setUser();
-            // setScope();
 
             $rootScope.$on(AUTH_EVENTS.loginSuccess, setUser);
+            $rootScope.$on(AUTH_EVENTS.loginSuccess, setNavbar);
             $rootScope.$on(AUTH_EVENTS.logoutSuccess, removeUser);
+            $rootScope.$on(AUTH_EVENTS.logoutSuccess, setNavbar);
             $rootScope.$on(AUTH_EVENTS.sessionTimeout, removeUser);
 
         }
