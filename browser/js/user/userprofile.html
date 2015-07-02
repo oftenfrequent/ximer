@@ -1,0 +1,66 @@
+<div class="container">
+    <div class="row profile">
+		<div class="col-md-3" ng-controller="UserController">
+			<div class="profile-sidebar">
+				<!-- SIDEBAR USERPIC -->
+				<div class="profile-userpic">
+					<img src="http://www.ssc.education.ed.ac.uk/aboutSSC/pictures/alisonbstaff.jpg" class="img-responsive" alt="">
+				</div>
+				<!-- END SIDEBAR USERPIC -->
+				<!-- SIDEBAR USER TITLE -->
+				<div class="profile-usertitle">
+					<div class="profile-usertitle-name">
+						{{theUser.email}}
+					</div>
+				</div>
+				<!-- END SIDEBAR USER TITLE -->
+				<!-- SIDEBAR BUTTONS -->
+
+				<div class="profile-usermenu">
+					<ul class="nav">
+						<li ng-click="displaySettings()">
+							<a href="#">
+							<i class="glyphicon glyphicon-cog"></i>
+							Account Settings </a>
+						</li>
+						<li ng-click="displayProjects()">
+							<a href="#">
+							<i class="glyphicon glyphicon-cd"></i>
+							Projects </a>
+						</li>
+						<li ng-click="displayForks()">
+							<a href="#">
+							<i class="glyphicon glyphicon-random"></i>
+							Forks </a>
+						</li>
+					</ul>
+				</div>
+				<!-- END MENU -->
+			</div>
+		</div>
+		<div class="col-md-9">
+            <div class="profile-content">
+
+            	<form id="userSettingsEdit-form" name="userSettingsEdit" ng-show="showSettings">
+				    <alert type="danger" ng-show="error">
+				        {{ error }}
+				    </alert>
+
+				    <div class="form-group">
+				        <label for="email">Email address</label>
+				        <input type="text" class="form-control" id="email" ng-model="theUser.email">
+				    </div>
+				    <div class="form-group">
+				        <label for="userSettingsEdit-password">Password</label>
+				        <input type="password" class="form-control" id="userSettingsEdit-password" ng-model="theUser.password">
+				    </div>
+				    <button ng-click="submitUserEdit()" class="btn btn-default userSettingsEdit-btn">Submit</button>
+				</form>
+		
+
+            </div>
+		</div>
+	</div>
+</div>
+<br>
+<br>
