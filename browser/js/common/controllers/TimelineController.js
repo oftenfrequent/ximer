@@ -11,7 +11,9 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
   $scope.tracks = [];
   $scope.loading = true;
 
+
   ProjectFct.getProjectInfo('5594c20ad0759cd40ce51e14').then(function (project) {
+
       var loaded = 0;
       console.log('PROJECT', project);
 
@@ -32,7 +34,7 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
         for (var i = 0; i < 6; i++) {
           var obj = {};
           obj.name = 'Track ' + (i+1);
-          obj.location = [];
+          obj.locations = [];
           $scope.tracks.push(obj);
         }
       }
@@ -69,11 +71,8 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
           
           window.setTimeout(function () {
             $scope.tracks[index].rawAudio = window.latestRecording;
-            $scope.tracks[index].rawImage = window.latestRecordingImage;
+            // $scope.tracks[index].rawImage = window.latestRecordingImage;
 
-         
-            // wavArray.push(window.latestRecording);
-            // console.log('wavArray', wavArray);
           }, 500);
           
         }, 2000);
@@ -91,7 +90,7 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
                 return true;
               }
             })
-    RecorderFct.sendToAWS(awsTracks, '5594c20ad0759cd40ce51e14').then(function (response) {
+    RecorderFct.sendToAWS(awsTracks, '5595a7faaa901ad63234f920').then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 
