@@ -1,58 +1,43 @@
+app.factory('RecorderFct', function ($http, AuthService, $q) {
 
-app.factory('RecorderFct', function ($http, AuthService) {
+    var convertToBase64 = function (track) {
+
+        return new $q(function (resolve, reject) {
+
+
+            var reader = new FileReader();
+
+            if(track.rawAudio) {
+                reader.readAsDataURL(track.rawAudio);
+
+                reader.onloadend = function(e) {
+                    resolve(reader.result);
+                }
+            }
+
+        });
+    };
 
     return {
-    	sendToAWS: function (tracksArray) {
-
-	    	tracksArray.forEach(function (track, count) {
-	    		
-	    		// audio encoding
-	    		var reader = new FileReader();
-
-				reader.onloadend = function(e) {
-					var arrayBuffer = reader.result;
-					track.rawAudio = arrayBuffer;
-					count++;
-
-		    		if (count === tracksArray.length) {
-			            return $http.post('/api/aws/', { tracks : tracksArray }).then(function (response) {
-			                console.log('response', response);
-			                return response.data; 
-			        	});
-			        }
-				}
-
-				if (track.url) {
-					 reader.readAsDataURL(track.url);
-
-				}
-
-	    	});
-
-    // 		var storeData = [];
-    // 		wavArray.forEach(function (blob) {
-
-    // 			var reader = new FileReader();
-
-				// reader.onloadend = function(e) {
-				// 	var arrayBuffer = reader.result;
-				// 	storeData.push(arrayBuffer)
-
-		  //   		if (storeData.length === wavArray.length) {
-			 //            return $http.post('/api/aws/', { tracks : storeData }).then(function (response) {
-			 //                console.log('response', response);
-			 //                return response.data; 
-			 //        	});
-			 //        }
+        sendToAWS: function (tracksArray, projectId) {
 
 
-				// }
+            var readPromises = tracksArray.map(convertToBase64);
 
-				// if (blob) {
-				// 	 reader.readAsDataURL(blob);
+            console.log('ReadPromises are', readPromises);
+            return $q.all(readPromises).then(function (storeData) {
+                console.log('storeData', storeData);
 
-				// }
-    // 		});
+                tracksArray.forEach(function(track, i){
+                    track.rawAudio = storeData[i];
+                })
+                return $http.post('/api/aws/', { tracks : storeData, projectId: projectId })
+                    .then(function (response) {
+                        console.log('response in sendToAWS', response);
+                        return response.data; 
+                });
+            });
+            
         }
     }
 });
