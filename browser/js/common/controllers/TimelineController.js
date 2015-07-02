@@ -1,4 +1,4 @@
-app.controller('TimelineController', function($scope, $stateParams, RecorderFct, ProjectFct, TonePlayerFct, ToneTimelineFct) {
+app.controller('TimelineController', function($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, TonePlayerFct, ToneTimelineFct) {
   
   var wavArray = [];
   
@@ -13,36 +13,44 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
   $scope.transport;
 
 
-  // ProjectFct.getProjectInfo('5593228a9d2cc2e8ceea4d02').then(function (data) {
-
-  //     var loaded = 0;
-  //     var project = data.data;
-  //     console.log('PROJECT', project); 
-
-
-  ProjectFct.getProjectInfo('559371e8f2b61c5582762796').then(function (project) {
+  ProjectFct.getProjectInfo('5594ac48b50ff6a42da6071d').then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 
-      project.tracks.forEach(function (track) {
-          var doneLoading = function () {
-              loaded++;
-              if(loaded === project.tracks.length) {
-                  $scope.loading = false;
-                  // Tone.Transport.start();
-              }
-          };
-          track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
-          ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
-          $scope.tracks.push(track);
-      });
+      if (project.tracks.length) {
+        project.tracks.forEach(function (track) {
+            var doneLoading = function () {
+                loaded++;
+                if(loaded === project.tracks.length) {
+                    $scope.loading = false;
+                    // Tone.Transport.start();
+                }
+            };
+            track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
+            ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+            $scope.tracks.push(track);
+        });
+      } else {
+        for (var i = 0; i < 6; i++) {
+          var obj = {};
+          obj.name = 'Track ' + (i+1);
+          obj.location = [];
+          $scope.tracks.push(obj);
+        }
+      }
 
       ToneTimelineFct.getTransport(project.endMeasure);
       ToneTimelineFct.changeBpm(project.bpm);
 
   });
 
-  $scope.record = function (e) {
+  // AuthService.getLoggedInUser().then(function(aUser){
+  //     $scope.theUser = aUser;
+  //     // $stateParams.theID = aUser._id
+  //     console.log("id", $stateParams);
+  // });
+
+  $scope.record = function (e, index) {
 
   	e = e.toElement;
 
@@ -62,8 +70,11 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
           audioRecorder.getBuffers( gotBuffers );
           
           window.setTimeout(function () {
-            wavArray.push(window.latestRecording);
-            console.log('wavArray', wavArray);
+            $scope.tracks[index].rawAudio = window.latestRecording;
+            $scope.tracks[index].rawImage = window.latestRecordingImage;
+            console.log('trackss', $scope.tracks);
+            // wavArray.push(window.latestRecording);
+            // console.log('wavArray', wavArray);
           }, 500);
           
         }
@@ -77,7 +88,7 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
 
   $scope.sendToAWS = function () {
 
-    RecorderFct.sendToAWS(wavArray).then(function (response) {
+    RecorderFct.sendToAWS($scope.tracks).then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 
