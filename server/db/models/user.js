@@ -7,8 +7,7 @@ var schema = new mongoose.Schema({
         type: String
     },
     username: {
-        type: String,
-        unique: true
+        type: String
     },
     password: {
         type: String
@@ -27,7 +26,7 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
-    },
+     },
     projects: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'

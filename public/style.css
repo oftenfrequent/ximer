@@ -4,7 +4,7 @@
 body {
   color: #FFF;
   background: #202630;
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif; }
+  font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
 fullstack-logo {
   display: block; }
@@ -14,11 +14,12 @@ fullstack-logo {
 
 navbar {
   display: block;
-  background: #202630; }
+  background: #202630;
+  margin-bottom: -20px; }
   navbar fullstack-logo {
     padding-top: 20px;
-    margin-right: 20px;
-    width: 80px;
+    margin: auto;
+    width: 120px;
     padding-bottom: 20px; }
   navbar a {
     color: white; }
@@ -33,6 +34,9 @@ navbar {
     navbar .nav > li > a:focus {
       color: #f30046;
       background: transparent; }
+  navbar .navbar-header {
+    margin: auto;
+    float: none; }
   navbar .login-button {
     float: right;
     margin-top: 8px; }
@@ -53,30 +57,137 @@ navbar {
   margin-top: 40px;
   text-align: center; }
 
+.timeline-container {
+  background: #202630; }
+
+.track-row {
+  font-size: 0; }
+
 .main-timeline {
-  margin-top: -20px;
-  overflow: scroll; }
+  overflow-x: scroll;
+  overflow-y: hidden; }
 
 .measures {
   display: inline-block;
   height: 100%;
   border: 1px solid #502640;
   min-height: 100px;
-  min-width: 200px;
-  float: left; }
+  min-width: 200px; }
 
 .over {
-  background: #983552; }
+  background: #D63953; }
 
 .item {
-  min-height: 100px;
-  min-width: 200px;
-  background: #983552;
-  float: right; }
+  min-height: 98px;
+  min-width: 198px;
+  background: #202630;
+  -webkit-box-shadow: inset 0px 0px 0px 1px #D63953;
+  -moz-box-shadow: inset 0px 0px 0px 1px #D63953;
+  box-shadow: inset 0px 0px 0px 1px #D63953; }
 
 .drag {
   opacity: 0.5; }
 
+.tracks {
+  margin-left: 1em;
+  height: 100%;
+  border: 1px solid #502640;
+  min-height: 100px;
+  min-width: 200px; }
+
+div[class*="col-"] {
+  padding-right: 0px;
+  padding-left: 0px; }
+
 #login-form {
   width: 60%;
   margin: 0 auto; }
+
+body {
+  background: #F1F3FA; }
+
+/* Profile container */
+.profile {
+  margin: 20px 0; }
+
+/* Profile sidebar */
+.profile-sidebar {
+  padding: 20px 0 10px 0;
+  background: #fff; }
+
+.profile-userpic img {
+  float: none;
+  margin: 0 auto;
+  width: 50%;
+  height: 50%;
+  -webkit-border-radius: 50% !important;
+  -moz-border-radius: 50% !important;
+  border-radius: 50% !important; }
+
+.profile-usertitle {
+  text-align: center;
+  margin-top: 20px; }
+
+.profile-usertitle-name {
+  color: #5a7391;
+  font-size: 16px;
+  font-weight: 600;
+  margin-bottom: 7px; }
+
+.profile-usertitle-job {
+  text-transform: uppercase;
+  color: #5b9bd1;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 15px; }
+
+.profile-userbuttons {
+  text-align: center;
+  margin-top: 10px; }
+
+.profile-userbuttons .btn {
+  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 600;
+  padding: 6px 15px;
+  margin-right: 5px; }
+
+.profile-userbuttons .btn:last-child {
+  margin-right: 0px; }
+
+.profile-usermenu {
+  margin-top: 30px; }
+
+.profile-usermenu ul li {
+  border-bottom: 1px solid #f0f4f7; }
+
+.profile-usermenu ul li:last-child {
+  border-bottom: none; }
+
+.profile-usermenu ul li a {
+  color: #93a3b5;
+  font-size: 14px;
+  font-weight: 400; }
+
+.profile-usermenu ul li a i {
+  margin-right: 8px;
+  font-size: 14px; }
+
+.profile-usermenu ul li a:hover {
+  background-color: #fafcfd;
+  color: #5b9bd1; }
+
+.profile-usermenu ul li.active {
+  border-bottom: none; }
+
+.profile-usermenu ul li.active a {
+  color: #5b9bd1;
+  background-color: #f6f9fb;
+  border-left: 2px solid #5b9bd1;
+  margin-left: -2px; }
+
+/* Profile Content */
+.profile-content {
+  padding: 20px;
+  background: #fff;
+  min-height: 460px; }

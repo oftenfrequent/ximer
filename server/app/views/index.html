@@ -1,241 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <base href="/" />
     <title>Fullstack Academy Generated Application</title>
     <link rel="stylesheet" type="text/css" href="/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.css">
     <link rel="stylesheet" type="text/css" href="/style.css" />
     <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Montserrat:400,700">
+    <link rel="stylesheet" type="text/css" href="http://fonts.googleapis.com/css?family=Lato:300,400,700">
 
     <script src="/lodash/index.js"></script>
     <script src="/angular/angular.js"></script>
     <script src="/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="/angular-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
-    <script src="/main.js"></script>
-    <script src="/lib/angular-drag-and-drop-lists.min.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script type="text/javascript" src="http://cdn.tonejs.org/latest/Tone.min.js"></script>
+    <script src="/main.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="/js/audiodisplay.js"></script>
+    <script src="/js/recorderjs/recorder.js"></script>
+    <script src="/js/main.js"></script>
+    <script src="/js/wavesurfer.min.js"></script>
+
+
     
 </head>
 <body ng-app="FullstackGeneratedApp">
+
     <navbar></navbar>
-
-    <div ng-controller="DragDropCtrl">
-
-    <div class="item" style="position: absolute;" id="item1" draggable></div>
-
-        <div class="row">
-            <div class="main-timeline pull-right col-xs-9">
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                </div>
-
-                <div class="track-row" task_id="1" style="width: 3000px;">
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                    <div class="measures" droppable drop="handleDrop()"></div>
-                </div>
-            </div>
-        </div>
-
-    </div>
-
-
     <div ui-view></div>
-        <button id="play">PLAY</button>
-        <button id="stop">STOP</button>
-        <button id="record" onclick="toggleRecording(this);">RECORD</button>
-
-
+    
     <script>
-        var t = Tone.Transport;
 
-        var samples = [
-            {
-                startTime : '0m',
-                player : new Tone.Player("/api/wav/percussionvocalssynths.wav"),
-                endTime : '16m'
-            },
-            {
-                startTime : '1m',
-                player : new Tone.Player("/api/wav/bass-loop-3_synths.wav"),
-                endTime : '3m'
-            },
-            {
-                startTime : '4m',
-                player : new Tone.Player("/api/wav/drum-loop-32_drums.wav"),
-                endTime : '12m'
-            },
+        // var t = Tone.Transport;
 
-            {
-                startTime : '2m',
-                player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
-                endTime : '3m'
-            },
-            {
-                startTime : '4m',
-                player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
-                endTime : '5m'
-            },
-            {
-                startTime : '6m',
-                player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
-                endTime : '7m'
-            },
-            {
-                startTime : '8m',
-                player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
-                endTime : '9m'
-            },
+        // var samples = [
+        //     {
+        //         startTime : '0m',
+        //         player : new Tone.Player("/api/wav/percussionvocalssynths.wav"),
+        //         endTime : '16m'
+        //     },
+        //     {
+        //         startTime : '1m',
+        //         player : new Tone.Player("/api/wav/bass-loop-3_synths.wav"),
+        //         endTime : '3m'
+        //     },
+        //     {
+        //         startTime : '4m',
+        //         player : new Tone.Player("/api/wav/drum-loop-32_drums.wav"),
+        //         endTime : '12m'
+        //     },
 
-            {
-                startTime : '8m',
-                player : new Tone.Player("/api/wav/synth-loop-7.wav"),
-                endTime : '12m'
-            },
-            {
-                startTime : '11m',
-                player : new Tone.Player("/api/wav/vocal-loop-3.wav"),
-                endTime : '16m'
-            }
-        ];
+        //     {
+        //         startTime : '2m',
+        //         player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
+        //         endTime : '3m'
+        //     },
+        //     {
+        //         startTime : '4m',
+        //         player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
+        //         endTime : '5m'
+        //     },
+        //     {
+        //         startTime : '6m',
+        //         player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
+        //         endTime : '7m'
+        //     },
+        //     {
+        //         startTime : '8m',
+        //         player : new Tone.Player("/api/wav/drum-loop-41_drums_loop.wav"),
+        //         endTime : '9m'
+        //     },
 
-        t.bpm.value = 123;
+        //     {
+        //         startTime : '8m',
+        //         player : new Tone.Player("/api/wav/synth-loop-7.wav"),
+        //         endTime : '12m'
+        //     },
+        //     {
+        //         startTime : '11m',
+        //         player : new Tone.Player("/api/wav/vocal-loop-3.wav"),
+        //         endTime : '16m'
+        //     }
+        // ];
 
-        setTimeout(function () {
+        // t.bpm.value = 123;
 
-            samples.forEach(function (s) {
+        // setTimeout(function () {
 
-                s.player.toMaster();
-                s.player.loop = true;
+        //     samples.forEach(function (s) {
 
-                t.setTimeline(function () {
-                    s.player.stop();
-                    s.player.start();
-                }, s.startTime);
+        //         s.player.toMaster();
+        //         s.player.loop = true;
 
-                t.setTimeline(function () {
-                    console.log('End:', t.position);
-                    s.player.stop();
-                }, s.endTime);
+        //         t.setTimeline(function () {
+        //             s.player.stop();
+        //             s.player.start();
+        //         }, s.startTime);
 
-            });
+        //         t.setTimeline(function () {
+        //             console.log('End:', t.position);
+        //             s.player.stop();
+        //         }, s.endTime);
 
-            t.start();
+        //     });
 
-        }, 2000);
+        //     t.start();
 
-        t.loop = true;
-        t.loopStart = '0m';
-        t.loopEnd = '16m';
+        // }, 2000);
 
-        t.setInterval(function () {
-            console.log(t.position);
-        }, '4n');
+        // t.loop = true;
+        // t.loopStart = '0m';
+        // t.loopEnd = '16m';
+        // console.log('TRANSPORTTING',t)
+//
+//        Tone.Transport.setInterval(function () {
+//            console.log(Tone.Transport.position);
+//        }, '4n');
 
-        window.onblur = function () {
-            t.stop();
-            samples.forEach(function (s) {
-                s.player.stop();
-            });
-        };
+        // window.onblur = function () {
+        //     t.stop();
+        //     samples.forEach(function (s) {
+        //         s.player.stop();
+        //     });
+        // };
 
-        window.onfocus = function () {
-            t.start();
-        };
-        // button for recording, button for dropping loop on timeline
+        // window.onfocus = function () {
+        //     t.start();
+        // };
+        // // button for recording, button for dropping loop on timeline
 
-        $('#stop').click(function() {
-            t.clearTimelines();
+        // $('#stop').click(function() {
+        //     t.clearTimelines();
 
-            samples.forEach(function (s) {
-                s.player.stop();
-            });
-            t.stop();
-        });
-        $('#record').click(function() {
-            var mic = new Tone.Microphone();
-            t.clearTimelines();
-            mic.sync('1m');
-            var met = new Tone.DrumSynth().toMaster();
+        //     samples.forEach(function (s) {
+        //         s.player.stop();
+        //     });
+        //     t.stop();
+        // });
+        // $('#record').click(function() {
+        //     var mic = new Tone.Microphone();
+        //     t.clearTimelines();
+        //     mic.sync('1m');
+        //     var met = new Tone.DrumSynth().toMaster();
 
-            t.setTimeline(function () {
-                    met.triggerAttackRelease("C2", "4n");
-                    // met.start();
-            }, '0m');
+        //     t.setTimeline(function () {
+        //             met.triggerAttackRelease("C2", "4n");
+        //             // met.start();
+        //     }, '0m');
 
-            t.setTimeline(function () {
-                    mic.start();
-            }, '1m');
+        //     t.setTimeline(function () {
+        //             mic.start();
+        //     }, '1m');
 
-            t.setTimeline(function () {
-                    mic.stop();
-            }, '2m');
+        //     t.setTimeline(function () {
+        //             mic.stop();
+        //     }, '2m');
 
-            t.start();
-        });
+        //     // t.start();
+        // });
     </script>
+
+    <!-- Angular Material Dependencies -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-animate.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.15/angular-aria.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angular_material/0.9.4/angular-material.min.js"></script>
 
 
 </body>

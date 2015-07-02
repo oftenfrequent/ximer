@@ -5,3 +5,17 @@ app.config(function ($stateProvider) {
         templateUrl: 'js/home/home.html'
     });
 });
+
+
+app.controller('HomeController', function($scope, AuthService) {
+	
+	$scope.isLoggedIn = function () {
+        return AuthService.isAuthenticated();
+    };
+
+    
+
+
+});
+
+
