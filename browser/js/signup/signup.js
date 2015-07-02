@@ -17,12 +17,11 @@ app.controller('SignupCtrl', function($scope, AuthService, $state) {
 
         $scope.error = null;
         console.log(signupInfo);
-        console.log(AuthService);
-        // AuthService.signup(signupInfo).then(function () {
-        //     $state.go('home');
-        // }).catch(function () {
-        //     $scope.error = 'Invalid login credentials.';
-        // });
+        AuthService.signup(signupInfo).then(function () {
+            $state.go('home');
+        }).catch(function () {
+            $scope.error = 'Invalid login credentials.';
+        });
 
     };
 

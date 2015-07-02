@@ -56,10 +56,10 @@ module.exports = function (app) {
                 error.status = 401;
                 return next(error);
             } else {
-                User.create(req.body).exec().then(function (user) {
+                UserModel.create(req.body).then(function (user) {
                     req.logIn(user, function (err) {
                         if(err) return next(err);
-                        res.status(200).send({ user: _.omit(nUser.toJSON(), ['password', 'salt']) });
+                        res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
                     })
                 }, function (err){
                     return next(err);

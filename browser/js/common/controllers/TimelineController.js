@@ -10,7 +10,6 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
   $scope.measureLength = 1;
   $scope.tracks = [];
   $scope.loading = true;
-  $scope.transport;
 
 
   // ProjectFct.getProjectInfo('5593228a9d2cc2e8ceea4d02').then(function (data) {
@@ -66,14 +65,13 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
             console.log('wavArray', wavArray);
           }, 500);
           
-        }
-        , 2000);
+        }, 2000);
 
   }
 
   $scope.addTrack = function () {
 
-  }
+  };
 
   $scope.sendToAWS = function () {
 
@@ -81,7 +79,7 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
         // wave logic
         console.log('response from sendToAWS', response);
 
-    })
+    });
   };
 
 
