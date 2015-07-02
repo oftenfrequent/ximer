@@ -20,27 +20,27 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
   //     console.log('PROJECT', project); 
 
 
-  ProjectFct.getProjectInfo('559371e8f2b61c5582762796').then(function (project) {
-      var loaded = 0;
-      console.log('PROJECT', project);
+  // ProjectFct.getProjectInfo('559371e8f2b61c5582762796').then(function (project) {
+  //     var loaded = 0;
+  //     console.log('PROJECT', project);
 
-      project.tracks.forEach(function (track) {
-          var doneLoading = function () {
-              loaded++;
-              if(loaded === project.tracks.length) {
-                  $scope.loading = false;
-                  // Tone.Transport.start();
-              }
-          };
-          track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
-          ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
-          $scope.tracks.push(track);
-      });
+  //     project.tracks.forEach(function (track) {
+  //         var doneLoading = function () {
+  //             loaded++;
+  //             if(loaded === project.tracks.length) {
+  //                 $scope.loading = false;
+  //                 // Tone.Transport.start();
+  //             }
+  //         };
+  //         track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
+  //         ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+  //         $scope.tracks.push(track);
+  //     });
 
-      ToneTimelineFct.getTransport(project.endMeasure);
-      ToneTimelineFct.changeBpm(project.bpm);
+  //     ToneTimelineFct.getTransport(project.endMeasure);
+  //     ToneTimelineFct.changeBpm(project.bpm);
 
-  });
+  // });
 
   $scope.record = function (e) {
 
