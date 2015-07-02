@@ -19,8 +19,8 @@ app.controller('TimelineController', function($scope, $stateParams, RecorderFct,
   //     var project = data.data;
   //     console.log('PROJECT', project); 
 
-
-  ProjectFct.getProjectInfo('559371e8f2b61c5582762796').then(function (project) {
+  //change getProjectInfo to a project that is in your database
+  ProjectFct.getProjectInfo('5594c20ad0759cd40ce51e0d').then(function (project) {
       var loaded = 0;
       console.log('PROJECT', project);
 
