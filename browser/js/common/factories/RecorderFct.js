@@ -21,17 +21,17 @@ app.factory('RecorderFct', function ($http, AuthService, $q) {
     return {
         sendToAWS: function (tracksArray, projectId) {
 
-
             var readPromises = tracksArray.map(convertToBase64);
 
-            console.log('ReadPromises are', readPromises);
             return $q.all(readPromises).then(function (storeData) {
+                
                 console.log('storeData', storeData);
 
-                tracksArray.forEach(function(track, i){
+                tracksArray.forEach(function (track, i) {
                     track.rawAudio = storeData[i];
-                })
-                return $http.post('/api/aws/', { tracks : storeData, projectId: projectId })
+                });
+
+                return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId })
                     .then(function (response) {
                         console.log('response in sendToAWSFactory', response);
                         return response.data; 
