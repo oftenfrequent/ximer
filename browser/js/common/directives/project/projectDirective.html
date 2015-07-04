@@ -1,23 +1,23 @@
-    <div class="panel-body" ng-repeat="project in projects" ng-click="displayAProject(project)">
-        <div> 
-            <div class="row">
-                <div class="col-xs-2"><img class="img-responsive" src="" ng-click=""></div>
-                <div class="col-xs-4" >
-                    <h4 class="project-info"><strong >{{project.name}}</strong></h4><h4><small></small></h4>
+<div class="panel-body" ng-repeat="project in projects" ng-click="displayAProject(project)">
+    <div> 
+        <div class="row">
+            <div class="col-xs-4" >
+                <h4 class="project-info"><strong >{{project.name}}</strong></h4><h4><small></small></h4>
+            </div>
+
+            <div class="col-xs-6">
+                <div class="col-xs-6 text-right">
+                    <h6 class="project-info"><strong>by {{theUser.username}}</strong></h6>
                 </div>
 
-                <div class="col-xs-6">
-                    <div class="col-xs-6 text-right">
-                        <h6 class="project-info"><strong>by {{theUser.username}}</strong></h6>
-                    </div>
-
-                </div>
             </div>
-           <div class="profile-userbuttons">
-               <audio src="{{}}" controls>    
-                    <embed src="" width="300" height="90" loop="false" autostart="false" />
-               </audio>
-            </div>
-            <hr>
+            <div class="col-xs-2" ng-click="forkProject()"><i class="glyphicon glyphicon-random"></i></div>
         </div>
+       <div class="profile-userbuttons">
+           <audio src="{{}}" controls>    
+                <embed src="" width="300" height="90" loop="false" autostart="false" />
+           </audio>
+        </div>
+        <hr>
     </div>
+</div>
