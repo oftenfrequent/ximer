@@ -9,6 +9,7 @@
 	    	<button class="btn btn-primary" ng-click="play()">Play</button>
 	    	<button class="btn btn-primary" ng-click="pause()">Pause</button>
 	    	<button class="btn btn-primary" ng-click="stop()">Stop</button>
+	    	<button class="btn btn-primary" ng-click="toggleMetronome()">Metronome</button>
 	    </div>
 
 	    <div class="timeline-container">
@@ -29,7 +30,7 @@
 					<div class="main-timeline col-xs-12">
 						<xim-track ng-repeat="track in tracks track by $index" class="">
 							<!-- TRACK DIRECTIVE -->
-						</div>
+						</xim-track>
 					</div>
 		        </div>
 		    </div>

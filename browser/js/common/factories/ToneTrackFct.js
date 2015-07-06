@@ -4,7 +4,7 @@ app.factory('ToneTrackFct', function ($http) {
 	var createPlayer = function (url, doneFn) {
 		var player  = new Tone.Player(url, doneFn);
 		player.toMaster();
-		player.sync();
+		// player.sync();
 		player.loop = true;
 		return player;
 	};

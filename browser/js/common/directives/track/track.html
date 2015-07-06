@@ -6,11 +6,15 @@
 <!-- <div style="background: #202630; width: 300px;">
     <span>{{ track.name }}</span>
     <button class="btn btn-primary" id="record" ng-click="record($event, $index, recorder)">record</button>
+
     
 </div> -->
-<div class="track-row row1" style="width: {{300 + (numMeasures.length * 200)}}px;">
+<div class="track-row" style="width: {{300 + (numMeasures.length * 200)}}px;">
 	<!-- Droppable Directive -->
 	{{numMeasures.length}}
-    <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
+    <div ng-repeat="measure in numMeasures" class="measures" ng-class="{ 'taken' : track.locations.indexOf($index) > -1 }" droppable drop="handleDrop()">
+    	<!-- <canvas width="198" height="98" id="wavedisplay" class="item" style="position: absolute;" draggable></canvas> -->
+    	<div class="canvas-box"></div>
+
 	</div>
 </div>
