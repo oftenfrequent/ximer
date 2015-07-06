@@ -32,6 +32,10 @@ app.factory('ToneTrackFct', function ($http) {
 		var phaser = new Tone.Phaser();
 		var distort = new Tone.Distortion();
 		var pingpong = new Tone.PingPongDelay();
+		chorus.wet.value = 0;
+		phaser.wet.value = 0;
+		distort.wet.value = 0;
+		pingpong.wet.value = 0;
 		chorus.connect(phaser);
 		phaser.connect(distort);
 		distort.connect(pingpong);
