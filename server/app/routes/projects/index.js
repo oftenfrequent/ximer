@@ -19,9 +19,11 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function(req, res, next) {
 	//req.body {name: req.body.name, bpm: req.body.bpm}
 	// TODO  - Need to Change to be dynamic
-	req.body.endMeasure = 16;
-	Project.create(req.body).then(function (project) {
-		res.sendStatus(200);
+	var newProject = req.body;
+	if(newProject.forkID){newProject.name = req.body.name + "(Forked)";}
+	console.log(newProject);
+	Project.create(newProject).then(function(project) {
+		res.send(project);
 	}, function (err){
         next(err);
     });
