@@ -72,7 +72,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
     				obj.location = [];
     				$scope.tracks.push(obj);
   			}
-		}
+		  }
 
 		//dynamically set measures
 		$scope.numMeasures = [];
