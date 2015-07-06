@@ -25,6 +25,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			}
 
 			scope.record = function (e, index, recorder) {
+				debugger;
 				scope.tracks[index].recording = true;
 				scope.tracks[index].empty = true;
 				RecorderFct.recordStart(recorder, index);
