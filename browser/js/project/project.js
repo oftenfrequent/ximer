@@ -6,11 +6,15 @@ app.config(function ($stateProvider) {
     });
 });
 
+app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
-app.controller('ProjectController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
-  
-	var wavArray = [];
-	var maxMeasure = 0;
+  var maxMeasure = 0;
+
+  // number of measures on the timeline
+  $scope.numMeasures = _.range(0, 60);
+
+  // length of the timeline
+  $scope.measureLength = 1;
 
 	//Initialize recorder on project load
 	RecorderFct.recorderInit(function (recorder, analyserNode) {
@@ -47,12 +51,12 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 				$scope.tracks.push(track);
 			});
 		} else {
-			for (var i = 0; i < 6; i++) {
-				var obj = {};
-				obj.name = 'Track ' + (i+1);
-				obj.location = [];
-				$scope.tracks.push(obj);
-			}
+  			for (var i = 0; i < 6; i++) {
+    				var obj = {};
+    				obj.name = 'Track ' + (i+1);
+    				obj.location = [];
+    				$scope.tracks.push(obj);
+  			}
 		}
 
 		//dynamically set measures
