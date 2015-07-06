@@ -18,8 +18,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}
 				}
 			}, 0)
-
-
 			scope.dropInTimeline = function (index) {
 				var track = scope.tracks[index];
 

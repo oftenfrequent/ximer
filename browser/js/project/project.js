@@ -23,6 +23,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	});
 
 	$scope.measureLength = 1;
+	$scope.nameChanging = false;
 	$scope.tracks = [];
 	$scope.loading = true;
 	$scope.projectId = $stateParams.projectID;
@@ -31,6 +32,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
 		console.log('PROJECT', project);
+		$scope.projectName = project.name;
 
 		if (project.tracks.length) {
 			project.tracks.forEach(function (track) {
@@ -47,12 +49,25 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 				track.empty = false;
 				track.recording = false;
 				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
-				ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+				//init effects, connect, and add to scope
+				track.effectsRack = ToneTrackFct.effectsInitialize();
+				track.player.connect(track.effectsRack[0]);
+
+				if(track.locations.length) {
+					ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+					track.onTimeline = true;
+				} else {
+					track.onTimeline = false;
+				}
+
 				$scope.tracks.push(track);
 			});
 		} else {
   			for (var i = 0; i < 6; i++) {
     				var obj = {};
+    				obj.empty = true;
+    				obj.recording = false;
+					obj.onTimeline = false;
     				obj.name = 'Track ' + (i+1);
     				obj.location = [];
     				$scope.tracks.push(obj);
@@ -74,6 +89,12 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 	});
 
+	$scope.dropInTimeline = function (index) {
+		var track = scope.tracks[index];
+
+		console.log(track);
+	}
+
 	$scope.addTrack = function () {
 
 	};
@@ -87,13 +108,21 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];
 		console.log('POS', $scope.position);
+		var playHead = document.getElementById('playbackHead');
+		playHead.style.left = ($scope.position * 200 + 300).toString()+'px';
 		Tone.Transport.pause();
 	}
 	$scope.stop = function () {
 		$scope.metronome.stop();
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = 0;
+		var playHead = document.getElementById('playbackHead');
+		playHead.style.left = '300px';
 		Tone.Transport.stop();
+	}
+	$scope.nameChange = function(newName) {
+		console.log('SHOW INPUT', newName);
+		$scope.nameChanging = false;
 	}
 
 	$scope.toggleMetronome = function () {
