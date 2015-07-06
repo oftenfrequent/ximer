@@ -7,86 +7,72 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('ProjectController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, TonePlayerFct, ToneTimelineFct, AuthService) {
+app.controller('ProjectController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
   
-  var wavArray = [];
-  
-  $scope.numMeasures = [];
-  for (var i = 0; i < 6; i++) {
-    $scope.numMeasures.push(i);
-  }
+	var wavArray = [];
 
-  $scope.measureLength = 1;
-  $scope.tracks = [];
-  $scope.loading = true;
-  $scope.projectId = $stateParams.projectID;
-  console.log('PARAMS', $stateParams);
+	$scope.numMeasures = [];
+	for (var i = 0; i < 6; i++) {
+	$scope.numMeasures.push(i);
+	}
 
-  ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
-      var loaded = 0;
-      console.log('PROJECT', project);
+	//Initialize recorder on project load
+	RecorderFct.recorderInit(function (recorder, analyserNode) {
+		$scope.recorder = recorder;
+		$scope.analyserNode = analyserNode;
+	});
 
-      if (project.tracks.length) {
-        project.tracks.forEach(function (track) {
-            var doneLoading = function () {
-                loaded++;
-                if(loaded === project.tracks.length) {
-                    $scope.loading = false;
-                    // Tone.Transport.start();
-                }
-            };
-            track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
-            ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
-            $scope.tracks.push(track);
-        });
-      } else {
-        for (var i = 0; i < 6; i++) {
-          var obj = {};
-          obj.name = 'Track ' + (i+1);
-          obj.location = [];
-          $scope.tracks.push(obj);
-        }
-      }
+	$scope.measureLength = 1;
+	$scope.tracks = [];
+	$scope.loading = true;
+	$scope.projectId = $stateParams.projectID;
 
-      ToneTimelineFct.getTransport(project.endMeasure);
-      ToneTimelineFct.changeBpm(project.bpm);
+	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
+		var loaded = 0;
+		console.log('PROJECT', project);
 
-  });
+		if (project.tracks.length) {
+		project.tracks.forEach(function (track) {
+		    var doneLoading = function () {
+		        loaded++;
+		        if(loaded === project.tracks.length) {
+		            $scope.loading = false;
+		            // Tone.Transport.start();
+		        }
+		    };
+		    track.empty = true;
+		    track.recording = false;
+		    track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+		    ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+		    $scope.tracks.push(track);
+		});
+		} else {
+			for (var i = 0; i < 6; i++) {
+				var obj = {};
+				obj.name = 'Track ' + (i+1);
+				obj.location = [];
+				$scope.tracks.push(obj);
+			}
+		}
 
-  // $scope.record = function (e, index) {
+		ToneTimelineFct.getTransport(project.endMeasure);
+		ToneTimelineFct.changeBpm(project.bpm);
 
-  // 	e = e.toElement;
-
-  //       // start recording
-  //       console.log('start recording');
-        
-  //       if (!audioRecorder)
-  //           return;
-
-  //       e.classList.add("recording");
-  //       audioRecorder.clear();
-  //       audioRecorder.record();
-
-  //       window.setTimeout(function() {
-		// audioRecorder.stop();
-		// e.classList.remove("recording");
-		// audioRecorder.getBuffers( gotBuffers );
-
-		// window.setTimeout(function () {
-		// 	$scope.tracks[index].rawAudio = window.latestRecording;
-		// 	$scope.tracks[index].rawImage = window.latestRecordingImage;
-		// 	console.log('trackss', $scope.tracks);
-		// 	// wavArray.push(window.latestRecording);
-		// 	// console.log('wavArray', wavArray);
-		// }, 500);
-          
-  //       }, 2000);
-
-  // }
+	});
 
   $scope.addTrack = function () {
 
   };
+
+  $scope.play = function () {
+  	Tone.Transport.start();
+  }
+  $scope.pause = function () {
+  	Tone.Transport.pause();
+  }
+  $scope.stop = function () {
+  	Tone.Transport.stop();
+  }
 
   $scope.sendToAWS = function () {
 
