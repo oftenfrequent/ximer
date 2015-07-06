@@ -8,6 +8,7 @@ var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
 
 var ENABLED_AUTH_STRATEGIES = [
+    'local',
     'soundcloud'
     //'twitter',
     //'facebook',
