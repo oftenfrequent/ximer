@@ -11,10 +11,10 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
   
 	var wavArray = [];
 
-	// $scope.numMeasures = [];
-	// for (var i = 0; i < 6; i++) {
-	// $scope.numMeasures.push(i);
-	// }
+	$scope.numMeasures = [];
+	for (var i = 0; i < 6; i++) {
+	$scope.numMeasures.push(i);
+	}
 
 	//Initialize recorder on project load
 	RecorderFct.recorderInit(function (recorder, analyserNode) {
