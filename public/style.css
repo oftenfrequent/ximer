@@ -51,7 +51,8 @@ navbar {
 
 .timeline-container {
   background: #202630;
-  width: 100%; }
+  width: 100%;
+  overflow-x: scroll; }
 
 #project-container {
   background: #202630;
@@ -67,10 +68,6 @@ navbar {
 
 .track-row {
   font-size: 0; }
-
-.main-timeline {
-  overflow-x: scroll;
-  overflow-y: hidden; }
 
 .measures {
   display: inline-block;

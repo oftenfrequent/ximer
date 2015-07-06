@@ -11,18 +11,28 @@
 	    	<button class="btn btn-primary" ng-click="stop()">Stop</button>
 	    </div>
 
-	    <div class="timeline-container"><!--ng-controller="TimelineController">-->
-			<!-- <pre>{{tracks}}</pre> -->
-	        <!-- <button class="btn btn-primary" ng-click="addTrack()">Add Track</button>
-	        <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button> -->
-	        <div class="clearfix">
-
-				<div class="main-timeline col-xs-12">
-					<xim-track ng-repeat="track in tracks track by $index" class="">
-						<!-- TRACK DIRECTIVE -->
+	    <div class="timeline-container">
+	    	<div style="width: {{300 + (numMeasures.length * 200)}}px;">
+			    <div style="height:14px;" class="clearfix">
+				    <div style="width:300px; float:left; height:14px; display:inline;">
+				    </div>
+				    <div ng-repeat="measure in numMeasures" style="border-left: 1px solid #ccc; color:#ccc;font-size:10px; float:left; width:200px; padding:2px; height:10px;">
+				    	{{$index}}
 					</div>
 				</div>
-	        </div>
+			<!--ng-controller="TimelineController">-->
+				<!-- <pre>{{tracks}}</pre> -->
+		        <!-- <button class="btn btn-primary" ng-click="addTrack()">Add Track</button>
+		        <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button> -->
+		        <div class="clearfix">
+
+					<div class="main-timeline col-xs-12">
+						<xim-track ng-repeat="track in tracks track by $index" class="">
+							<!-- TRACK DIRECTIVE -->
+						</div>
+					</div>
+		        </div>
+		    </div>
 	    </div>
     </div>
 </div>
