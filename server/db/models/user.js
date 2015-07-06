@@ -6,6 +6,18 @@ var schema = new mongoose.Schema({
     email: {
         type: String
     },
+    profpic: {
+        data: Buffer,
+        contentType: String
+    },
+    followers: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     username: {
         type: String
     },
