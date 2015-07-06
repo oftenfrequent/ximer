@@ -1,4 +1,4 @@
-app.controller('NewProjectController', function($scope, AuthService, ProjectFct){
+app.controller('NewProjectController', function($scope, AuthService, ProjectFct, $state){
 	$scope.user;
 
 	 AuthService.getLoggedInUser().then(function(user){
@@ -7,9 +7,10 @@ app.controller('NewProjectController', function($scope, AuthService, ProjectFct)
     });
 
 	 $scope.newProjectBut = function(){
-	 	ProjectFct.newProject($scope.user).then(function(success){
-	 		console.log('Success is', success)
-	 	})
+	 	ProjectFct.newProject($scope.user).then(function(projectId){
+	 		console.log('Success is', projectId)
+			$state.go('project', {projectID: projectId});	 	
+		})
 
 	 }
 
