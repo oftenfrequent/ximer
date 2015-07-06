@@ -17,7 +17,6 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-        debugger;
         UserModel.findOne({ 'soundcloud.id': profile.id }, function (err, user) {
 
             if (err) return done(err);
@@ -28,7 +27,11 @@ module.exports = function (app) {
                 UserModel.create({
                     soundcloud: {
                         id: profile.id
-                    }
+                    },
+                    profpic:{
+                        contentType: profile._json.avatar_url
+                    },
+                    username: profile._json.username
                 }).then(function (user) {
                     done(null, user);
                 }, function (err) {
