@@ -6,6 +6,8 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
+var User = mongoose.model('User');
+
 
 
 router.get('/:id', function (req, res, next) {
@@ -19,9 +21,26 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function(req, res, next) {
 	//req.body {name: req.body.name, bpm: req.body.bpm}
 	// TODO  - Need to Change to be dynamic
+
 	req.body.endMeasure = 16;
+	console.log('req.body is', req.body);
 	Project.create(req.body).then(function (project) {
-		res.sendStatus(200);
+
+		console.log('Newly created project is', project)
+	// 	User.update({_id: req.body.owner},{
+	// 		$push: {projects:project._id}
+	// 	}).then(function(user){
+	// 		console.log('User has now', user.projects)
+	// 		user.save();
+		User.findById(req.body.owner).exec().then(function(user){
+			user.projects.push(project._id);
+			console.log('user now has', user);
+			user.save();
+			res.send(user);
+
+		})
+	
+	// 
 	}, function (err){
         next(err);
     });

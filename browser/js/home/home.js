@@ -4,6 +4,11 @@ app.config(function ($stateProvider) {
         url: '/',
         templateUrl: 'js/home/home.html'
     });
+
+    $stateProvider.state('home.landing',{
+    	url: '/landing',
+    	templateUrl: 'js/home/landing.html'
+    })
 });
 
 
