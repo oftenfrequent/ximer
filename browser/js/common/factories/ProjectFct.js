@@ -10,7 +10,7 @@ app.factory('ProjectFct', function ($http) {
     var createAFork = function(project){
     	return $http.post('/api/projects/', project).then(function(fork){
     		return $http.put('api/users/', fork.data).then(function(response){
-    			console.log(response.data);
+    			return response.data;
     		});
     	});
     }
