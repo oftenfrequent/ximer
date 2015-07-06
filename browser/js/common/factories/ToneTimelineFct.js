@@ -1,15 +1,20 @@
 'use strict';
-app.factory('ToneTimelineFct', function ($http) {
+app.factory('ToneTimelineFct', function ($http, $q) {
 
-	var getTransport = function (loopEnd) {
-		Tone.Transport.loop = true;
-		Tone.Transport.loopStart = '0m';
-		Tone.Transport.loopEnd = loopEnd.toString() + 'm';
+	var createTransport = function (loopEnd) {
+        return new $q(function (resolve, reject) {
+			Tone.Transport.loop = true;
+			Tone.Transport.loopStart = '0m';
+			Tone.Transport.loopEnd = loopEnd.toString() + 'm';
 
-		Tone.Transport.setInterval(function () {
-			console.log(Tone.Transport.position);
-		}, '4n');
-		return Tone.Transport;
+			createMetronome().then(function (metronome) {
+				Tone.Transport.setInterval(function () {
+					console.log(Tone.Transport.position);
+					metronome.start();
+				}, '4n');
+				return resolve(metronome);
+			});
+        });
 	};
 
 	var changeBpm = function (bpm) {
@@ -17,11 +22,18 @@ app.factory('ToneTimelineFct', function ($http) {
 		return Tone.Transport;
 	};
 
-	var stopAll = function (loopArray) {
-		Tone.Transport.stop();
-		loopArray.forEach(function (loop) {
-			loop.stop();
+	var stopAll = function (tracks) {
+		tracks.forEach(function (track) {
+			track.player.stop();
 		});
+	};
+	var createMetronome = function () {
+        return new $q(function (resolve, reject) {
+	        var met = new Tone.Player("/api/wav/Click1.wav", function () {
+	        	console.log('LOADED');
+				return resolve(met);
+	        }).toMaster();
+        });
 	};
 
 	var addLoopToTimeline = function (player, startTimeArray) {
@@ -53,9 +65,11 @@ app.factory('ToneTimelineFct', function ($http) {
 
 	};
     return {
-        getTransport: getTransport,
+        createTransport: createTransport,
         changeBpm: changeBpm,
-        addLoopToTimeline: addLoopToTimeline
+        addLoopToTimeline: addLoopToTimeline,
+        createMetronome: createMetronome,
+        stopAll: stopAll
     };
 
 });

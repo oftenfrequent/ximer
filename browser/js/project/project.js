@@ -12,8 +12,8 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 	var wavArray = [];
 
 	$scope.numMeasures = [];
-	for (var i = 0; i < 6; i++) {
-	$scope.numMeasures.push(i);
+	for (var i = 0; i < 60; i++) {
+		$scope.numMeasures.push(i);
 	}
 
 	//Initialize recorder on project load
@@ -26,26 +26,27 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 	$scope.tracks = [];
 	$scope.loading = true;
 	$scope.projectId = $stateParams.projectID;
+	$scope.position = 0;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
 		console.log('PROJECT', project);
 
 		if (project.tracks.length) {
-		project.tracks.forEach(function (track) {
-		    var doneLoading = function () {
-		        loaded++;
-		        if(loaded === project.tracks.length) {
-		            $scope.loading = false;
-		            // Tone.Transport.start();
-		        }
-		    };
-		    track.empty = true;
-		    track.recording = false;
-		    track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
-		    ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
-		    $scope.tracks.push(track);
-		});
+			project.tracks.forEach(function (track) {
+				var doneLoading = function () {
+					loaded++;
+					if(loaded === project.tracks.length) {
+						$scope.loading = false;
+						// Tone.Transport.start();
+					}
+				};
+				track.empty = false;
+				track.recording = false;
+				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+				ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+				$scope.tracks.push(track);
+			});
 		} else {
 			for (var i = 0; i < 6; i++) {
 				var obj = {};
@@ -55,7 +56,9 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 			}
 		}
 
-		ToneTimelineFct.getTransport(project.endMeasure);
+		ToneTimelineFct.createTransport(project.endMeasure).then(function (metronome) {
+			$scope.metronome = metronome;
+		});
 		ToneTimelineFct.changeBpm(project.bpm);
 
 	});
@@ -65,13 +68,29 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
   };
 
   $scope.play = function () {
+	Tone.Transport.position = $scope.position.toString() + ":0:0";
   	Tone.Transport.start();
   }
   $scope.pause = function () {
+  	$scope.metronome.stop();
+  	ToneTimelineFct.stopAll($scope.tracks);
+  	$scope.position = Tone.Transport.position.split(':')[0];
+  	console.log('POS', $scope.position);
   	Tone.Transport.pause();
   }
   $scope.stop = function () {
+  	$scope.metronome.stop();
+  	ToneTimelineFct.stopAll($scope.tracks);
+  	$scope.position = 0;
   	Tone.Transport.stop();
+  }
+
+  $scope.toggleMetronome = function () {
+  	if($scope.metronome.volume.value === 0) {
+  		$scope.metronome.volume.value = -100;
+  	} else {
+  		$scope.metronome.volume.value = 0;
+  	}
   }
 
   $scope.sendToAWS = function () {
