@@ -6,7 +6,7 @@ module.exports = router;
 
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
-var User = require('mongoose').model('User');
+var User = mongoose.model('User');
 
 
 
@@ -32,8 +32,13 @@ router.post('/', function(req, res, next) {
 	// 	}).then(function(user){
 	// 		console.log('User has now', user.projects)
 	// 		user.save();
-			res.send(project.id);
-		
+		User.findById(req.body.owner).exec().then(function(user){
+			user.projects.push(project._id);
+			console.log('user now has', user);
+			user.save();
+			res.send(user);
+
+		})
 	
 	// 
 	}, function (err){
