@@ -5,19 +5,23 @@
 	        <canvas id="analyser" width="1200" height="50"></canvas>
 	        <canvas id="wavedisplay" width="100" height="100"></canvas>
 	    </div> -->
-	    <div>
-	    	<button class="btn btn-primary" ng-click="play()">Play</button>
-	    	<button class="btn btn-primary" ng-click="pause()">Pause</button>
-	    	<button class="btn btn-primary" ng-click="stop()">Stop</button>
-	    	<button class="btn btn-primary" ng-click="toggleMetronome()">Metronome</button>
+	    <div id="projectHeader">
+	    	<div id="projectName">
+	    		<span ng-click="nameChanging = true" ng-hide="nameChanging">{{projectName}}</span>
+	    		<input ng-show="nameChanging" ng-model="projectName" value="{{projectName}}" ng-blur="nameChange(projectName)">
+	    	</div>
+	    	<button class="btn btn-primary" ng-click="play()"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+	    	<button class="btn btn-primary" ng-click="pause()"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
+	    	<button class="btn btn-primary" ng-click="stop()"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+	    	<button id="metronome" ng-click="toggleMetronome()">Metro</button>
 	    </div>
 
 	    <div class="timeline-container">
 	    	<div style="width: {{300 + (numMeasures.length * 200)}}px;">
-			    <div style="height:14px;" class="clearfix">
-				    <div style="width:300px; float:left; height:14px; display:inline;">
+			    <div id="measure-container" class="clearfix">
+				    <div id="measure-left">
 				    </div>
-				    <div ng-repeat="measure in numMeasures" style="border-left: 1px solid #ccc; color:#ccc;font-size:10px; float:left; width:200px; padding:2px; height:10px;">
+				    <div class="measureMarkers" ng-repeat="measure in numMeasures">
 				    	{{$index}}
 					</div>
 				</div>

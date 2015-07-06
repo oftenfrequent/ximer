@@ -10,7 +10,7 @@ fullstack-logo {
   display: block; }
   fullstack-logo img {
     display: block;
-    width: 100%; }
+    width: 80%; }
 
 navbar {
   display: block;
@@ -36,7 +36,8 @@ navbar {
       background: transparent; }
   navbar .navbar-header {
     margin: auto;
-    float: none; }
+    float: none;
+    height: 85px; }
   navbar .login-button {
     float: right;
     margin-top: 8px; }
@@ -49,6 +50,16 @@ navbar {
       color: #f30046;
       cursor: pointer; }
 
+xim-track #trackMainSection {
+  background: #202630;
+  width: 300px;
+  border: 1px solid #333;
+  height: 100px;
+  float: left; }
+xim-track canvas {
+  width: 300px;
+  height: 100px; }
+
 .timeline-container {
   background: #202630;
   width: 100%;
@@ -57,6 +68,41 @@ navbar {
 #project-container {
   background: #202630;
   padding-bottom: 40px; }
+
+#projectHeader {
+  text-align: center; }
+  #projectHeader button {
+    color: #f30046;
+    background-color: transparent;
+    border: 0px; }
+  #projectHeader #metronome {
+    background: url('https://apps.ubuntu.com/site_media/icons/2015/04/gtklick_24.png') center no-repeat;
+    text-indent: -9999px;
+    padding: 3px;
+    border: 0px;
+    width: 50px;
+    background-size: 50%; }
+  #projectHeader #projectName {
+    font-size: 18px; }
+    #projectHeader #projectName input {
+      background-color: transparent;
+      border: 0px; }
+
+#measure-container {
+  height: 14px; }
+  #measure-container #measure-left {
+    height: 14px;
+    width: 300px;
+    float: left;
+    display: inline; }
+  #measure-container .measureMarkers {
+    border-left: 1px solid #ccc;
+    color: #ccc;
+    font-size: 10px;
+    float: left;
+    width: 200px;
+    padding: 2px;
+    height: 10px; }
 
 #home fullstack-logo {
   padding-top: 30px;

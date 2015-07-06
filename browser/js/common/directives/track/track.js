@@ -4,11 +4,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $localStorage, Rec
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope) {
 
-			scope.dropInTimeline = function (index) {
-				var track = scope.tracks[index];
-
-				console.log(track);
-			}
 
 			scope.record = function (e, index, recorder) {
 				scope.tracks[index].recording = true;
