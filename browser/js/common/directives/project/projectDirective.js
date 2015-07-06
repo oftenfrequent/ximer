@@ -12,6 +12,5 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 
 		console.log('THING', something);
 		$state.go('project', {projectID: something._id});
-		// console.log("displaying a project", projectID);
-	}
+	};
 });

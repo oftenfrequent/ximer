@@ -19,22 +19,11 @@
                     </div>
                 </div>
                 <div class="main-timeline col-xs-9">
-                        <div ng-repeat="track in tracks" class="track-row row1" style="width: 12100px;">
-                            <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
 
-                                <div class="item row1" style="position: absolute;" id="item1" draggable>
-                                    {{ measure }}
-                                    <div id="viz" style="background: #202630;">
-                                        <canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    <div class="main-timeline col-xs-9">
-    	            	<canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
-    	                <div ng-repeat="track in tracks" class="track-row row1" style="width: 12100px;">
-    	                    <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
-                            </div>
+                	<canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
+
+                    <div ng-repeat="track in tracks" class="track-row row1" style="width: 12100px;">
+                        <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
                         </div>
                     </div>
                 </div>

@@ -1,0 +1,11 @@
+<form id="" name="artistForm" ng-submit="artistForm.$valid && sendArtist(artist)">
+
+	<input type="text" name="username">
+
+	<input type="file" data-ng-file-select="onFileSelect($files)" accept="image/png, image/jpeg">
+	<span data-ng-if="uploadInProgress">Upload progress: {{ uploadProgress }}</span>
+	<img data-ng-src="uploadedImage" data-ng-if="uploadedImage">
+
+	<input type="submit" value="Submit">
+
+</form>
