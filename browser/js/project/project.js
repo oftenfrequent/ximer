@@ -7,14 +7,14 @@ app.config(function ($stateProvider) {
 });
 
 
-app.controller('ProjectController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
-  
-	var wavArray = [];
+app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
-	$scope.numMeasures = [];
-	for (var i = 0; i < 6; i++) {
-	$scope.numMeasures.push(i);
-	}
+  // number of measures on the timeline
+  $scope.numMeasures = _.range(0, 60);
+
+  // length of the timeline
+  $scope.measureLength = 1;
+
 
 	//Initialize recorder on project load
 	RecorderFct.recorderInit(function (recorder, analyserNode) {
@@ -32,27 +32,28 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 		console.log('PROJECT', project);
 
 		if (project.tracks.length) {
-		project.tracks.forEach(function (track) {
-		    var doneLoading = function () {
-		        loaded++;
-		        if(loaded === project.tracks.length) {
-		            $scope.loading = false;
-		            // Tone.Transport.start();
-		        }
-		    };
-		    track.empty = true;
-		    track.recording = false;
-		    track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
-		    ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
-		    $scope.tracks.push(track);
-		});
+    		project.tracks.forEach(function (track) {
+    		    var doneLoading = function () {
+    		        loaded++;
+    		        if(loaded === project.tracks.length) {
+    		            $scope.loading = false;
+    		            // Tone.Transport.start();
+    		        }
+    		    };
+    		    track.empty = true;
+    		    track.recording = false;
+    		    track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+    		    ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+    		    $scope.tracks.push(track);
+
+    		});
 		} else {
-			for (var i = 0; i < 6; i++) {
-				var obj = {};
-				obj.name = 'Track ' + (i+1);
-				obj.location = [];
-				$scope.tracks.push(obj);
-			}
+  			for (var i = 0; i < 6; i++) {
+    				var obj = {};
+    				obj.name = 'Track ' + (i+1);
+    				obj.location = [];
+    				$scope.tracks.push(obj);
+  			}
 		}
 
 		ToneTimelineFct.getTransport(project.endMeasure);

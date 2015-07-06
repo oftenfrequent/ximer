@@ -2,7 +2,6 @@ app.directive('draggable', function() {
   return function(scope, element) {
     // this gives us the native JS object
     var el = element[0];
-    // console.log(el.classList[1]);
     
     el.draggable = true;
     
@@ -12,8 +11,8 @@ app.directive('draggable', function() {
         this.classList.add('drag');
 
         // var obj= {
-        // 	start: 8,
-        // 	end:10
+        //  start: 8,
+        //  end:10
         // }
 
         // var j= JSON.stringify(obj);
@@ -43,8 +42,6 @@ app.directive('droppable', function() {
     link: function(scope, element) {
       // again we need the native object
       var el = element[0];
-      // console.log(el.parentNode.classList[1]);
-
       
       el.addEventListener('dragover', function(e) {
           e.dataTransfer.dropEffect = 'move';
@@ -76,15 +73,11 @@ app.directive('droppable', function() {
           
           this.classList.remove('over');
           
-          var binId = this.id;
           var item = document.getElementById(e.dataTransfer.getData('Text'));
+          this.appendChild(item);
           
           // call the drop passed drop function
-          if(item.classList[1] === this.parentNode.classList[1]){
-            console.log("data", item.classList[1], this.parentNode.classList[1]);
-            scope.$apply('drop()');
-            this.appendChild(item);
-          }
+          scope.$apply('drop()');
           
           return false;
         },
@@ -93,4 +86,3 @@ app.directive('droppable', function() {
     }
   }
 });
-
