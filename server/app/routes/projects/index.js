@@ -36,7 +36,7 @@ router.post('/', function(req, res, next) {
 			user.projects.push(project._id);
 			console.log('user now has', user);
 			user.save();
-			res.send(user);
+			res.send(project._id);
 
 		})
 	
