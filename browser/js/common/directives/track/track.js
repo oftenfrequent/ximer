@@ -1,13 +1,27 @@
-app.directive('ximTrack', function ($rootScope, $stateParams, $localStorage, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct) {
+app.directive('ximTrack', function ($rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct) {
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
-		link: function(scope) {
+		link: function(scope, element, attrs) {
 
+			setTimeout(function () {
+				var canvasRow = element[0].getElementsByClassName('canvas-box');
+
+				for (var i = 0; i < canvasRow.length; i++) {
+
+					var canvasClasses = canvasRow[i].parentNode.classList;
+	
+					for (var j = 0; j < canvasClasses.length; j++) {
+						if (canvasClasses[j] === 'taken') {
+							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute;' draggable></canvas>")(scope));
+						}
+					}
+				}
+			}, 0)
 			scope.dropInTimeline = function (index) {
 				var track = scope.tracks[index];
 
-				console.log(track);
+				console.log("locations", track.locations);
 			}
 
 			scope.record = function (e, index, recorder) {

@@ -34,12 +34,12 @@ app.controller('UserController', function ($scope, $state, AuthService, userFact
         console.log($scope.showSettings);
     }
 
-    $scope.displayForks = function(){
-        userFactory.getForks($scope.theUser._id).then(function(data){
-            $scope.forks = data;
-            console.log($scope.forks);
-        });
-    }
+    // $scope.displayForks = function(){
+    //     userFactory.getForks($scope.theUser._id).then(function(data){
+    //         $scope.forks = data;
+    //         console.log($scope.forks);
+    //     });
+    // }
 
 });
 app.controller('UserInfoController', function ($scope, $state, AuthService, userFactory, $stateParams) {
@@ -80,11 +80,18 @@ app.controller('UserProjectController', function ($scope, $stateParams, AuthServ
 
     $scope.projects;
 
-    userFactory.getAllProjects($scope.theUser._id).then(function(data){
-        $scope.projects = data;
-        if($scope.showProjects) $scope.showProjects = false;
-        else $scope.showProjects = true;
-        console.log($scope.projects);
+    //turn this into a promise so you get logged in user and then the projects of that user
+    AuthService.getLoggedInUser().then(function(aUser){
+        $scope.theUser = aUser;
+        userFactory.getAllProjects($scope.theUser._id).then(function(data){
+            $scope.projects = data;
+            if($scope.showProjects) $scope.showProjects = false;
+            else $scope.showProjects = true;
+            console.log($scope.projects);
     });
+    });
+        
+  
+    
 
 });
