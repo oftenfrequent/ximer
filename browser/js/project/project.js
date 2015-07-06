@@ -10,11 +10,7 @@ app.config(function ($stateProvider) {
 app.controller('ProjectController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
   
 	var wavArray = [];
-
-	$scope.numMeasures = [];
-	for (var i = 0; i < 60; i++) {
-		$scope.numMeasures.push(i);
-	}
+	var maxMeasure = 0;
 
 	//Initialize recorder on project load
 	RecorderFct.recorderInit(function (recorder, analyserNode) {
@@ -41,6 +37,9 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 						// Tone.Transport.start();
 					}
 				};
+				var max = Math.max.apply(null, track.locations);
+				if(max + 2 > maxMeasure) maxMeasure = max + 2;
+				
 				track.empty = false;
 				track.recording = false;
 				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
@@ -56,6 +55,14 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 			}
 		}
 
+		//dynamically set measures
+		$scope.numMeasures = [];
+		for (var i = 0; i < maxMeasure; i++) {
+			$scope.numMeasures.push(i);
+		}
+
+
+
 		ToneTimelineFct.createTransport(project.endMeasure).then(function (metronome) {
 			$scope.metronome = metronome;
 		});
@@ -63,35 +70,35 @@ app.controller('ProjectController', function ($scope, $stateParams, $localStorag
 
 	});
 
-  $scope.addTrack = function () {
+	$scope.addTrack = function () {
 
-  };
+	};
 
-  $scope.play = function () {
-	Tone.Transport.position = $scope.position.toString() + ":0:0";
-  	Tone.Transport.start();
-  }
-  $scope.pause = function () {
-  	$scope.metronome.stop();
-  	ToneTimelineFct.stopAll($scope.tracks);
-  	$scope.position = Tone.Transport.position.split(':')[0];
-  	console.log('POS', $scope.position);
-  	Tone.Transport.pause();
-  }
-  $scope.stop = function () {
-  	$scope.metronome.stop();
-  	ToneTimelineFct.stopAll($scope.tracks);
-  	$scope.position = 0;
-  	Tone.Transport.stop();
-  }
+	$scope.play = function () {
+		Tone.Transport.position = $scope.position.toString() + ":0:0";
+		Tone.Transport.start();
+	}
+	$scope.pause = function () {
+		$scope.metronome.stop();
+		ToneTimelineFct.stopAll($scope.tracks);
+		$scope.position = Tone.Transport.position.split(':')[0];
+		console.log('POS', $scope.position);
+		Tone.Transport.pause();
+	}
+	$scope.stop = function () {
+		$scope.metronome.stop();
+		ToneTimelineFct.stopAll($scope.tracks);
+		$scope.position = 0;
+		Tone.Transport.stop();
+	}
 
-  $scope.toggleMetronome = function () {
-  	if($scope.metronome.volume.value === 0) {
-  		$scope.metronome.volume.value = -100;
-  	} else {
-  		$scope.metronome.volume.value = 0;
-  	}
-  }
+	$scope.toggleMetronome = function () {
+		if($scope.metronome.volume.value === 0) {
+			$scope.metronome.volume.value = -100;
+		} else {
+			$scope.metronome.volume.value = 0;
+		}
+	}
 
   $scope.sendToAWS = function () {
 
