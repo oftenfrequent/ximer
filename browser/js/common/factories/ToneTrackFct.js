@@ -3,6 +3,7 @@ app.factory('ToneTrackFct', function ($http) {
 
 	var createPlayer = function (url, doneFn) {
 		var player  = new Tone.Player(url, doneFn);
+		//TODO - remove toMaster
 		player.toMaster();
 		// player.sync();
 		player.loop = true;
@@ -22,13 +23,32 @@ app.factory('ToneTrackFct', function ($http) {
 		var doneLoadingCb = function() {
 			return cb(player);
 		};
-
+		//TODO - remove toMaster
 		player = new Tone.Player(link.href, doneLoadingCb).toMaster();
 	};
 
+	var effectsInitialize = function() {
+		var chorus = new Tone.Chorus();
+		var phaser = new Tone.Phaser();
+		var distort = new Tone.Distortion();
+		var pingpong = new Tone.PingPongDelay();
+		chorus.connect(phaser);
+		phaser.connect(distort);
+		distort.connect(pingpong);
+		pingpong.toMaster();
+
+		return [chorus, phaser, distort, pingpong];
+	}
+
+	var changeWetness = function(effect, amount) {
+		effect.wet.value = amount;
+	}
+
     return {
         createPlayer: createPlayer,
-        loopInitialize: loopInitialize
+        loopInitialize: loopInitialize,
+        effectsInitialize: effectsInitialize,
+        changeWetness: changeWetness
     };
 
 });

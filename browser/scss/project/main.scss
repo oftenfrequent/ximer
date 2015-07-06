@@ -8,3 +8,46 @@
 	background: #202630;
 	padding-bottom: 40px;
 }
+
+#projectHeader {
+	text-align:center;
+	button {
+		color: #f30046;
+		background-color:rgba(0,0,0,0);
+		border:0px;
+	}
+	#metronome {
+		background:url('https://apps.ubuntu.com/site_media/icons/2015/04/gtklick_24.png') center no-repeat;
+		text-indent:-9999px;
+		padding:3px;
+		border: 0px;
+		width:50px;
+		background-size:50%;
+	}
+	#projectName {
+		font-size: 18px;
+		input {
+			background-color: rgba(0,0,0,0);
+			border:0px;
+		}
+	}
+}
+
+#measure-container {
+	height:14px;
+	#measure-left {
+		height:14px;
+		width:300px;
+		float: left;
+		display:inline
+	}
+	.measureMarkers {
+		border-left: 1px solid #ccc;
+		color:#ccc;
+		font-size:10px;
+		float: left;
+		width:200px;
+		padding:2px;
+		height:10px;
+	}
+}

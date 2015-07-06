@@ -1,7 +1,9 @@
-<div style="background: #202630; width: 300px; border:1px solid #333; height:100px; float:left;">
-	<canvas id="analyser{{$index}}" width="300" height="100" ng-show="track.empty || track.recording" ng-click="record($event, $index, recorder)"></canvas>
-	<canvas id="wavedisplay{{$index}}" width="300" height="100" ng-hide="track.empty || track.recording" ng-dblclick="dropInTimeline($index)"></canvas>
-	<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
+<div id="trackMainSection">
+	<canvas id="analyser{{$index}}" ng-show="track.empty || track.recording" ng-click="record($event, $index, recorder)"></canvas>
+	<canvas id="wavedisplay{{$index}}" ng-hide="track.empty || track.recording" ng-dblclick="dropInTimeline($index)"></canvas>
+	<div style="width:300px; height:100px;" ng-show="!track.recording && !track.empty">
+		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
+	</div>
 </div>
 <!-- <div style="background: #202630; width: 300px;">
     <span>{{ track.name }}</span>

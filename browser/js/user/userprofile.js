@@ -34,12 +34,12 @@ app.controller('UserController', function ($scope, $state, AuthService, userFact
         console.log($scope.showSettings);
     }
 
-    $scope.displayForks = function(){
-        userFactory.getForks($scope.theUser._id).then(function(data){
-            $scope.forks = data;
-            console.log($scope.forks);
-        });
-    }
+    // $scope.displayForks = function(){
+    //     userFactory.getForks($scope.theUser._id).then(function(data){
+    //         $scope.forks = data;
+    //         console.log($scope.forks);
+    //     });
+    // }
 
 });
 app.controller('UserInfoController', function ($scope, $state, AuthService, userFactory, $stateParams) {

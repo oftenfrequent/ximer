@@ -23,6 +23,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	});
 
 	$scope.measureLength = 1;
+	$scope.nameChanging = false;
 	$scope.tracks = [];
 	$scope.loading = true;
 	$scope.projectId = $stateParams.projectID;
@@ -31,6 +32,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
 		console.log('PROJECT', project);
+		$scope.projectName = project.name;
 
 		if (project.tracks.length) {
 			project.tracks.forEach(function (track) {
@@ -47,6 +49,10 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 				track.empty = false;
 				track.recording = false;
 				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+				//init effects, connect, and add to scope
+				track.effectsRack = ToneTrackFct.effectsInitialize();
+				track.player.connect(track.effectsRack[0]);
+
 				ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
 				$scope.tracks.push(track);
 			});
@@ -74,6 +80,12 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 	});
 
+	$scope.dropInTimeline = function (index) {
+		var track = scope.tracks[index];
+
+		console.log(track);
+	}
+
 	$scope.addTrack = function () {
 
 	};
@@ -94,6 +106,10 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = 0;
 		Tone.Transport.stop();
+	}
+	$scope.nameChange = function(newName) {
+		console.log('SHOW INPUT', newName);
+		$scope.nameChanging = false;
 	}
 
 	$scope.toggleMetronome = function () {
