@@ -1,11 +1,17 @@
-<div id="controls" class="col-xs-3">
-    <span>{{ track.name }}</span>
-    <button class="btn btn-primary" id="record" ng-click="record($event, $index)">record</button>
-    <a id="save" href="#">DOWNLOAD</a>
+<div style="background: #202630; width: 300px; border:1px solid #333; height:100px; float:left;">
+	<canvas id="analyser{{$index}}" width="300" height="100" ng-show="track.empty || track.recording" ng-click="record($event, $index, recorder)"></canvas>
+	<canvas id="wavedisplay{{$index}}" width="300" height="100" ng-hide="track.empty || track.recording" ng-dblclick="dropInTimeline($index)"></canvas>
+	<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 </div>
-<div class="track-row row1" style="width: 12500px;">
+<!-- <div style="background: #202630; width: 300px;">
+    <span>{{ track.name }}</span>
+    <button class="btn btn-primary" id="record" ng-click="record($event, $index, recorder)">record</button>
+    
+</div> -->
+<div class="track-row row1" style="width: {{300 + (numMeasures.length * 200)}}px;">
 	<!-- Droppable Directive -->
-	{{numMeasures}}
+	{{numMeasures.length}}
     <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
-    </div>
+</div>
+<div class="effects-rack" style="width:300px;"
 </div>

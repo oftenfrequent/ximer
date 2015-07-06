@@ -53,6 +53,10 @@ navbar {
   background: #202630;
   width: 100%; }
 
+#project-container {
+  background: #202630;
+  padding-bottom: 40px; }
+
 #home fullstack-logo {
   padding-top: 30px;
   width: 150px;
@@ -103,9 +107,6 @@ div[class*="col-"] {
 #login-form {
   width: 60%;
   margin: 0 auto; }
-
-body {
-  background: #F1F3FA; }
 
 /* Profile container */
 .profile {

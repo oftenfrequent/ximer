@@ -115,10 +115,6 @@ DEALINGS IN THE SOFTWARE.
     window.latestRecording = blob;
     window.latestRecordingURL = url;
 
-    var play = new Tone.Player(link.href, function () {
-      play.start();
-    }).toMaster();
-
   }
 
   window.Recorder = Recorder;
