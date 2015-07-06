@@ -11,5 +11,17 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 	$scope.displayAProject = function(something){
 		console.log('THING', something);
 		$state.go('project', {projectID: something._id});
-	};
+		// console.log("displaying a project", projectID);
+	}
+
+	$scope.makeFork = function(project){
+		console.log($stateParams.theID);
+		project.owner = $stateParams.theID;
+		project.forkID = project._id;
+		project.isForked = true;
+		delete project._id;
+		console.log(project);
+		ProjectFct.createAFork(project);
+		// $state.go('project')
+	}
 });

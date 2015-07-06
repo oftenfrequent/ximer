@@ -1,5 +1,5 @@
-<div class="panel-body" ng-repeat="project in projects" ng-click="displayAProject(project)">
-    <div> 
+<div class="panel-body" ng-repeat="project in projects">
+    <div ng-click="displayAProject(project)"> 
         <div class="row">
             <div class="col-xs-4" >
                 <h4 class="project-info"><strong >{{project.name}}</strong></h4><h4><small></small></h4>
@@ -18,6 +18,9 @@
                 <embed src="" width="300" height="90" loop="false" autostart="false" />
            </audio>
         </div>
-        <hr>
     </div>
+    <button ng-click="makeFork(project)">
+        <i class="glyphicon glyphicon-random"></i> Fork
+    </button>
+    <hr>
 </div>
