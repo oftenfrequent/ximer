@@ -6,9 +6,13 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 			Tone.Transport.loop = true;
 			Tone.Transport.loopStart = '0m';
 			Tone.Transport.loopEnd = loopEnd.toString() + 'm';
+			var playHead = document.getElementById('playbackHead');
 
 			createMetronome().then(function (metronome) {
 				Tone.Transport.setInterval(function () {
+					var posArr = Tone.Transport.position.split(':');
+					var leftPos = ((parseInt(posArr[0]) * 200 ) + (parseInt(posArr[1]) * 50) + 300).toString() + 'px';
+					playHead.style.left = leftPos;
 					console.log(Tone.Transport.position);
 					metronome.start();
 				}, '4n');

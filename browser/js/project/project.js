@@ -53,12 +53,21 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 				track.effectsRack = ToneTrackFct.effectsInitialize();
 				track.player.connect(track.effectsRack[0]);
 
-				ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+				if(track.locations.length) {
+					ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+					track.onTimeline = true;
+				} else {
+					track.onTimeline = false;
+				}
+
 				$scope.tracks.push(track);
 			});
 		} else {
   			for (var i = 0; i < 6; i++) {
     				var obj = {};
+    				obj.empty = true;
+    				obj.recording = false;
+					obj.onTimeline = false;
     				obj.name = 'Track ' + (i+1);
     				obj.location = [];
     				$scope.tracks.push(obj);
@@ -99,12 +108,16 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];
 		console.log('POS', $scope.position);
+		var playHead = document.getElementById('playbackHead');
+		playHead.style.left = ($scope.position * 200 + 300).toString()+'px';
 		Tone.Transport.pause();
 	}
 	$scope.stop = function () {
 		$scope.metronome.stop();
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = 0;
+		var playHead = document.getElementById('playbackHead');
+		playHead.style.left = '300px';
 		Tone.Transport.stop();
 	}
 	$scope.nameChange = function(newName) {
