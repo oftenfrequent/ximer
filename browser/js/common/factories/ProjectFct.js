@@ -7,8 +7,17 @@ app.factory('ProjectFct', function ($http) {
         });
     };
 
+    var newProject = function(user){
+    	return $http.post('/api/projects',{owner:user._id}).then(function(response){
+    		return $http.post('/api/users',{owner: user._id, project:response.data}).then(function(user){
+    			console.log(user.data)
+    		})
+    	})
+    }
+
     return {
-        getProjectInfo: getProjectInfo
+        getProjectInfo: getProjectInfo,
+        newProject: newProject
     };
 
 });

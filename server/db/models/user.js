@@ -7,7 +7,6 @@ var schema = new mongoose.Schema({
         type: String
     },
     profpic: {
-        data: Buffer,
         contentType: String
     },
     followers: [{
@@ -37,6 +36,9 @@ var schema = new mongoose.Schema({
         id: String
     },
     google: {
+        id: String
+     },
+     soundcloud:{
         id: String
      },
     projects: [{
