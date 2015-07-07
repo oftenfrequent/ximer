@@ -75,6 +75,7 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                 var canvas = document.getElementById( "wavedisplay" +  index );
                 console.log(canvas);
                 drawBuffer( 300, 100, canvas.getContext('2d'), buffers[0] );
+                window.latestBuffer = buffers[0];
                 window.latestRecordingImage = canvas.toDataURL("image/png");
 
                 // the ONLY time gotBuffers is called is right after a new recording is completed - 

@@ -4,18 +4,26 @@
 	</canvas>
 	<canvas id="wavedisplay{{$index}}" height="100px" class="trackWave" ng-show="!track.empty && !track.recording && !track.onTimeline"></canvas>
 	<div class="trackControllsContainer">
-		<button class="btn btn-primary" ng-click="record($index)" ng-show="track.empty || !track.onTimeline"><span class="glyphicon glyphicon-record" aria-hidden="true"></span></button>
-		<button class="btn btn-primary" ng-click="preview()" ng-show="!track.empty"><span class="glyphicon glyphicon-headphones" aria-hidden="true"></span></button>
-		<button class="btn btn-primary" ng-click="dropInTimeline($index)" ng-show="!track.empty"><span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span></button>
+		<button class="btn btn-primary" ng-click="record($index)" ng-show="track.empty || !track.onTimeline">
+			<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
+		</button>
+
+		<button class="btn btn-primary" ng-click="preview(track.previewing)" ng-show="!track.empty">
+			<span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
+		</button>
+
+		<button class="btn btn-primary" ng-click="dropInTimeline($index)" ng-show="!track.empty">
+			<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+		</button>
 
 
-		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])">
+		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline">
 		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 	</div>
 </div>
 <div class="track-row" style="width: {{300 + (numMeasures.length * 200)}}px;">
 	<!-- Droppable Directive -->
-    <div ng-repeat="measure in numMeasures" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.locations.indexOf($index) > -1 }" droppable drop="handleDrop()">
+    <div ng-repeat="measure in numMeasures" xposition="{{$index}}" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.locations.indexOf($index) > -1 }" droppable drop="handleDrop()">
     	<div class="canvas-box"></div>
 	</div>
 </div>
