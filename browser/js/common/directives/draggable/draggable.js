@@ -7,21 +7,12 @@ app.directive('draggable', function() {
     
     el.addEventListener('dragstart', function(e) {
 
-        console.log('dragstart', e);
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('Text', this.id);
         this.classList.add('drag');
 
-        console.log('TRACK', scope.track);
-        console.log('attrs', attrs.position);
-        console.log('element', el);
-        console.log('TRACK', scope.track);
-        console.log('LOCATION', scope.track.location);
-        console.log('index of', scope.track.location.indexOf(parseInt(attrs.position)));
-
         var idx = scope.track.location.indexOf(parseInt(attrs.position));
         scope.track.location.splice(idx, 1);
-        console.log('TRACK', scope.track);
 
         return false;
       },
@@ -29,7 +20,6 @@ app.directive('draggable', function() {
     );
     
     el.addEventListener('dragend', function(e) {
-        console.log('dragend');
         this.classList.remove('drag');
         return false;
       },
@@ -59,7 +49,6 @@ app.directive('droppable', function() {
       );
       
       el.addEventListener('dragenter', function(e) {
-          console.log('dragenter');
           this.classList.add('over');
           return false;
         },
@@ -67,7 +56,6 @@ app.directive('droppable', function() {
       );
       
       el.addEventListener('dragleave', function(e) {
-          console.log('dragleave');
           this.classList.remove('over');
           return false;
         },
@@ -76,15 +64,33 @@ app.directive('droppable', function() {
       
       el.addEventListener('drop', function(e) {
 
-          console.log('drop', e.toElement);
           // Stops some browsers from redirecting.
           if (e.stopPropagation) e.stopPropagation();
           
           this.classList.remove('over');
-          // e.toElement.classList.add('taken');
           
+          // upon drop, changing position and updating track.location array on scope 
           var item = document.getElementById(e.dataTransfer.getData('Text'));
-          this.appendChild(item);
+          var xposition = this.attributes.xposition.value;
+          var childNodes = this.childNodes;
+
+          for (var i = 0; i < childNodes.length; i++) {
+              if (childNodes[i].className === 'canvas-box') {
+
+                  this.childNodes[i].appendChild(item);
+                  scope.$parent.$parent.track.location.push(xposition);
+                  scope.$parent.$parent.track.location.sort();
+
+                  var canvasNode = this.childNodes[i].childNodes;
+
+                  for (var j = 0; j < canvasNode.length; j++) {
+
+                      if (canvasNode[j].nodeName === 'CANVAS') {
+                          canvasNode[j].attributes.position.value = xposition;
+                      }
+                  }
+              }     
+          }
           
           // call the drop passed drop function
           scope.$apply('drop()');
