@@ -50,15 +50,28 @@ navbar {
       color: #f30046;
       cursor: pointer; }
 
-xim-track #trackMainSection {
+xim-track .trackMainSection {
   background: #202630;
   width: 300px;
   border: 1px solid #333;
   height: 100px;
-  float: left; }
+  float: left;
+  position: relative; }
 xim-track .trackAnalyser, xim-track .trackWave {
   width: 300px;
   height: 100px; }
+xim-track .trackControllsContainer {
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 0px; }
+  xim-track .trackControllsContainer button {
+    color: #ccc;
+    background-color: transparent;
+    border: 0px; }
+  xim-track .trackControllsContainer button:hover {
+    color: #ccc;
+    background-color: transparent; }
 
 .timeline-container {
   background: #202630;

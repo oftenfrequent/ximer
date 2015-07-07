@@ -1,13 +1,30 @@
 xim-track {
-  #trackMainSection {
+  .trackMainSection {
     background: #202630;
     width: 300px;
     border: 1px solid #333;
     height: 100px;
     float: left;
+    position:relative;
   }
   .trackAnalyser, .trackWave {
     width:300px;
     height:100px;
+  }
+  .trackControllsContainer {
+    width:300px;
+    height:100px;
+    position:absolute;
+    top:0px;
+      button {
+        color: #ccc;
+        background-color:rgba(0,0,0,0);
+        border:0px;
+
+      }
+      button:hover {
+        color: #ccc;
+        background-color:rgba(0,0,0,0);
+      }
   }
 }

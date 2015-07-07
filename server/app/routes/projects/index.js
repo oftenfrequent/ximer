@@ -43,7 +43,7 @@ router.post('/', function(req, res, next) {
 	// 		user.save();
 	// 		res.send(project._id);
 
-		})
+		// })
 	
 	// 
 	}, function (err){

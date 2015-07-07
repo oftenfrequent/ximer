@@ -1,98 +1,93 @@
 app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, AnalyserFct) {
 
-    var recorderInit = function (cb) {
-        var Context = window.AudioContext || window.webkitAudioContext;
-        var audioContext = new Context();
-        var recorder;
+    var recorderInit = function () {
 
-        // //attach context and analyzer
-        // var gotStream = function (stream) {
-        // }
+        return $q(function (resolve, reject) {
+            var Context = window.AudioContext || window.webkitAudioContext;
+            var audioContext = new Context();
+            var recorder;
 
-        var navigator = window.navigator;
-        navigator.getUserMedia = (
-            navigator.getUserMedia ||
-            navigator.webkitGetUserMedia ||
-            navigator.mozGetUserMedia ||
-            navigator.msGetUserMedia
-        );
-        if (!navigator.cancelAnimationFrame)
-            navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
-        if (!navigator.requestAnimationFrame)
-            navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
+            var navigator = window.navigator;
+            navigator.getUserMedia = (
+                navigator.getUserMedia ||
+                navigator.webkitGetUserMedia ||
+                navigator.mozGetUserMedia ||
+                navigator.msGetUserMedia
+            );
+            if (!navigator.cancelAnimationFrame)
+                navigator.cancelAnimationFrame = navigator.webkitCancelAnimationFrame || navigator.mozCancelAnimationFrame;
+            if (!navigator.requestAnimationFrame)
+                navigator.requestAnimationFrame = navigator.webkitRequestAnimationFrame || navigator.mozRequestAnimationFrame;
 
-        // ask for permission
-        navigator.getUserMedia(
-                {
-                    "audio": {
-                        "mandatory": {
-                            "googEchoCancellation": "false",
-                            "googAutoGainControl": "false",
-                            "googNoiseSuppression": "false",
-                            "googHighpassFilter": "false"
+            // ask for permission
+            navigator.getUserMedia(
+                    {
+                        "audio": {
+                            "mandatory": {
+                                "googEchoCancellation": "false",
+                                "googAutoGainControl": "false",
+                                "googNoiseSuppression": "false",
+                                "googHighpassFilter": "false"
+                            },
+                            "optional": []
                         },
-                        "optional": []
-                    },
-                }, function (stream) {
-                    var inputPoint = audioContext.createGain();
+                    }, function (stream) {
+                        var inputPoint = audioContext.createGain();
 
-                    // create an AudioNode from the stream.
-                    var realAudioInput = audioContext.createMediaStreamSource(stream);
-                    var audioInput = realAudioInput;
-                    audioInput.connect(inputPoint);
+                        // create an AudioNode from the stream.
+                        var realAudioInput = audioContext.createMediaStreamSource(stream);
+                        var audioInput = realAudioInput;
+                        audioInput.connect(inputPoint);
 
-                    // create analyser node
-                    var analyserNode = audioContext.createAnalyser();
-                    analyserNode.fftSize = 2048;
-                    inputPoint.connect( analyserNode );
+                        // create analyser node
+                        var analyserNode = audioContext.createAnalyser();
+                        analyserNode.fftSize = 2048;
+                        inputPoint.connect( analyserNode );
 
-                    //create recorder
-                    recorder = new Recorder( inputPoint );
-                    var zeroGain = audioContext.createGain();
-                    zeroGain.gain.value = 0.0;
-                    inputPoint.connect( zeroGain );
-                    zeroGain.connect( audioContext.destination );
+                        //create recorder
+                        recorder = new Recorder( inputPoint );
+                        var zeroGain = audioContext.createGain();
+                        zeroGain.gain.value = 0.0;
+                        inputPoint.connect( zeroGain );
+                        zeroGain.connect( audioContext.destination );
 
-                    return cb(recorder, analyserNode);
+                        resolve([recorder, analyserNode]);
 
-                }, function (e) {
-                    alert('Error getting audio');
-                    console.log(e);
-                });
+                    }, function (e) {
+                        alert('Error getting audio');
+                        // console.log(e);
+                        reject(e);
+                    });
+        });
     }
 
     var recordStart = function (recorder) {
-
-
         recorder.clear();
         recorder.record();
     }
 
-    var recordStop = function (index, recorder, cb) {
+    var recordStop = function (index, recorder) {
         recorder.stop();
-        // e.classList.remove("recording");
-        return recorder.getBuffers( gotBuffers );
+        return new $q(function (resolve, reject) {
+            // e.classList.remove("recording");
+            recorder.getBuffers(function (buffers) {
+                //display wav image
+                var canvas = document.getElementById( "wavedisplay" +  index );
+                console.log(canvas);
+                drawBuffer( 300, 100, canvas.getContext('2d'), buffers[0] );
+                window.latestRecordingImage = canvas.toDataURL("image/png");
 
-
-
-        function gotBuffers( buffers ) {
-            //display wav image
-            var canvas = document.getElementById( "wavedisplay" +  index );
-            drawBuffer( 300, 100, canvas.getContext('2d'), buffers[0] );
-            window.latestRecordingImage = canvas.toDataURL("image/png");
-
-            // the ONLY time gotBuffers is called is right after a new recording is completed - 
-            // so here's where we should set up the download.
-            recorder.exportWAV( function ( blob ) {
-                //needs a unique name
-                // Recorder.setupDownload( blob, "myRecording0.wav" );
-                //create loop time
-                ToneTrackFct.loopInitialize(blob, index, "myRecording0.wav", function (player) {
-                    return cb(player);
+                // the ONLY time gotBuffers is called is right after a new recording is completed - 
+                // so here's where we should set up the download.
+                recorder.exportWAV( function ( blob ) {
+                    //needs a unique name
+                    // Recorder.setupDownload( blob, "myRecording0.wav" );
+                    //create loop time
+                    ToneTrackFct.loopInitialize(blob, index, "myRecording0.wav").then(resolve);
                 });
             });
-        }
-    }
+        });
+    };
     
 
     
