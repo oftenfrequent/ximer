@@ -1,13 +1,16 @@
 <div ng-controller="HomeController">
-    <div ng-show="isLoggedIn()">
         <ul class="collection">
             <li ng-repeat="project in allProjects" class="collection-item avatar">
                 <i class="icon circle"></i>
                 <span class="title"> {{project.name}}</span>
                 <p>{{project.owner}}</p>
+                <div ng-show="isLoggedIn()">
+                    <button ng-click="makeFork(project)">
+                        <i class="glyphicon glyphicon-random"></i> Fork
+                    </button>
+                </div>
             </li>
         </ul>
-	</div>
 </div>
 
 	        <!-- <div id="viz" style="background: #202630;">
