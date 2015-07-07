@@ -3,7 +3,7 @@ app.controller('NewProjectController', function($scope, AuthService, ProjectFct,
 
 	 AuthService.getLoggedInUser().then(function(user){
 	 	$scope.user = user;
-        console.log('user is', $scope.theUser.username)
+        console.log('user is', $scope.user.username)
     });
 
 	 $scope.newProjectBut = function(){

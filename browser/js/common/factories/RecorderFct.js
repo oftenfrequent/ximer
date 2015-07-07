@@ -73,7 +73,6 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
             recorder.getBuffers(function (buffers) {
                 //display wav image
                 var canvas = document.getElementById( "wavedisplay" +  index );
-                console.log(canvas);
                 drawBuffer( 300, 100, canvas.getContext('2d'), buffers[0] );
                 window.latestBuffer = buffers[0];
                 window.latestRecordingImage = canvas.toDataURL("image/png");

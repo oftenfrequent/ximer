@@ -11,9 +11,9 @@ var mongoose = require('mongoose');
 
 
 router.get('/', function (req, res) {
-    UserModel.findOne(req.query).populate('projects').exec().then(function(data){
-        console.log(data);
-        res.send(data);
+    UserModel.findOne(req.query).populate('projects').exec().then(function(user){
+        console.log('user', user)
+        res.send(user);
     }, function(err){
         res.status(500).send(err.message);
     });
