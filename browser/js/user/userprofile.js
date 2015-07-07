@@ -34,19 +34,17 @@ app.controller('UserController', function ($scope, $state, AuthService, userFact
         console.log($scope.showSettings);
     }
 
-    // $scope.displayForks = function(){
-    //     userFactory.getForks($scope.theUser._id).then(function(data){
-    //         $scope.forks = data;
-    //         console.log($scope.forks);
-    //     });
-    // }
 
 });
 app.controller('UserInfoController', function ($scope, $state, AuthService, userFactory, $stateParams) {
-
+    AuthService.getLoggedInUser().then(function(aUser){
+        $scope.theUser = aUser;
+    });
+    console.log($scope.$parent);
         // $scope.onFileSelect = function(image) {
         //     if (angular.isArray(image)) {
         //         image = image[0];
+        //         console.log(image);
         //     }
 
         //     // This is how I handle file types in client side
@@ -78,7 +76,7 @@ app.controller('UserInfoController', function ($scope, $state, AuthService, user
 
 app.controller('UserProjectController', function ($scope, $stateParams, AuthService, userFactory) {
 
-    $scope.projects;
+    // $scope.projects;
 
     //turn this into a promise so you get logged in user and then the projects of that user
     AuthService.getLoggedInUser().then(function(aUser){
@@ -88,7 +86,7 @@ app.controller('UserProjectController', function ($scope, $stateParams, AuthServ
             if($scope.showProjects) $scope.showProjects = false;
             else $scope.showProjects = true;
             console.log($scope.projects);
-    });
+        });
     });
         
   
