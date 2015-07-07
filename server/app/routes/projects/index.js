@@ -19,36 +19,31 @@ router.get('/:id', function (req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-	//req.body {name: req.body.name, bpm: req.body.bpm}
-	// TODO  - Need to Change to be dynamic
-	var newProject = req.body;
-	if(newProject.forkID){newProject.name = req.body.name + "(Forked)";}
-	console.log(newProject);
-	Project.create(newProject).then(function(project) {
-		res.send(project);
-
-	// req.body.endMeasure = 16;
-	// console.log('req.body is', req.body);
-	// Project.create(req.body).then(function (project) {
-
-	// 	console.log('Newly created project is', project)
-	// // 	User.update({_id: req.body.owner},{
-	// // 		$push: {projects:project._id}
-	// // 	}).then(function(user){
-	// // 		console.log('User has now', user.projects)
-	// // 		user.save();
-	// 	User.findById(req.body.owner).exec().then(function(user){
-	// 		user.projects.push(project._id);
-	// 		console.log('user now has', user);
-	// 		user.save();
-	// 		res.send(project._id);
-
-		// })
-	
-	// 
-	}, function (err){
-        next(err);
-    });
+    //req.body {name: req.body.name, bpm: req.body.bpm}
+    // TODO: Need to Change to be dynamic
+    var newProject = req.body;
+    if(newProject.forkID){
+        newProject.name = req.body.name + "(Forked)";
+        console.log(newProject);
+        Project.create(newProject).then(function(project) {
+            res.send(project);
+        }, function(err){
+            next(err);
+        });
+    } else {
+        Project.create(req.body).then(function (project) {
+            console.log('Newly created project is', project);
+            User.findById(req.body.owner).exec().then(function(user){
+                user.projects.push(project._id);
+                console.log('user now has', user);
+                user.save();
+                res.send(project._id);
+            });
+    
+        }, function (err){
+           next(err);
+        });
+    }
 });
 
 router.put('/:id', function (req, res, next) {
