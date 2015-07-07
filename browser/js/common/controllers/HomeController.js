@@ -17,15 +17,7 @@ $scope.projects();
 
 	$scope.makeFork = function(project){
 
-		console.log('The project is', project);
-		// AuthService.getLoggedInUser(function(user){
-
-		// 	ProjectFct.createAFork(project).then(function(response){
-		// 	console.log('Response is', response);
-		// });
-		// })
-		// $state.go('project')
-	}
+		}
 	var stop =false;
 
 	$scope.sampleTrack = function(track){
@@ -46,7 +38,11 @@ $scope.projects();
 		})
 	}
 
-	$scope.for
+  $scope.getUserProfile = function(user){
+    console.log("clicked", user);
+    $state.go('userProfile', {theID: user._id});
+}
+
     
 
 

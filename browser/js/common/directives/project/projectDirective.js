@@ -6,7 +6,7 @@ app.directive('projectdirective', function() {
 	};
 });
 
-app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct){
+app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct, AuthService){
 
 	$scope.displayAProject = function(something){
 		console.log('THING', something);
@@ -15,13 +15,17 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 	}
 
 	$scope.makeFork = function(project){
-		console.log($stateParams.theID);
-		project.owner = $stateParams.theID;
-		project.forkID = project._id;
-		project.isForked = true;
-		delete project._id;
-		console.log(project);
-		ProjectFct.createAFork(project);
+
+		AuthService.getLoggedInUser().then(function(loggedInUser){
+			project.owner = loggedInUser._id;
+			project.forkID = project._id;
+			delete project._id;
+			console.log(project);
+			ProjectFct.createAFork(project).then(function(response){
+				console.log('Fork response is', response)
+			});
+		})
+	
 		// $state.go('project')
 	}
 });
