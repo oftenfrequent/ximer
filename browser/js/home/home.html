@@ -1,9 +1,9 @@
 <div ng-controller="HomeController">
-        <ul class="collection">
+        <ul class="collection-home">
             <li ng-repeat="project in allProjects" class="collection-item avatar">
                 <i class="icon circle"></i>
                 <span class="title"> {{project.name}}</span>
-                <p>{{project.owner}}</p>
+                <p ng-click="getUserProfile(project.owner)">{{project.owner.username}}</p>
                 <div ng-repeat="track in project.tracks" ng-click="sampleTrack(track)"> {{track.name}} 
                     
                  </div>

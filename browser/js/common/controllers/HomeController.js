@@ -46,7 +46,10 @@ $scope.projects();
 		})
 	}
 
-	$scope.for
+	$scope.getUserProfile = function(user){
+		console.log("clicked", user);
+		$state.go('userProfile', {theID: user._id});
+	}
     
 
 

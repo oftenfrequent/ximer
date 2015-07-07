@@ -14,8 +14,8 @@ router.get('/:id', function (req, res, next) {
 
     //for HomeController
     if(req.params.id === 'all'){
-    	Project.find({}).exec().then(function(projects){
-            res.send(projects)
+    	Project.find({}).populate('owner').exec().then(function(projects){
+            res.send(projects);
         }, function(err){
             next(err);
         })
