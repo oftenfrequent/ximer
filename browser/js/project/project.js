@@ -51,6 +51,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 				
 				track.empty = false;
 				track.recording = false;
+				// TODO: this is assuming that a player exists
 				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
 				//init effects, connect, and add to scope
 				track.effectsRack = ToneTrackFct.effectsInitialize();
@@ -66,12 +67,15 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 				$scope.tracks.push(track);
 			});
 		} else {
-			$scope.maxMeasure = 17;
-  			for (var i = 0; i < 6; i++) {
+			$scope.maxMeasure = 32;
+  			for (var i = 0; i < 8; i++) {
 				var obj = {};
 				obj.empty = true;
 				obj.recording = false;
 				obj.onTimeline = false;
+				obj.previewing = false;
+				obj.effectsRack = ToneTrackFct.effectsInitialize();
+				obj.player = null;
 				obj.name = 'Track ' + (i+1);
 				obj.location = [];
 				$scope.tracks.push(obj);
@@ -81,7 +85,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		//dynamically set measures
 		//if less than 16 set 18 as minimum
 		$scope.numMeasures = [];
-		if(maxMeasure < 16) maxMeasure = 18;
+		if(maxMeasure < 32) maxMeasure = 34;
 		for (var i = 0; i < maxMeasure; i++) {
 			$scope.numMeasures.push(i);
 		}
@@ -111,6 +115,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		Tone.Transport.start();
 	}
 	$scope.pause = function () {
+		console.log('METRONMONE', $scope.tracks);
 		$scope.metronome.stop();
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];

@@ -4,6 +4,11 @@
                 <i class="icon circle"></i>
                 <span class="title"> {{project.name}}</span>
                 <p>{{project.owner}}</p>
+                <div ng-repeat="track in project.tracks" ng-click="sampleTrack(track)"> {{track.name}} 
+                    
+                 </div>
+
+
                 <div ng-show="isLoggedIn()">
                     <button ng-click="makeFork(project)">
                         <i class="glyphicon glyphicon-random"></i> Fork

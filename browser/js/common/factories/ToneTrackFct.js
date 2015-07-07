@@ -3,10 +3,10 @@ app.factory('ToneTrackFct', function ($http, $q) {
 
 	var createPlayer = function (url, doneFn) {
 		var player  = new Tone.Player(url, doneFn);
-		//TODO - remove toMaster
+		// TODO: remove toMaster
 		player.toMaster();
 		// player.sync();
-		player.loop = true;
+		// player.loop = true;
 		return player;
 	};
 
@@ -23,7 +23,7 @@ app.factory('ToneTrackFct', function ($http, $q) {
 			// TODO: remove toMaster
 			player = new Tone.Player(link.href, function () {
 				resolve(player);
-			}).toMaster();
+			});
 		});
 	};
 
@@ -44,10 +44,27 @@ app.factory('ToneTrackFct', function ($http, $q) {
 		return [chorus, phaser, distort, pingpong];
 	}
 
+	var createTimelineInstanceOfLoop = function(player, measure) {
+		return Tone.Transport.setTimeline(function() {
+				player.start();
+			}, measure+"m");
+	}
+
+	var replaceTimelineLoop = function(player, oldTimelineId, newMeasure) {
+		return new $q(function (resolve, reject) {
+			console.log('old timeline id', oldTimelineId);
+			Tone.Transport.clearTimeline(parseInt(oldTimelineId));
+			// Tone.Transport.clearTimelines();
+			resolve(createTimelineInstanceOfLoop(player, newMeasure));
+		})
+	}
+
     return {
         createPlayer: createPlayer,
         loopInitialize: loopInitialize,
-        effectsInitialize: effectsInitialize
+        effectsInitialize: effectsInitialize,
+        createTimelineInstanceOfLoop: createTimelineInstanceOfLoop,
+        replaceTimelineLoop: replaceTimelineLoop
     };
 
 });

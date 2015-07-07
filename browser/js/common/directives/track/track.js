@@ -1,4 +1,4 @@
-app.directive('ximTrack', function ($rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct) {
+app.directive('ximTrack', function ($rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct, $q) {
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
@@ -21,6 +21,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 
 			scope.dropInTimeline = function (index) {
 
+				scope.track.player.loop = false;
+				scope.track.player.stop();
 				var position = 0;
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
 
@@ -38,13 +40,20 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				console.log('pushing', position);
 				scope.track.location.push(position);
 				scope.track.location.sort();
-				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' draggable></canvas>")(scope));
+				var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
+				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' draggable></canvas>")(scope));
 				console.log('track', scope.track);
 
 				var canvas = document.getElementById( "mdisplay" +  index + "-" + position );
                 drawBuffer( 198, 98, canvas.getContext('2d'), window.latestBuffer );
-
 			}
+
+			scope.moveInTimeline = function (oldTimelineId, newMeasure) {
+				return new $q(function (resolve, reject) {
+					// console.log('ELEMENT', oldTimelineId, newMeasure);
+					ToneTrackFct.replaceTimelineLoop(scope.track.player, oldTimelineId, newMeasure).then(resolve);
+				});
+			};
 
 			scope.record = function (index) {
 				var recorder = scope.recorder;
@@ -106,6 +115,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						continueUpdate = false;
 						window.cancelAnimationFrame( analyserId );
 						scope.track.player = player;
+						scope.track.player.loop = true;
+						player.connect(scope.track.effectsRack[0]);
 						console.log('player', player);
 						// scope.$digest();
 						// scope.track.player.start();
@@ -144,9 +155,15 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			 //    }, 2000);
 
 			}
-			scope.preview = function() {
-				console.log(scope.track.player);
-				scope.track.player.start();
+			scope.preview = function(currentlyPreviewing) {
+				console.log(currentlyPreviewing);
+				if(currentlyPreviewing) {
+					scope.track.player.stop();
+					scope.track.previewing = false;
+				} else {
+					scope.track.player.start();
+					scope.track.previewing = true;
+				}
 			};
 
 			scope.changeWetness = function(effect, amount) {

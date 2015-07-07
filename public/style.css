@@ -111,10 +111,10 @@ xim-track .trackControllsContainer {
   position: relative;
   width: 1px;
   background-color: #fff;
-  height: 30px;
+  height: 813px;
   z-index: 9999;
   left: 300px;
-  margin-bottom: -30px; }
+  margin-bottom: -813px; }
 
 #measure-container {
   height: 14px; }

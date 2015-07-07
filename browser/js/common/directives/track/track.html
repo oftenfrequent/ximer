@@ -8,7 +8,7 @@
 			<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
 		</button>
 
-		<button class="btn btn-primary" ng-click="preview()" ng-show="!track.empty">
+		<button class="btn btn-primary" ng-click="preview(track.previewing)" ng-show="!track.empty">
 			<span class="glyphicon glyphicon-headphones" aria-hidden="true"></span>
 		</button>
 
@@ -17,7 +17,7 @@
 		</button>
 
 
-		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])">
+		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline">
 		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 	</div>
 </div>
