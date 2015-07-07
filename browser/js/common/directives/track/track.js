@@ -1,4 +1,4 @@
-app.directive('ximTrack', function ($rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct) {
+app.directive('ximTrack', function ($rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct, $q) {
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
@@ -22,6 +22,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			scope.dropInTimeline = function (index) {
 
 				scope.track.player.loop = false;
+				scope.track.player.stop();
 				var position = 0;
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
 
@@ -46,6 +47,13 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				var canvas = document.getElementById( "mdisplay" +  index + "-" + position );
                 drawBuffer( 198, 98, canvas.getContext('2d'), window.latestBuffer );
 			}
+
+			scope.moveInTimeline = function (oldTimelineId, newMeasure) {
+				return new $q(function (resolve, reject) {
+					// console.log('ELEMENT', oldTimelineId, newMeasure);
+					ToneTrackFct.replaceTimelineLoop(scope.track.player, oldTimelineId, newMeasure).then(resolve);
+				});
+			};
 
 			scope.record = function (index) {
 				var recorder = scope.recorder;

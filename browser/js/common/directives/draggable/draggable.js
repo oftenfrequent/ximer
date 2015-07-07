@@ -63,7 +63,6 @@ app.directive('droppable', function() {
       );
       
       el.addEventListener('drop', function(e) {
-
           // Stops some browsers from redirecting.
           if (e.stopPropagation) e.stopPropagation();
           
@@ -73,6 +72,8 @@ app.directive('droppable', function() {
           var item = document.getElementById(e.dataTransfer.getData('Text'));
           var xposition = this.attributes.xposition.value;
           var childNodes = this.childNodes;
+          var oldTimelineId;
+          var theCanvas;
 
           for (var i = 0; i < childNodes.length; i++) {
               if (childNodes[i].className === 'canvas-box') {
@@ -87,12 +88,20 @@ app.directive('droppable', function() {
 
                       if (canvasNode[j].nodeName === 'CANVAS') {
                           canvasNode[j].attributes.position.value = xposition;
+                          oldTimelineId = canvasNode[j].attributes.timelineid.value;
+                          theCanvas = canvasNode[j];
+
                       }
                   }
               }     
           }
           
+
           // call the drop passed drop function
+          scope.$parent.$parent.moveInTimeline(oldTimelineId, xposition).then(function (newTimelineId) {
+            console.log(theCanvas);
+              theCanvas.attributes.timelineid.value = newTimelineId;
+          });
           scope.$apply('drop()');
           
           return false;
