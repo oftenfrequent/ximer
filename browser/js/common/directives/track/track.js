@@ -23,6 +23,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 
 				scope.track.player.loop = false;
 				scope.track.player.stop();
+				scope.track.onTimeline = true;
 				var position = 0;
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
 
@@ -56,8 +57,9 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			};
 
 			scope.record = function (index) {
+				// console.log('TRACKS', scope.$parent.tracks);
+				ToneTimelineFct.muteAll(scope.$parent.tracks);
 				var recorder = scope.recorder;
-				RecorderFct.recordStart(recorder, index);
 
 				var continueUpdate = true;
 
@@ -105,10 +107,13 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				}
 
 
-				setTimeout(function () {
-					// console.log('SCOPE', scope);
-					console.log('SCOPE', scope.track.player);
+				//RECORDING STARTS AT MEASURE 1
+				var micStartID = Tone.Transport.setTimeline(function () {
+					RecorderFct.recordStart(recorder, index);
+				}, "1m");
 
+				//RECORDING ENDS AT MEASURE 2
+				var micEndID = Tone.Transport.setTimeline(function () {
 					RecorderFct.recordStop(index, recorder).then(function (player) {
 						scope.track.recording = false;
 						scope.track.empty = false;
@@ -118,10 +123,23 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						scope.track.player.loop = true;
 						player.connect(scope.track.effectsRack[0]);
 						console.log('player', player);
-						// scope.$digest();
-						// scope.track.player.start();
+						ToneTimelineFct.unMuteAll(scope.$parent.tracks);
+						Tone.Transport.clearTimeline(micStartID);
+						Tone.Transport.clearTimeline(micEndID);
+						Tone.Transport.stop();
 					});
-				}, 2000);
+				}, "2m");
+
+				Tone.Transport.start();
+
+				// setTimeout(function () {
+				// 	// console.log('SCOPE', scope);
+				// 	console.log('SCOPE', scope.track.player);
+
+				// 		// scope.$digest();
+				// 		// scope.track.player.start();
+				// 	});
+				// }, 2000);
 
 
 
