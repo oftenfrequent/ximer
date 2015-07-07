@@ -10,8 +10,15 @@ app.directive('draggable', function() {
         console.log('dragstart', e);
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('Text', this.id);
+        console.log(this.id);
         this.classList.add('drag');
 
+        console.log('this', this.parentNode.parentNode);
+        if (this.parentNode.parentNode.classList.contains('taken')) {
+          console.log('inside IF');
+          this.parentNode.parentNode.classList.remove('taken');
+        }
+        
         return false;
       },
       false
@@ -66,14 +73,19 @@ app.directive('droppable', function() {
       el.addEventListener('drop', function(e) {
 
           console.log('drop', e.toElement);
+          console.log('THIS', this);
           // Stops some browsers from redirecting.
           if (e.stopPropagation) e.stopPropagation();
           
+          console.log("my list", this.classList[4], this.classList[3]);
           this.classList.remove('over');
-          // e.toElement.classList.add('taken');
+          this.classList.add('taken');
           
           var item = document.getElementById(e.dataTransfer.getData('Text'));
-          this.appendChild(item);
+          console.log('ITEM', item);
+          console.log('THIS.CHILD', this.childNodes);
+
+          this.childNodes[1].appendChild(item);
           
           // call the drop passed drop function
           scope.$apply('drop()');

@@ -10,7 +10,6 @@
 	<!-- Droppable Directive -->
 	{{numMeasures.length}}
     <div position="{{$index}}" ng-repeat="measure in numMeasures" class="measures" ng-class="{ 'taken' : track.locations.indexOf($index) > -1 }" droppable drop="handleDrop()">
-    	<!-- <canvas width="198" height="98" id="wavedisplay" class="item" style="position: absolute;" draggable></canvas> -->
     	<div class="canvas-box"></div>
 	</div>
 </div>
