@@ -1,6 +1,7 @@
 
-app.controller('HomeController', function($scope, AuthService, ProjectFct, $stateParams, $state) {
+app.controller('HomeController', function($scope, AuthService, ToneTrackFct, ProjectFct, $stateParams, $state) {
 	console.log('in Home controller');
+	var trackBucket = [];
 	$scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };
@@ -15,15 +16,37 @@ app.controller('HomeController', function($scope, AuthService, ProjectFct, $stat
 $scope.projects();
 
 	$scope.makeFork = function(project){
-		console.log($stateParams.theID);
-		project.owner = $stateParams.theID;
-		project.forkID = project._id;
-		project.isForked = true;
-		delete project._id;
-		console.log(project);
-		ProjectFct.createAFork(project);
+
+		console.log('The project is', project);
+		// AuthService.getLoggedInUser(function(user){
+
+		// 	ProjectFct.createAFork(project).then(function(response){
+		// 	console.log('Response is', response);
+		// });
+		// })
 		// $state.go('project')
 	}
+	var stop =false;
+
+	$scope.sampleTrack = function(track){
+
+		if(stop===true){
+			$scope.player.stop()
+		}
+
+		ToneTrackFct.createPlayer(track.url, function(player){
+			$scope.player = player;
+			if(stop===false){
+				stop=true
+				$scope.player.start();
+			}
+			else{
+				stop=false;
+			}
+		})
+	}
+
+	$scope.for
     
 
 
