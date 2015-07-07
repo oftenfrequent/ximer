@@ -97,11 +97,11 @@ app.directive('droppable', function() {
           }
           
 
-          // call the drop passed drop function
           scope.$parent.$parent.moveInTimeline(oldTimelineId, xposition).then(function (newTimelineId) {
-            console.log(theCanvas);
               theCanvas.attributes.timelineid.value = newTimelineId;
           });
+
+          // call the drop passed drop function
           scope.$apply('drop()');
           
           return false;
