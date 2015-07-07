@@ -11,14 +11,26 @@ var User = mongoose.model('User');
 
 
 router.get('/:id', function (req, res, next) {
-	Project.findById(req.params.id).exec().then(function (project) {
-		res.send(project);
-	}, function (err){
-		next(err);
-    });
+
+    //for HomeController
+    if(req.params.id === 'all'){
+    	Project.find({}).exec().then(function(projects){
+            res.send(projects)
+        }, function(err){
+            next(err);
+        })
+    }
+    else{
+        Project.findById(req.params.id).exec().then(function (project) {
+            res.send(project);
+        }, function (err){
+            next(err);
+        });
+    }
 });
 
 router.post('/', function(req, res, next) {
+
 	//req.body {name: req.body.name, bpm: req.body.bpm}
 	// TODO  - Need to Change to be dynamic
 	var newProject = req.body;
