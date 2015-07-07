@@ -28,12 +28,9 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				// console.log("locations", track.locations);
 			}
 			scope.record = function (index) {
-				debugger;
-				scope.tracks[index].recording = true;
-				scope.tracks[index].empty = true;
+				var recorder = scope.recorder;
 				RecorderFct.recordStart(recorder, index);
 
-				var recorder = scope.recorder;
 				var continueUpdate = true;
 
 				//analyser stuff
