@@ -28,7 +28,7 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 
 	var stopAll = function (tracks) {
 		tracks.forEach(function (track) {
-			track.player.stop();
+			if(track.player) track.player.stop();
 		});
 	};
 	var createMetronome = function () {
