@@ -18,15 +18,34 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}
 				}
 			}, 0)
+
 			scope.dropInTimeline = function (index) {
-				console.log(index);
-				console.log('TRACK', scope.track)
-				// angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute;' draggable></canvas>")(scope));
 
-				// var track = scope.track;
+				var position = 0;
+				var canvasRow = element[0].getElementsByClassName('canvas-box');
 
-				// console.log("locations", track.locations);
+				if (scope.track.location.length) {
+					// drop the loop on the first available index				
+					while (scope.track.location.indexOf(position) > -1) {
+						position++;
+					}					
+				}
+
+				// adding raw image to db
+				if (!scope.track.img) {
+					scope.track.img = window.latestRecordingImage.replace(/^data:image\/png;base64,/, "");
+				}
+				console.log('pushing', position);
+				scope.track.location.push(position);
+				scope.track.location.sort();
+				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' draggable></canvas>")(scope));
+				console.log('track', scope.track);
+
+				var canvas = document.getElementById( "mdisplay" +  index + "-" + position );
+                drawBuffer( 198, 98, canvas.getContext('2d'), window.latestBuffer );
+
 			}
+
 			scope.record = function (index) {
 				var recorder = scope.recorder;
 				RecorderFct.recordStart(recorder, index);
