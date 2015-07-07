@@ -12,19 +12,20 @@ var User = mongoose.model('User');
 
 router.get('/:id', function (req, res, next) {
 
-    if(req.params.id){
-    	Project.findById(req.params.id).exec().then(function (project) {
-    		res.send(project);
-    	}, function (err){
-    		next(err);
-        });
-    }
-    else{//for HomeController
-        Project.find({}).exec().then(function(projects){
+    //for HomeController
+    if(req.params.id === 'all'){
+    	Project.find({}).exec().then(function(projects){
             res.send(projects)
         }, function(err){
             next(err);
         })
+    }
+    else{
+        Project.findById(req.params.id).exec().then(function (project) {
+            res.send(project);
+        }, function (err){
+            next(err);
+        });
     }
 });
 
@@ -48,6 +49,8 @@ router.post('/', function(req, res, next) {
                 console.log('user now has', user);
                 user.save();
                 res.send(project._id);
+            }, function(err){
+                next(err);
             });
     
         }, function (err){

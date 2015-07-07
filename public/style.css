@@ -255,3 +255,50 @@ div[class*="col-"] {
   padding: 20px;
   background: #fff;
   min-height: 460px; }
+
+.collection-item.avatar {
+  min-height: 84px;
+  padding-left: 72px;
+  position: relative;
+  border-color: #f30046;
+
+}
+
+.title{
+  font-size: 16px;
+}
+
+.collection-item {
+  background-color: #202630;
+  line-height: 1.5rem;
+  padding: 10px 20px;
+  margin: 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.circle{
+  position: absolute;
+  width: 42px;
+  height: 42px;
+  overflow: hidden;
+  left: 15px;
+  display: inline-block;
+  vertical-align: middle;
+  background-color:red;
+  border-radius: 50%;
+}
+
+ul li {
+  list-style-type: none;
+  text-align: -webkit-match-parent;
+}
+
+.collection {
+  margin: 0.5rem 0 1rem 0;
+  border: 1px solid #e0e0e0;
+  border-radius: 2px;
+  overflow: hidden;
+  position: relative;
+  border-color: #f30046;
+
+}
