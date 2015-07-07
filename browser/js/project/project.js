@@ -111,7 +111,9 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		Tone.Transport.start();
 	}
 	$scope.pause = function () {
+		console.log('METRONMONE', $scope.tracks.player);
 		$scope.metronome.stop();
+		// if($scope.tracks.player)
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];
 		console.log('POS', $scope.position);
