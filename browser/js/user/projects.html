@@ -1,6 +1,7 @@
 <!-- <button ng-click="createAProject()">New Project</button>--> 
 <div ng-controller ="NewProjectController">
-	<button ng-click="newProjectBut()">New Project</button>
+
+	<button ng-click="newProjectBut()" ng-show="loggedInUser._id===user._id">New Project</button>
 </div>
 <div class="user-project" ng-click="goToProjects()">
 	<projectdirective></projectdirective>
