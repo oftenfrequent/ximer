@@ -33,6 +33,8 @@ router.post('/', function(req, res, next) {
 	} else {
 		Project.create(req.body).then(function (project) {
 	        console.log('Newly created project is', project);
+	        project.bpm = 123;
+	        project.endMeasure = 16;
 	        User.findById(req.body.owner).exec().then(function(user){
 	            user.projects.push(project._id);
 	            console.log('user now has', user);
