@@ -17,10 +17,13 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
   $scope.measureLength = 1;
 
 	//Initialize recorder on project load
-	RecorderFct.recorderInit(function (recorder, analyserNode) {
-		$scope.recorder = recorder;
-		$scope.analyserNode = analyserNode;
-	});
+	RecorderFct.recorderInit().then(function (retArr) {
+		$scope.recorder = retArr[0];
+		$scope.analyserNode = retArr[1];
+	}).catch(function (e){
+        alert('Error getting audio');
+        console.log(e);
+    });
 
 	$scope.measureLength = 1;
 	$scope.nameChanging = false;
@@ -63,22 +66,26 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 				$scope.tracks.push(track);
 			});
 		} else {
+			$scope.maxMeasure = 17;
   			for (var i = 0; i < 6; i++) {
-    				var obj = {};
-    				obj.empty = true;
-    				obj.recording = false;
-					obj.onTimeline = false;
-    				obj.name = 'Track ' + (i+1);
-    				obj.location = [];
-    				$scope.tracks.push(obj);
+				var obj = {};
+				obj.empty = true;
+				obj.recording = false;
+				obj.onTimeline = false;
+				obj.name = 'Track ' + (i+1);
+				obj.location = [];
+				$scope.tracks.push(obj);
   			}
 		  }
 
 		//dynamically set measures
+		//if less than 16 set 18 as minimum
 		$scope.numMeasures = [];
+		if(maxMeasure < 16) maxMeasure = 18;
 		for (var i = 0; i < maxMeasure; i++) {
 			$scope.numMeasures.push(i);
 		}
+		console.log('MEASURES', $scope.numMeasures);
 
 
 
