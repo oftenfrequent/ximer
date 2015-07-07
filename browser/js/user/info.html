@@ -1,4 +1,4 @@
-<form id="" name="artistForm" ng-submit="artistForm.$valid && sendArtist(artist)">
+<!-- <form id="" name="artistForm" ng-submit="artistForm.$valid && sendArtist(artist)">
 
 	<input type="text" name="username">
 
@@ -8,4 +8,21 @@
 
 	<input type="submit" value="Submit">
 
+</form>-->
+
+<form id="userSettingsEdit-form" name="userSettingsEdit" ng-show="showSettings">
+    <alert type="danger" ng-show="error">
+        {{ error }}
+    </alert>
+
+    <div class="form-group">
+        <label for="email">Email address</label>
+        <input type="text" class="form-control" id="email" ng-model="$parent.theUser.email">
+    </div>
+    <div class="form-group">
+        <label for="userSettingsEdit-password">Password</label>
+        <input type="password" class="form-control" id="userSettingsEdit-password" ng-model="$parent.theUser.password">
+    </div>
+    <button ng-click="submitUserEdit()" class="btn btn-default userSettingsEdit-btn">Submit</button>
++	<br>
 </form>

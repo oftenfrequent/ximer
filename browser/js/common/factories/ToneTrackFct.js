@@ -3,10 +3,10 @@ app.factory('ToneTrackFct', function ($http, $q) {
 
 	var createPlayer = function (url, doneFn) {
 		var player  = new Tone.Player(url, doneFn);
-		//TODO - remove toMaster
+		// TODO: remove toMaster
 		player.toMaster();
 		// player.sync();
-		player.loop = true;
+		// player.loop = true;
 		return player;
 	};
 
@@ -50,11 +50,21 @@ app.factory('ToneTrackFct', function ($http, $q) {
 			}, measure+"m");
 	}
 
+	var replaceTimelineLoop = function(player, oldTimelineId, newMeasure) {
+		return new $q(function (resolve, reject) {
+			console.log('old timeline id', oldTimelineId);
+			Tone.Transport.clearTimeline(parseInt(oldTimelineId));
+			// Tone.Transport.clearTimelines();
+			resolve(createTimelineInstanceOfLoop(player, newMeasure));
+		})
+	}
+
     return {
         createPlayer: createPlayer,
         loopInitialize: loopInitialize,
         effectsInitialize: effectsInitialize,
-        createTimelineInstanceOfLoop: createTimelineInstanceOfLoop
+        createTimelineInstanceOfLoop: createTimelineInstanceOfLoop,
+        replaceTimelineLoop: replaceTimelineLoop
     };
 
 });
