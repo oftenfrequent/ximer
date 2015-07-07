@@ -1,5 +1,5 @@
 app.directive('draggable', function() {
-  return function(scope, element) {
+  return function(scope, element, attrs) {
     // this gives us the native JS object
     var el = element[0];
     
@@ -11,6 +11,17 @@ app.directive('draggable', function() {
         e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('Text', this.id);
         this.classList.add('drag');
+
+        console.log('TRACK', scope.track);
+        console.log('attrs', attrs.position);
+        console.log('element', el);
+        console.log('TRACK', scope.track);
+        console.log('LOCATION', scope.track.location);
+        console.log('index of', scope.track.location.indexOf(parseInt(attrs.position)));
+
+        var idx = scope.track.location.indexOf(parseInt(attrs.position));
+        scope.track.location.splice(idx, 1);
+        console.log('TRACK', scope.track);
 
         return false;
       },

@@ -2,7 +2,10 @@
 app.factory('ProjectFct', function($http){
 
     var getProjectInfo = function (projectId) {
-        return $http.get('/api/projects/' + projectId).then(function(response){
+
+        //if coming from HomeController and no Id is passed, set it to 'all'
+        var projectid= projectId || 'all'
+        return $http.get('/api/projects/' + projectid || projectid).then(function(response){
             return response.data;
         });
     };
