@@ -69,16 +69,16 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		} else {
 			$scope.maxMeasure = 32;
   			for (var i = 0; i < 8; i++) {
-				var obj = {};
-				obj.empty = true;
-				obj.recording = false;
-				obj.onTimeline = false;
-				obj.previewing = false;
-				obj.effectsRack = ToneTrackFct.effectsInitialize();
-				obj.player = null;
-				obj.name = 'Track ' + (i+1);
-				obj.location = [];
-				$scope.tracks.push(obj);
+    				var obj = {};
+    				obj.empty = true;
+    				obj.recording = false;
+    				obj.onTimeline = false;
+    				obj.previewing = false;
+    				obj.effectsRack = ToneTrackFct.effectsInitialize();
+    				obj.player = null;
+    				obj.name = 'Track ' + (i+1);
+    				obj.location = [];
+    				$scope.tracks.push(obj);
   			}
 		  }
 
@@ -153,6 +153,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
     });
   };
+  
   $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };

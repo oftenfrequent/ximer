@@ -31,6 +31,19 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 			if(track.player) track.player.stop();
 		});
 	};
+
+	var muteAll = function (tracks) {
+		tracks.forEach(function (track) {
+			if(track.player) track.player.volume.value = -100;
+		});
+	};
+
+	var unMuteAll = function (tracks) {
+		tracks.forEach(function (track) {
+			if(track.player) track.player.volume.value = 0;
+		});
+	};
+
 	var createMetronome = function () {
         return new $q(function (resolve, reject) {
 	        var met = new Tone.Player("/api/wav/Click1.wav", function () {
@@ -74,7 +87,9 @@ app.factory('ToneTimelineFct', function ($http, $q) {
         changeBpm: changeBpm,
         addLoopToTimeline: addLoopToTimeline,
         createMetronome: createMetronome,
-        stopAll: stopAll
+        stopAll: stopAll,
+        muteAll: muteAll,
+        unMuteAll: unMuteAll
     };
 
 });
