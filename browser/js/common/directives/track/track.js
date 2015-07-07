@@ -3,7 +3,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
-
+			scope.effectWetnesses = [0,0,0,0];
 			setTimeout(function () {
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
 
@@ -19,22 +19,31 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				}
 			}, 0)
 			scope.dropInTimeline = function (index) {
-				var track = scope.tracks[index];
+				console.log(index);
+				console.log('TRACK', scope.track)
+				// angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute;' draggable></canvas>")(scope));
 
-				console.log("locations", track.locations);
+				// var track = scope.track;
+
+				// console.log("locations", track.locations);
 			}
-
-			scope.record = function (e, index, recorder) {
-				scope.tracks[index].recording = true;
-				scope.tracks[index].empty = true;
+			scope.record = function (index) {
+				var recorder = scope.recorder;
 				RecorderFct.recordStart(recorder, index);
+
 				var continueUpdate = true;
 
-
+				//analyser stuff
 		        var canvas = document.getElementById("analyser"+index);
 		        var analyserContext = canvas.getContext('2d');
 		        var analyserNode = scope.analyserNode;
 				var analyserId = window.requestAnimationFrame( update );
+
+				scope.track.recording = true;
+				scope.track.empty = true;
+				RecorderFct.recordStart(recorder);
+				scope.track.empty = true;
+
 
 				function update() {
 					console.log('UPDATE')
@@ -70,17 +79,17 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 
 				setTimeout(function () {
 					// console.log('SCOPE', scope);
-					console.log('SCOPE', scope.tracks[index].player);
+					console.log('SCOPE', scope.track.player);
 
-					RecorderFct.recordStop(index, recorder, function (player) {
-						scope.tracks[index].recording = false;
-						scope.tracks[index].empty = false;
+					RecorderFct.recordStop(index, recorder).then(function (player) {
+						scope.track.recording = false;
+						scope.track.empty = false;
 						continueUpdate = false;
 						window.cancelAnimationFrame( analyserId );
-						scope.tracks[index].player = player;
+						scope.track.player = player;
 						console.log('player', player);
-						scope.$digest();
-						// scope.tracks[index].player.start();
+						// scope.$digest();
+						// scope.track.player.start();
 					});
 				}, 2000);
 
@@ -116,6 +125,20 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			 //    }, 2000);
 
 			}
+			scope.preview = function() {
+				console.log(scope.track.player);
+				scope.track.player.start();
+			};
+
+			scope.changeWetness = function(effect, amount) {
+				console.log(effect);
+				console.log(amount);
+
+				effect.wet.value = amount / 1000;
+			};
+
 		}
+		
+
 	}
 });

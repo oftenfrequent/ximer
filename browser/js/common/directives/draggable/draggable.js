@@ -6,18 +6,11 @@ app.directive('draggable', function() {
     el.draggable = true;
     
     el.addEventListener('dragstart', function(e) {
-        e.dataTransfer.effectAllowed = 'copyMove';
+
+        console.log('dragstart', e);
+        e.dataTransfer.effectAllowed = 'move';
         e.dataTransfer.setData('Text', this.id);
         this.classList.add('drag');
-
-        // var obj= {
-        //  start: 8,
-        //  end:10
-        // }
-
-        // var j= JSON.stringify(obj);
-        // e.dataTransfer.setData('yo', j);
-        // console.log("TRANSFER DATA IS",JSON.parse(e.dataTransfer.getData('yo')));
 
         return false;
       },
@@ -25,6 +18,7 @@ app.directive('draggable', function() {
     );
     
     el.addEventListener('dragend', function(e) {
+        console.log('dragend');
         this.classList.remove('drag');
         return false;
       },
@@ -54,6 +48,7 @@ app.directive('droppable', function() {
       );
       
       el.addEventListener('dragenter', function(e) {
+          console.log('dragenter');
           this.classList.add('over');
           return false;
         },
@@ -61,6 +56,7 @@ app.directive('droppable', function() {
       );
       
       el.addEventListener('dragleave', function(e) {
+          console.log('dragleave');
           this.classList.remove('over');
           return false;
         },
@@ -68,10 +64,13 @@ app.directive('droppable', function() {
       );
       
       el.addEventListener('drop', function(e) {
+
+          console.log('drop', e.toElement);
           // Stops some browsers from redirecting.
           if (e.stopPropagation) e.stopPropagation();
           
           this.classList.remove('over');
+          // e.toElement.classList.add('taken');
           
           var item = document.getElementById(e.dataTransfer.getData('Text'));
           this.appendChild(item);

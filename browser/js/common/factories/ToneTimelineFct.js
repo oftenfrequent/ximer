@@ -68,6 +68,7 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 		});
 
 	};
+	
     return {
         createTransport: createTransport,
         changeBpm: changeBpm,
