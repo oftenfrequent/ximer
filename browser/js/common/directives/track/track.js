@@ -40,10 +40,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.location.push(position);
 				scope.track.location.sort();
 				var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' draggable></canvas>")(scope));
-				var canvas = document.getElementById( "mdisplay" +  index + "-" + position );
-                drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );
-				console.log('track', scope.track);
+				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
 			}
 
 			scope.moveInTimeline = function (oldTimelineId, newMeasure) {
@@ -61,20 +58,17 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				console.log(scope.track.location.indexOf(position));
 				if(scope.track.onTimeline) {
 					if(loopIndex === -1) {
-						console.log('APPEAR');
+
 						var canvasRow = element[0].getElementsByClassName('canvas-box');
 						scope.track.location.push(position);
 						scope.track.location.sort();
-						console.log(scope.track.location);
+
 						var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-						console.log('TIMELINE_ID', timelineId);
-						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
-						// console.log('track', scope.track);
-						var canvas = document.getElementById( "mdisplay" +  trackIndex + "-" + position );
-		                drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );
+
+						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='" + timelineId + "' id='mdisplay" +  trackIndex + "-" + position + "' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
+
 					} else {
 						var canvas = document.getElementById( "mdisplay" +  trackIndex + "-" + position );
-						console.log('DISAPPEAR');
 						//remove from locations array
 						scope.track.location.splice(loopIndex, 1);
 						//remove timelineId
