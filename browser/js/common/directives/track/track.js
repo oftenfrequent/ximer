@@ -6,9 +6,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			scope.effectWetnesses = [0,0,0,0];
 			setTimeout(function () {
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
-
 				for (var i = 0; i < canvasRow.length; i++) {
-
 					var canvasClasses = canvasRow[i].parentNode.classList;
 	
 					for (var j = 0; j < canvasClasses.length; j++) {
