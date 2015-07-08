@@ -17,12 +17,7 @@ var schema = new mongoose.Schema({
         location: [Number],
         url: String,
         img: String,
-        effectsRack: [{
-            chorus: { type: Number, default: 0 },
-            phaser: { type: Number, default: 0 },
-            distort: { type: Number, default: 0 },
-            pingpong: { type: Number, default: 0 }
-        }]
+        effectsRack: [Number]
     }],
     endMeasure: Number,
     bpm: Number

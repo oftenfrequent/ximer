@@ -17,7 +17,7 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				if($scope.loggedInUser._id === $stateParams.theID){
 					$state.go('project', {projectID: something._id});
 				}
-				// console.log("displaying a project", projectID);
+				console.log("displaying a project", $scope.parent);
 			}
 
 			$scope.makeFork = function(project){
@@ -38,5 +38,4 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 			}
 		});
 	
-		// $state.go('project')
 });
