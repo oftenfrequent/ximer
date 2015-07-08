@@ -29,6 +29,13 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 					console.log('Fork response is', response);
 				});
 			}
+
+			$scope.deleteProject = function(project){
+				console.log('DeleteProject', project)
+				ProjectFct.deleteProject(project).then(function(response){
+					console.log('Delete request is', response);
+				});
+			}
 		});
 	
 		// $state.go('project')

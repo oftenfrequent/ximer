@@ -19,6 +19,8 @@
            </audio>
         </div>
     </div>
+     <button ng-show="$parent.loggedInUser._id === $parent.user._id" style="background: purple" 
+     ng-click="deleteProject(project)">  Delete </button>
     <button ng-click="makeFork(project)">
         <i class="glyphicon glyphicon-random"></i> Fork
     </button>
