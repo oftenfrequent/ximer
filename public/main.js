@@ -174,61 +174,44 @@ app.run(function ($rootScope, AuthService, $state) {
         };
     });
 })();
+'use strict';
 app.config(function ($stateProvider) {
+    $stateProvider.state('home', {
+        url: '/',
+        templateUrl: 'js/home/home.html'
+    });
 
-    $stateProvider.state('signup', {
-        url: '/signup',
-        templateUrl: 'js/signup/signup.html',
-        controller: 'SignupCtrl'
+    $stateProvider.state('home.landing', {
+        url: '/landing',
+        templateUrl: 'js/home/landing.html'
     });
 });
 
-app.controller('SignupCtrl', function ($scope, AuthService, $state) {
+app.config(function ($stateProvider) {
 
-    $scope.signup = {};
+    $stateProvider.state('login', {
+        url: '/login',
+        templateUrl: 'js/login/login.html',
+        controller: 'LoginCtrl'
+    });
+});
+
+app.controller('LoginCtrl', function ($scope, AuthService, $state) {
+
+    $scope.login = {};
     $scope.error = null;
 
-    $scope.sendSignup = function (signupInfo) {
+    $scope.sendLogin = function (loginInfo) {
 
         $scope.error = null;
-        console.log(signupInfo);
-        AuthService.signup(signupInfo).then(function () {
+
+        AuthService.login(loginInfo).then(function () {
             $state.go('home');
         })['catch'](function () {
             $scope.error = 'Invalid login credentials.';
         });
     };
 });
-app.config(function ($stateProvider) {
-
-    $stateProvider.state('userProfile', {
-        url: '/userprofile/:theID',
-        templateUrl: 'js/user/userprofile.html',
-        controller: 'UserController',
-        // The following data.authenticate is read by an event listener
-        // that controls access to this state. Refer to app.js.
-        data: {
-            authenticate: true
-        }
-    }).state('userProfile.artistInfo', {
-        url: '/info',
-        templateUrl: 'js/user/info.html',
-        controller: 'UserController'
-    }).state('userProfile.project', {
-        url: '/projects',
-        templateUrl: 'js/user/projects.html',
-        controller: 'UserController'
-    }).state('userProfile.followers', {
-        url: '/followers',
-        templateUrl: 'js/user/followers.html',
-        controller: 'UserController'
-    }).state('userProfile.following', {
-        url: '/following',
-        templateUrl: 'js/user/following.html',
-        controller: 'UserController'
-    });
-});
-
 'use strict';
 app.config(function ($stateProvider) {
     $stateProvider.state('project', {
@@ -383,43 +366,59 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
         return AuthService.isAuthenticated();
     };
 });
-'use strict';
 app.config(function ($stateProvider) {
-    $stateProvider.state('home', {
-        url: '/',
-        templateUrl: 'js/home/home.html'
-    });
 
-    $stateProvider.state('home.landing', {
-        url: '/landing',
-        templateUrl: 'js/home/landing.html'
+    $stateProvider.state('signup', {
+        url: '/signup',
+        templateUrl: 'js/signup/signup.html',
+        controller: 'SignupCtrl'
     });
 });
 
-app.config(function ($stateProvider) {
+app.controller('SignupCtrl', function ($scope, AuthService, $state) {
 
-    $stateProvider.state('login', {
-        url: '/login',
-        templateUrl: 'js/login/login.html',
-        controller: 'LoginCtrl'
-    });
-});
-
-app.controller('LoginCtrl', function ($scope, AuthService, $state) {
-
-    $scope.login = {};
+    $scope.signup = {};
     $scope.error = null;
 
-    $scope.sendLogin = function (loginInfo) {
+    $scope.sendSignup = function (signupInfo) {
 
         $scope.error = null;
-
-        AuthService.login(loginInfo).then(function () {
+        console.log(signupInfo);
+        AuthService.signup(signupInfo).then(function () {
             $state.go('home');
         })['catch'](function () {
             $scope.error = 'Invalid login credentials.';
         });
     };
+});
+app.config(function ($stateProvider) {
+
+    $stateProvider.state('userProfile', {
+        url: '/userprofile/:theID',
+        templateUrl: 'js/user/userprofile.html',
+        controller: 'UserController',
+        // The following data.authenticate is read by an event listener
+        // that controls access to this state. Refer to app.js.
+        data: {
+            authenticate: true
+        }
+    }).state('userProfile.artistInfo', {
+        url: '/info',
+        templateUrl: 'js/user/info.html',
+        controller: 'UserController'
+    }).state('userProfile.project', {
+        url: '/projects',
+        templateUrl: 'js/user/projects.html',
+        controller: 'UserController'
+    }).state('userProfile.followers', {
+        url: '/followers',
+        templateUrl: 'js/user/followers.html',
+        controller: 'UserController'
+    }).state('userProfile.following', {
+        url: '/following',
+        templateUrl: 'js/user/following.html',
+        controller: 'UserController'
+    });
 });
 
 app.controller('HomeController', function ($scope, AuthService, ToneTrackFct, ProjectFct, $stateParams, $state) {
@@ -1130,7 +1129,7 @@ app.directive('navbar', function ($rootScope, AuthService, AUTH_EVENTS, $state) 
             var setNavbar = function setNavbar() {
                 AuthService.getLoggedInUser().then(function (user) {
                     scope.userId = user._id;
-                    scope.items = [{ label: 'Home', state: 'project' }, { label: 'Members Only', state: 'userProfile({theID: userId})', auth: true }];
+                    scope.items = [{ label: 'Home', state: 'home' }, { label: 'Profile', state: 'userProfile({theID: userId})', auth: true }];
                 });
             };
             setNavbar();
@@ -1224,9 +1223,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
             scope.effectWetnesses = [0, 0, 0, 0];
             setTimeout(function () {
                 var canvasRow = element[0].getElementsByClassName('canvas-box');
-
                 for (var i = 0; i < canvasRow.length; i++) {
-
                     var canvasClasses = canvasRow[i].parentNode.classList;
 
                     for (var j = 0; j < canvasClasses.length; j++) {
