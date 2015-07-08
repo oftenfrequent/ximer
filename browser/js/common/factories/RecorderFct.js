@@ -115,19 +115,18 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
 
             var readPromises = tracksArray.map(convertToBase64);
 
-            console.log('readPromises', readPromises);
-
             return $q.all(readPromises).then(function (storeData) {
+
                 
-                console.log('storeData', storeData);
 
                 tracksArray.forEach(function (track, i) {
                     if (storeData[i]) {
                         track.rawAudio = storeData[i];
+                        track.effectsRack = track.effectsRack.map(function (effect) {
+                            return effect.wet.value;
+                        });
                     }
                 });
-
-                console.log('tracksArray', tracksArray);
 
                 return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId })
                     .then(function (response) {
