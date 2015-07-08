@@ -8,7 +8,7 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
 
           userFactory.getUserObj($stateParams.theID).then(function(user){
             $scope.user = user;
-            console.log('user is', user)
+            console.log('user is', user);
           })
         
 
@@ -23,11 +23,11 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
     $scope.follow = function(user){
       userFactory.follow(user, $scope.loggedInUser).then(function(response){
         console.log('Follow controller response', response);
-      })
+      });
     }
 
-    $scope.logMe = function(){
-      console.log($scope.user);
+    $scope.clicker = function(){
+      console.log("clicked");
     }
 
     
