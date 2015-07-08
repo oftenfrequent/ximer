@@ -14,9 +14,15 @@ var schema = new mongoose.Schema({
     },
     tracks: [{
         name: String,
-        locations: [Number],
+        location: [Number],
         url: String,
-        img: String
+        img: String,
+        effectsRack: [{
+            chorus: { type: Number, default: 0 },
+            phaser: { type: Number, default: 0 },
+            distort: { type: Number, default: 0 },
+            pingpong: { type: Number, default: 0 }
+        }]
     }],
     endMeasure: Number,
     bpm: Number

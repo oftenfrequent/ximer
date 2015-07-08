@@ -70,7 +70,7 @@ app.directive('droppable', function() {
           
           // upon drop, changing position and updating track.location array on scope 
           var item = document.getElementById(e.dataTransfer.getData('Text'));
-          var xposition = this.attributes.xposition.value;
+          var xposition = parseInt(this.attributes.xposition.value);
           var childNodes = this.childNodes;
           var oldTimelineId;
           var theCanvas;
