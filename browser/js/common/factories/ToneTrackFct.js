@@ -27,15 +27,21 @@ app.factory('ToneTrackFct', function ($http, $q) {
 		});
 	};
 
-	var effectsInitialize = function() {
+	var effectsInitialize = function(arr) {
+
+
 		var chorus = new Tone.Chorus();
 		var phaser = new Tone.Phaser();
 		var distort = new Tone.Distortion();
 		var pingpong = new Tone.PingPongDelay();
-		chorus.wet.value = 0;
-		phaser.wet.value = 0;
-		distort.wet.value = 0;
-		pingpong.wet.value = 0;
+
+		if (arr.length) {
+			chorus.wet.value = arr[0];
+			phaser.wet.value = arr[1];
+			distort.wet.value = arr[2];
+			pingpong.wet.value = arr[3];
+		}
+		
 		chorus.connect(phaser);
 		phaser.connect(distort);
 		distort.connect(pingpong);

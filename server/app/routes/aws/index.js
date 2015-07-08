@@ -59,13 +59,7 @@ router.post('/', function (req, res, next) {
 				newTrack.url = urlTracks[i];
 				newTrack.location = track.location;
 				newTrack.img = track.img;
-			}
-
-			if (track.effectsRack) {
-				console.log('BITCH', track.effectsRack);
-				newTrack.effectsRack = track.effectsRack.map(function (effect) {
-					return effect.wet.value;
-				});
+				newTrack.effectsRack = track.effectsRack;
 			}
 			
 			newTrack.name = track.name;

@@ -13,7 +13,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 	
 					for (var j = 0; j < canvasClasses.length; j++) {
 						if (canvasClasses[j] === 'taken') {
-							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute;' draggable></canvas>")(scope));
+							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
 						}
 					}
 				}

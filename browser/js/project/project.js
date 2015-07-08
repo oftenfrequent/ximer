@@ -54,7 +54,8 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 				// TODO: this is assuming that a player exists
 				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
 				//init effects, connect, and add to scope
-				track.effectsRack = ToneTrackFct.effectsInitialize();
+
+				track.effectsRack = ToneTrackFct.effectsInitialize(track.effectsRack);
 				track.player.connect(track.effectsRack[0]);
 
 				if(track.location.length) {
@@ -74,13 +75,13 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
     				obj.recording = false;
     				obj.onTimeline = false;
     				obj.previewing = false;
-    				obj.effectsRack = ToneTrackFct.effectsInitialize();
+    				obj.effectsRack = ToneTrackFct.effectsInitialize([0, 0, 0, 0]);
     				obj.player = null;
     				obj.name = 'Track ' + (i+1);
     				obj.location = [];
     				$scope.tracks.push(obj);
   			}
-		  }
+		}
 
 		//dynamically set measures
 		//if less than 16 set 18 as minimum
