@@ -13,13 +13,16 @@
 					<div class="profile-usertitle-name">
 						{{user.username}}
 					</div>
+					<div>
+						<button ng-show="loggedInUser._id !== user._id" ng-click="follow(user)">Follow</button>
+					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
 				<!-- SIDEBAR BUTTONS -->
 
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li ui-sref="userProfile.artistInfo" ng-show="loggedInUser._id===user._id">
+						<li ui-sref="userProfile.artistInfo" ng-show="loggedInUser._id === user._id">
 							<a href="#">
 							<i class="glyphicon glyphicon-cog"></i>
 							Account Settings </a>

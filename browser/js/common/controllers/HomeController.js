@@ -10,7 +10,7 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
     	console.log('in here')
     	ProjectFct.getProjectInfo().then(function(projects){
     		$scope.allProjects=projects;
-    		console.log('All Projects are', projects)
+    		// console.log('All Projects are', projects)
     	})
     }
 	$scope.projects();

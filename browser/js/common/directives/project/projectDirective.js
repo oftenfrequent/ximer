@@ -8,24 +8,28 @@ app.directive('projectdirective', function() {
 
 app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct, AuthService){
 
-	$scope.displayAProject = function(something){
-		console.log('THING', something);
-		$state.go('project', {projectID: something._id});
-		// console.log("displaying a project", projectID);
-	}
 
-	$scope.makeFork = function(project){
 
 		AuthService.getLoggedInUser().then(function(loggedInUser){
-			project.owner = loggedInUser._id;
-			project.forkID = project._id;
-			delete project._id;
-			console.log(project);
-			ProjectFct.createAFork(project).then(function(response){
-				console.log('Fork response is', response)
-			});
-		})
+			$scope.loggedInUser = loggedInUser;
+			$scope.displayAProject = function(something){
+				console.log('THING', something);
+				if($scope.loggedInUser._id === $stateParams.theID){
+					$state.go('project', {projectID: something._id});
+				}
+				// console.log("displaying a project", projectID);
+			}
+
+			$scope.makeFork = function(project){
+				project.owner = loggedInUser._id;
+				project.forkID = project._id;
+				delete project._id;
+				console.log(project);
+				ProjectFct.createAFork(project).then(function(response){
+					console.log('Fork response is', response);
+				});
+			}
+		});
 	
 		// $state.go('project')
-	}
 });
