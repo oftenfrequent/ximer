@@ -23,7 +23,7 @@
 </div>
 <div class="track-row" style="width: {{300 + (numMeasures.length * 200)}}px;">
 	<!-- Droppable Directive -->
-    <div ng-repeat="measure in numMeasures" xposition="{{$index}}" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.locations.indexOf($index) > -1 }" droppable drop="handleDrop()" ng-dblclick="appearOrDisappear($index)">
+    <div ng-repeat="measure in numMeasures" xposition="{{$index}}" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.location.indexOf($index) > -1 }" droppable drop="handleDrop()" ng-dblclick="appearOrDisappear($index)">
     	<div class="canvas-box"></div>
 	</div>
 </div>

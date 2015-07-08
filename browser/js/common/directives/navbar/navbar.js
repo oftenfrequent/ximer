@@ -9,10 +9,10 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
             var setNavbar = function(){
                 AuthService.getLoggedInUser().then(function(user){
-                    scope.userID = user._id;
+                    scope.userId = user._id;
                     scope.items = [
                         { label: 'Home', state: 'project' },
-                        { label: 'Members Only', state: 'userProfile({theID: userID})', auth: true }
+                        { label: 'Members Only', state: 'userProfile({theID: userId})', auth: true }
                     ];
                 });
             }

@@ -10,43 +10,40 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
     	console.log('in here')
     	ProjectFct.getProjectInfo().then(function(projects){
     		$scope.allProjects=projects;
-    		console.log('All Projects are', projects)
+    		// console.log('All Projects are', projects)
     	})
     }
-$scope.projects();
+	$scope.projects();
 
-	$scope.makeFork = function(project){
+		$scope.makeFork = function(project){
 
-		console.log('The project is', project);
-		// AuthService.getLoggedInUser(function(user){
+			}
+		var stop =false;
 
-		// 	ProjectFct.createAFork(project).then(function(response){
-		// 	console.log('Response is', response);
-		// });
-		// })
-		// $state.go('project')
-	}
-	var stop =false;
+		$scope.sampleTrack = function(track){
 
-	$scope.sampleTrack = function(track){
+			if(stop===true){
+				$scope.player.stop()
+			}
 
-		if(stop===true){
-			$scope.player.stop()
+			ToneTrackFct.createPlayer(track.url, function(player){
+				$scope.player = player;
+				if(stop===false){
+					stop=true
+					$scope.player.start();
+				}
+				else{
+					stop=false;
+				}
+			})
 		}
 
-		ToneTrackFct.createPlayer(track.url, function(player){
-			$scope.player = player;
-			if(stop===false){
-				stop=true
-				$scope.player.start();
-			}
-			else{
-				stop=false;
-			}
-		})
+
+	  $scope.getUserProfile = function(user){
+	    console.log("clicked", user);
+	    $state.go('userProfile', {theID: user._id});
 	}
 
-	$scope.for
     
 
 

@@ -179,6 +179,9 @@ div[class*="col-"] {
   padding-right: 0px;
   padding-left: 0px; }
 
+.collection {
+  background: #202630; }
+
 #login-form {
   width: 60%;
   margin: 0 auto; }

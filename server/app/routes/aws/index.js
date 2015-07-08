@@ -25,32 +25,53 @@ router.post('/', function (req, res, next) {
 
 	tracks.forEach(function (track) {
 		
-		// base64 data prepends header, spliting the header
-		var slicedTrack = track.rawAudio.split(',');
-		var trackBuffer = new Buffer(slicedTrack[1],'base64'); // the blob
+		if (track.rawAudio) {
+			// base64 data prepends header, spliting the header
+			var slicedTrack = track.rawAudio.split(',');
+			var trackBuffer = new Buffer(slicedTrack[1],'base64'); // the blob
 
-		//the uuid generates a unique string of characters each time
-		var keyName = uuid.v4() + '.wav';
-		var url = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/' + keyName;
-		urlTracks.push(url)
-		var params = {Bucket: bucketName, Key: keyName, Body: trackBuffer};
+			//the uuid generates a unique string of characters each time
+			var keyName = uuid.v4() + '.wav';
+			var url = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/' + keyName;
+			urlTracks.push(url)
+			var params = {Bucket: bucketName, Key: keyName, Body: trackBuffer};
 
-		s3.putObject(params, function(err, data) {
-			if (err)
-			 console.log(err)
-			else
-			 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
-		});
+			s3.putObject(params, function(err, data) {
+				if (err)
+				 console.log(err)
+				else
+				 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
+			});
+		}
+		
 	})
 
 	Project.findById(projectId).exec().then(function (project) {
 
+		// console.log('project', project);
+		// console.log('tracks', tracks);
+
 		tracks.forEach(function (track, i) {
+
 			var newTrack = {};
+
+			if (track.rawAudio) {
+				newTrack.url = urlTracks[i];
+				newTrack.location = track.location;
+				newTrack.img = track.img;
+			}
+
+			if (track.effectsRack) {
+				console.log('BITCH', track.effectsRack);
+				newTrack.effectsRack = track.effectsRack.map(function (effect) {
+					return effect.wet.value;
+				});
+			}
+			
 			newTrack.name = track.name;
-			newTrack.url = urlTracks[i];
-			newTrack.locations = track.locations;
+			console.log('newTrack', newTrack);
 			project.tracks.push(newTrack);
+
 		});
 
 		return project.save();

@@ -38,15 +38,14 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				if (!scope.track.img) {
 					scope.track.img = window.latestRecordingImage.replace(/^data:image\/png;base64,/, "");
 				}
-				// console.log('pushing', position);
+				console.log('pushing', position);
 				scope.track.location.push(position);
 				scope.track.location.sort();
 				var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' ng-dblclick='dupelicate()' draggable></canvas>")(scope));
-				// console.log('track', scope.track);
-
+				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' draggable></canvas>")(scope));
 				var canvas = document.getElementById( "mdisplay" +  index + "-" + position );
                 drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );
+				console.log('track', scope.track);
 			}
 
 			scope.moveInTimeline = function (oldTimelineId, newMeasure) {
@@ -113,7 +112,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 
 
 				function update() {
-					console.log('UPDATE')
 					var SPACING = 3;
 					var BAR_WIDTH = 1;
 					var numBars = Math.round(300 / SPACING);
@@ -143,11 +141,11 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}
 				}
 
-
 				//RECORDING STARTS AT MEASURE 1
 				var micStartID = Tone.Transport.setTimeline(function () {
 					RecorderFct.recordStart(recorder, index);
 				}, "1m");
+
 
 				//RECORDING ENDS AT MEASURE 2
 				var micEndID = Tone.Transport.setTimeline(function () {
@@ -159,6 +157,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						scope.track.player = player;
 						scope.track.player.loop = true;
 						scope.track.buffer = window.latestBuffer;
+						scope.track.rawAudio = window.latestRecording;
 						player.connect(scope.track.effectsRack[0]);
 						console.log('player', player);
 						console.log('IN STOPPPPPPP');
@@ -170,46 +169,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				}, "2m");
 
 				Tone.Transport.start();
-
-				// setTimeout(function () {
-				// 	// console.log('SCOPE', scope);
-				// 	console.log('SCOPE', scope.track.player);
-
-				// 		// scope.$digest();
-				// 		// scope.track.player.start();
-				// 	});
-				// }, 2000);
-
-
-
-				// //CALLS RECORD IN RECORD FCT with THIS RUNNING
-				// //ADDS Recording scope var to TRUE
-				// console.log('e', e, e.toElement);
-				// e = e.toElement;
-			 //    // start recording
-			 //    console.log('start recording');
-			    
-			 //    if (!audioRecorder)
-			 //        return;
-
-			 //    e.classList.add("recording");
-			 //    audioRecorder.clear();
-			 //    audioRecorder.record();
-
-			 //    window.setTimeout(function() {
-				// audioRecorder.stop();
-				// e.classList.remove("recording");
-				// audioRecorder.getBuffers( gotBuffers );
-
-				// window.setTimeout(function () {
-				// 	scope.tracks[index].rawAudio = window.latestRecording;
-				// 	scope.tracks[index].rawImage = window.latestRecordingImage;
-				// 	console.log('trackss', scope.tracks);
-				// 	// wavArray.push(window.latestRecording);
-				// 	// console.log('wavArray', wavArray);
-				// }, 500);
-			      
-			 //    }, 2000);
 
 			}
 			scope.preview = function(currentlyPreviewing) {
