@@ -3,7 +3,6 @@ app.factory('AnalyserFct', function() {
 	var updateAnalysers = function (analyserContext, analyserNode, continueUpdate) {
 
 		function update() {
-			console.log('UPDATE')
 			var SPACING = 3;
 			var BAR_WIDTH = 1;
 			var numBars = Math.round(300 / SPACING);

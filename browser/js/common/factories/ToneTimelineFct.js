@@ -47,7 +47,6 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 	var createMetronome = function () {
         return new $q(function (resolve, reject) {
 	        var met = new Tone.Player("/api/wav/Click1.wav", function () {
-	        	console.log('LOADED');
 				return resolve(met);
 	        }).toMaster();
         });
