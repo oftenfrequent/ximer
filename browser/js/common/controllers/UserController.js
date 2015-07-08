@@ -26,6 +26,10 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
       })
     }
 
+    $scope.logMe = function(){
+      console.log($scope.user);
+    }
+
     
 
 

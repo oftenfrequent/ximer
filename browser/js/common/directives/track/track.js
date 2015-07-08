@@ -6,14 +6,12 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			scope.effectWetnesses = [0,0,0,0];
 			setTimeout(function () {
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
-
 				for (var i = 0; i < canvasRow.length; i++) {
-
 					var canvasClasses = canvasRow[i].parentNode.classList;
 	
 					for (var j = 0; j < canvasClasses.length; j++) {
 						if (canvasClasses[j] === 'taken') {
-							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute;' draggable></canvas>")(scope));
+							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
 						}
 					}
 				}
@@ -68,7 +66,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						scope.track.location.sort();
 						console.log(scope.track.location);
 						var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item trackLoop"+trackIndex+"' style='position: absolute;' draggable></canvas>")(scope));
+						// angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item trackLoop"+trackIndex+"' style='position: absolute;' draggable></canvas>")(scope));
+						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
 						// console.log('track', scope.track);
 						var canvas = document.getElementById( "mdisplay" +  trackIndex + "-" + position );
 		                drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );
@@ -104,7 +103,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.effectsRack.forEach(function (effect) {
 					effect.dispose();
 				});
-				scope.track.effectsRack = ToneTrackFct.effectsInitialize();
+				scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
 				scope.track.location = [];
 				//remove all loops from UI
 				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
