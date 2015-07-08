@@ -5,6 +5,12 @@ app.factory('userFactory', function($http){
 				console.log('resoonse is', response.data)
 				return response.data;
 			});
+		},
+		follow: function(user, loggedInUser){
+			return $http.put('api/users',{userToFollow: user, loggedInUser: loggedInUser}).then(function(response){
+				console.log('FollowUser Factory response', response.data);
+				return response.data;
+			})
 		}
 	}
 
