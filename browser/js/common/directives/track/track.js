@@ -42,7 +42,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.location.push(position);
 				scope.track.location.sort();
 				var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item' style='position: absolute;' draggable></canvas>")(scope));
+				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item trackLoop"+index+"' style='position: absolute;' draggable></canvas>")(scope));
 				var canvas = document.getElementById( "mdisplay" +  index + "-" + position );
                 drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );
 				console.log('track', scope.track);
@@ -63,20 +63,17 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				console.log(scope.track.location.indexOf(position));
 				if(scope.track.onTimeline) {
 					if(loopIndex === -1) {
-						console.log('APPEAR');
 						var canvasRow = element[0].getElementsByClassName('canvas-box');
 						scope.track.location.push(position);
 						scope.track.location.sort();
 						console.log(scope.track.location);
 						var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-						console.log('TIMELINE_ID', timelineId);
-						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item' style='position: absolute;' ng-dblclick='dupelicate()' draggable></canvas>")(scope));
+						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item trackLoop"+trackIndex+"' style='position: absolute;' draggable></canvas>")(scope));
 						// console.log('track', scope.track);
 						var canvas = document.getElementById( "mdisplay" +  trackIndex + "-" + position );
 		                drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );
 					} else {
 						var canvas = document.getElementById( "mdisplay" +  trackIndex + "-" + position );
-						console.log('DISAPPEAR');
 						//remove from locations array
 						scope.track.location.splice(loopIndex, 1);
 						//remove timelineId
@@ -92,8 +89,60 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				}
 			};
 
+			scope.reRecord = function (index) {
+				console.log('RERECORD');
+				console.log(scope.track);
+				//change all params back as if empty track
+				scope.track.empty = true;
+				scope.track.onTimeline = false;
+				scope.track.player = null;
+				scope.track.silence = false;
+				scope.track.rawAudio = null;
+				scope.track.img = null;
+				scope.track.previewing = false;
+				//dispose of effectsRack
+				scope.track.effectsRack.forEach(function (effect) {
+					effect.dispose();
+				});
+				scope.track.effectsRack = ToneTrackFct.effectsInitialize();
+				scope.track.location = [];
+				//remove all loops from UI
+				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
+				while(loopsUI.length !== 0) {
+					for(var i = 0; i < loopsUI.length;i++) {
+						loopsUI[i].parentNode.removeChild(loopsUI[i]);
+					}
+					var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
+				}
+			};
+
+			scope.solo = function () {
+				var otherTracks = scope.$parent.tracks.map(function (track) {
+					if(track !== scope.track) {
+						track.silence = true;
+						return track;
+					}
+				}).filter(function (track) {
+					if(track && track.player) return true;
+				})
+
+				console.log(otherTracks);
+				ToneTimelineFct.muteAll(otherTracks);
+				scope.track.silence = false;
+				scope.track.player.volume.value = 0;
+			}
+
+			scope.silence = function () {
+				if(!scope.track.silence) {
+					scope.track.player.volume.value = -100;
+					scope.track.silence = true;
+				} else {
+					scope.track.player.volume.value = 0;
+					scope.track.silence = false;
+				}
+			}
+
 			scope.record = function (index) {
-				// console.log('TRACKS', scope.$parent.tracks);
 				ToneTimelineFct.muteAll(scope.$parent.tracks);
 				var recorder = scope.recorder;
 
@@ -108,7 +157,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.recording = true;
 				scope.track.empty = true;
 				RecorderFct.recordStart(recorder);
-				scope.track.empty = true;
+				scope.track.previewing = false;
 
 
 				function update() {
@@ -141,14 +190,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}
 				}
 
-				//RECORDING STARTS AT MEASURE 1
-				var micStartID = Tone.Transport.setTimeline(function () {
-					RecorderFct.recordStart(recorder, index);
-				}, "1m");
-
-
-				//RECORDING ENDS AT MEASURE 2
-				var micEndID = Tone.Transport.setTimeline(function () {
+				window.setTimeout(function() {
 					RecorderFct.recordStop(index, recorder).then(function (player) {
 						scope.track.recording = false;
 						scope.track.empty = false;
@@ -159,16 +201,23 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						scope.track.buffer = window.latestBuffer;
 						scope.track.rawAudio = window.latestRecording;
 						player.connect(scope.track.effectsRack[0]);
-						console.log('player', player);
-						console.log('IN STOPPPPPPP');
-						Tone.Transport.clearTimeline(micStartID);
-						Tone.Transport.clearTimeline(micEndID);
+						scope.$parent.metronome.stop();
+						window.clearInterval(click);
+
 						scope.$parent.stop();
 						ToneTimelineFct.unMuteAll(scope.$parent.tracks);
 					});
-				}, "2m");
+				}, 4000);
 
-				Tone.Transport.start();
+				window.setTimeout(function() {
+					RecorderFct.recordStart(recorder, index);
+				}, 2000);
+				scope.$parent.metronome.start();
+
+				var click = window.setInterval(function () {
+					scope.$parent.metronome.stop();
+					scope.$parent.metronome.start();
+				}, 500);
 
 			}
 			scope.preview = function(currentlyPreviewing) {

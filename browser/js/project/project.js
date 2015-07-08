@@ -8,13 +8,17 @@ app.config(function ($stateProvider) {
 
 app.controller('ProjectController', function($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
-  var maxMeasure = 0;
+	window.onblur = function () {
+        $scope.stop();
+    };
 
-  // number of measures on the timeline
-  $scope.numMeasures = _.range(0, 60);
+	var maxMeasure = 0;
 
-  // length of the timeline
-  $scope.measureLength = 1;
+	// number of measures on the timeline
+	$scope.numMeasures = _.range(0, 60);
+
+	// length of the timeline
+	$scope.measureLength = 1;
 
 	//Initialize recorder on project load
 	RecorderFct.recorderInit().then(function (retArr) {
@@ -31,6 +35,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 	$scope.loading = true;
 	$scope.projectId = $stateParams.projectID;
 	$scope.position = 0;
+	$scope.playing = false;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
@@ -51,6 +56,8 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 				
 				track.empty = false;
 				track.recording = false;
+    			track.silence = false;
+
 				// TODO: this is assuming that a player exists
 				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
 				//init effects, connect, and add to scope
@@ -74,6 +81,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
     				obj.recording = false;
     				obj.onTimeline = false;
     				obj.previewing = false;
+    				obj.silence = false;
     				obj.effectsRack = ToneTrackFct.effectsInitialize();
     				obj.player = null;
     				obj.name = 'Track ' + (i+1);
@@ -102,8 +110,6 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
 	$scope.dropInTimeline = function (index) {
 		var track = scope.tracks[index];
-
-		console.log(track);
 	}
 
 	$scope.addTrack = function () {
@@ -111,11 +117,12 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 	};
 
 	$scope.play = function () {
+		$scope.playing = true;
 		Tone.Transport.position = $scope.position.toString() + ":0:0";
 		Tone.Transport.start();
 	}
 	$scope.pause = function () {
-		console.log('METRONMONE', $scope.tracks);
+		$scope.playing = false;
 		$scope.metronome.stop();
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];
@@ -125,6 +132,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		Tone.Transport.pause();
 	}
 	$scope.stop = function () {
+		$scope.playing = false;
 		$scope.metronome.stop();
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = 0;
@@ -133,7 +141,6 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		Tone.Transport.stop();
 	}
 	$scope.nameChange = function(newName) {
-		console.log('SHOW INPUT', newName);
 		$scope.nameChanging = false;
 	}
 

@@ -1,5 +1,5 @@
-<div class="trackMainSection">
-	<canvas id="analyser{{$index}}" height="100px" class="trackAnalyser" ng-show="track.empty || track.recording">
+<div class="trackMainSection" ng-class="{grayed: track.silence}">
+	<canvas id="analyser{{$index}}" height="100px" class="trackAnalyser" ng-show="track.empty && track.recording">
 		
 	</canvas>
 	<canvas id="wavedisplay{{$index}}" height="100px" class="trackWave" ng-show="!track.empty && !track.recording && !track.onTimeline"></canvas>
@@ -16,14 +16,25 @@
 			<span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
 		</button>
 
+		<button class="btn btn-primary" ng-click="reRecord($index)" ng-show="!track.empty && track.onTimeline">
+			<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+		</button>
+
+		<button class="btn btn-primary" ng-click="solo()" ng-show="!track.empty && track.onTimeline">
+			<span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+		</button>
+
+		<button class="btn btn-primary" ng-click="silence()" ng-show="!track.empty && track.onTimeline">
+			<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
+		</button>
 
 		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline">
 		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 	</div>
 </div>
-<div class="track-row" style="width: {{300 + (numMeasures.length * 200)}}px;">
+<div class="track-row" id="measure-row{{$index}}" style="width: {{300 + (numMeasures.length * 200)}}px;">
 	<!-- Droppable Directive -->
     <div ng-repeat="measure in numMeasures" xposition="{{$index}}" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.location.indexOf($index) > -1 }" droppable drop="handleDrop()" ng-dblclick="appearOrDisappear($index)">
-    	<div class="canvas-box"></div>
+    	<div class="canvas-box"  ng-class="{grayed: track.silence}"></div>
 	</div>
 </div>
