@@ -92,6 +92,7 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
 
     
     var convertToBase64 = function (track) {
+        console.log('each track', track);
         return new $q(function (resolve, reject) {
             var reader = new FileReader();
 
@@ -100,6 +101,8 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                 reader.onloadend = function(e) {
                     resolve(reader.result);
                 }
+            } else {
+                resolve(null);
             }
         });
     };
@@ -112,13 +115,19 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
 
             var readPromises = tracksArray.map(convertToBase64);
 
+            console.log('readPromises', readPromises);
+
             return $q.all(readPromises).then(function (storeData) {
                 
                 console.log('storeData', storeData);
 
                 tracksArray.forEach(function (track, i) {
-                    track.rawAudio = storeData[i];
+                    if (storeData[i]) {
+                        track.rawAudio = storeData[i];
+                    }
                 });
+
+                console.log('tracksArray', tracksArray);
 
                 return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId })
                     .then(function (response) {

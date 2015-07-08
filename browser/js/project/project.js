@@ -46,7 +46,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 						// Tone.Transport.start();
 					}
 				};
-				var max = Math.max.apply(null, track.locations);
+				var max = Math.max.apply(null, track.location);
 				if(max + 2 > maxMeasure) maxMeasure = max + 2;
 				
 				track.empty = false;
@@ -57,8 +57,8 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 				track.effectsRack = ToneTrackFct.effectsInitialize();
 				track.player.connect(track.effectsRack[0]);
 
-				if(track.locations.length) {
-					ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+				if(track.location.length) {
+					ToneTimelineFct.addLoopToTimeline(track.player, track.location);
 					track.onTimeline = true;
 				} else {
 					track.onTimeline = false;
@@ -147,7 +147,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
   $scope.sendToAWS = function () {
 
-    RecorderFct.sendToAWS($scope.tracks).then(function (response) {
+    RecorderFct.sendToAWS($scope.tracks, $scope.projectId).then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 

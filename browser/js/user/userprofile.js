@@ -19,6 +19,17 @@ app.config(function($stateProvider) {
         url: '/projects',
         templateUrl: 'js/user/projects.html',
         controller: 'UserController'
+    })
+    .state('userProfile.followers', {
+        url: '/followers',
+        templateUrl: 'js/user/followers.html',
+        controller: 'UserController'
+    })
+    .state('userProfile.following', {
+        url: '/following',
+        templateUrl: 'js/user/following.html',
+        controller: 'UserController'
     });
 
 });
+
