@@ -11,8 +11,11 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 			createMetronome().then(function (metronome) {
 				Tone.Transport.setInterval(function () {
 					var posArr = Tone.Transport.position.split(':');
-					var leftPos = ((parseInt(posArr[0]) * 200 ) + (parseInt(posArr[1]) * 50) + 300).toString() + 'px';
+					var leftPos = ((parseInt(posArr[0]) * 200 ) + (parseInt(posArr[1]) * 50) + 500).toString() + 'px';
 					playHead.style.left = leftPos;
+					metronome.start();
+				}, '1m');
+				Tone.Transport.setInterval(function () {
 					console.log(Tone.Transport.position);
 					metronome.start();
 				}, '4n');

@@ -111,10 +111,14 @@ xim-track .trackControllsContainer {
   position: relative;
   width: 1px;
   background-color: #fff;
-  height: 813px;
+  height: 814px;
   z-index: 9999;
   left: 300px;
-  margin-bottom: -813px; }
+  margin-bottom: -814px;
+  transition-property: left;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  transition-delay: 0s; }
 
 #measure-container {
   height: 14px; }
