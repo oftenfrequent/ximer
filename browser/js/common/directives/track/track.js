@@ -59,8 +59,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			scope.appearOrDisappear = function(position) {
 				var trackIndex = scope.$parent.tracks.indexOf(scope.track);
 				var loopIndex = scope.track.location.indexOf(position);
-				// console.log('IND, POS', trackIndex, position);
-				// console.log(scope.track.location.indexOf(position));
+				console.log('IND, POS', trackIndex, position);
+				console.log(scope.track.location.indexOf(position));
 				if(scope.track.onTimeline) {
 					if(loopIndex === -1) {
 						console.log('APPEAR');
