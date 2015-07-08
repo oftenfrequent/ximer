@@ -23,10 +23,18 @@ app.factory('ProjectFct', function($http){
     	})
     }
 
+    var deleteProject = function(project){
+        return $http.delete('/api/projects/'+project._id).then(function(response){
+            console.log('Delete Proj Fct', response.data);
+            return response.data;
+        })
+    }
+
     return {
         getProjectInfo: getProjectInfo,
         createAFork: createAFork,
-        newProject: newProject
+        newProject: newProject, 
+        deleteProject: deleteProject
     };
 
 });
