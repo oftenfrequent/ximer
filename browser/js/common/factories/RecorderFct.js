@@ -128,8 +128,6 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                     }
                 });
 
-                console.log('tracksArray', tracksArray);
-
                 return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId })
                     .then(function (response) {
                         console.log('response in sendToAWSFactory', response);

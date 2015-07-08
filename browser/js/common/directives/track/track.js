@@ -68,7 +68,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						console.log(scope.track.location);
 						var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
 						console.log('TIMELINE_ID', timelineId);
-						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item' style='position: absolute;' ng-dblclick='dupelicate()' draggable></canvas>")(scope));
+						angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item' style='position: absolute; background: url(data:image/png;base64," + scope.track.img + ");' draggable></canvas>")(scope));
 						// console.log('track', scope.track);
 						var canvas = document.getElementById( "mdisplay" +  trackIndex + "-" + position );
 		                drawBuffer( 198, 98, canvas.getContext('2d'), scope.track.buffer );

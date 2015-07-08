@@ -38,37 +38,51 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		$scope.projectName = project.name;
 
 		if (project.tracks.length) {
+
 			project.tracks.forEach(function (track) {
-				var doneLoading = function () {
-					loaded++;
-					if(loaded === project.tracks.length) {
-						$scope.loading = false;
-						// Tone.Transport.start();
+
+				if (track.url) {
+					var doneLoading = function () {
+						loaded++;
+						if(loaded === project.tracks.length) {
+							$scope.loading = false;
+							// Tone.Transport.start();
+						}
+					};
+
+					var max = Math.max.apply(null, track.location);
+					if(max + 2 > maxMeasure) maxMeasure = max + 2;
+					
+					track.empty = false;
+					track.recording = false;
+					// TODO: this is assuming that a player exists
+					track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+					//init effects, connect, and add to scope
+
+					track.effectsRack = ToneTrackFct.effectsInitialize(track.effectsRack);
+					track.player.connect(track.effectsRack[0]);
+
+					if(track.location.length) {
+						ToneTimelineFct.addLoopToTimeline(track.player, track.location);
+						track.onTimeline = true;
+					} else {
+						track.onTimeline = false;
 					}
-				};
-				var max = Math.max.apply(null, track.location);
-				if(max + 2 > maxMeasure) maxMeasure = max + 2;
-				
-				track.empty = false;
-				track.recording = false;
-				// TODO: this is assuming that a player exists
-				track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
-				//init effects, connect, and add to scope
 
-				track.effectsRack = ToneTrackFct.effectsInitialize(track.effectsRack);
-				track.player.connect(track.effectsRack[0]);
-
-				if(track.location.length) {
-					ToneTimelineFct.addLoopToTimeline(track.player, track.location);
-					track.onTimeline = true;
+					$scope.tracks.push(track);
 				} else {
-					track.onTimeline = false;
+					track.empty = true;
+					track.recording = false;
+    				track.onTimeline = false;
+    				track.previewing = false;
+    				track.effectsRack = ToneTrackFct.effectsInitialize([0, 0, 0, 0]);
+    				track.player = null;
+    				$scope.tracks.push(track);
 				}
-
-				$scope.tracks.push(track);
 			});
 		} else {
 			$scope.maxMeasure = 32;
+			console.log('EXECUTING THIS');
   			for (var i = 0; i < 8; i++) {
     				var obj = {};
     				obj.empty = true;

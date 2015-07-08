@@ -48,24 +48,32 @@ router.post('/', function (req, res, next) {
 
 	Project.findById(projectId).exec().then(function (project) {
 
-		// console.log('project', project);
-		// console.log('tracks', tracks);
+		project.tracks = [];
 
 		tracks.forEach(function (track, i) {
 
-			var newTrack = {};
-
 			if (track.rawAudio) {
+
+				var newTrack = {};
 				newTrack.url = urlTracks[i];
 				newTrack.location = track.location;
 				newTrack.img = track.img;
 				newTrack.effectsRack = track.effectsRack;
-			}
-			
-			newTrack.name = track.name;
-			console.log('newTrack', newTrack);
-			project.tracks.push(newTrack);
+				newTrack.name = track.name;
+				project.tracks.push(newTrack);
 
+			} else {
+				
+				delete track.buffer;
+				delete track.effectsRack;
+				delete track.empty;
+				delete track.onTimeline;
+				delete track.recording;
+				delete track.rawAudio;
+				delete track.previewing;
+				delete track.player;
+				project.tracks.push(track);
+			}
 		});
 
 		return project.save();
