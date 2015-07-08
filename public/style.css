@@ -6,6 +6,14 @@ body {
   background: #202630;
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
+::selection {
+  background: transparent;
+  /* WebKit/Blink Browsers */ }
+
+::-moz-selection {
+  background: transparent;
+  /* Gecko Browsers */ }
+
 fullstack-logo {
   display: block; }
   fullstack-logo img {
