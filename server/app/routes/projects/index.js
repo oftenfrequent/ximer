@@ -7,6 +7,10 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var User = mongoose.model('User');
+var SC = require('node-soundcloud');
+var socketio = require('../../../io/index.js')();
+
+
 
 
 
@@ -15,7 +19,6 @@ router.get('/:id', function (req, res, next) {
     //for HomeController
     if(req.params.id === 'all'){
     	Project.find({}).populate('owner').exec().then(function(projects){
-            console.log('project is', projects);
             res.send(projects)
         }, function(err){
             next(err);
@@ -45,7 +48,6 @@ router.post('/', function(req, res, next) {
 		});
 	} else {
 		Project.create(req.body).then(function (project) {
-	        console.log('Newly created project is', project);
 	        project.bpm = 120;
 	        project.endMeasure = 16;
 	        User.findById(req.body.owner).exec().then(function(user){
@@ -68,7 +70,6 @@ router.put('/:id', function (req, res, next) {
 
 router.delete('/:id', function(req, res, next) {
 	Project.findByIdAndRemove(req.params.id).exec().then(function (project) {
-		console.log('Data is',data)
 		if(project.forkID){
 
 			//need to fill this up
@@ -80,3 +81,21 @@ router.delete('/:id', function(req, res, next) {
         next(err);
     });
 });
+
+router.post('/soundcloud', function(req, res, next){
+	console.log('req.code is', req.code);
+	  var url = SC.getConnectUrl();
+	  console.log('url is', url);
+
+	// SC.init({
+ //  		id: '45c5e6212ac58c73e7d05f8636a9bf22',
+ //  		secret: 'ae88cd6434e65ec74ed1ade69eeb9cca',
+ //  		uri: 'http://127.0.0.1:1337/auth/soundcloud/callback',
+ //  		accessToken: 'your existing access token'
+	// });
+
+	// SC.post('/tracks',{title: 'Hey'}, function(err, response){
+	// 	console.log('error is',err);
+	// 	console.log('response is', response)
+	// })
+})

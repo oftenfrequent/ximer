@@ -12,7 +12,6 @@ var mongoose = require('mongoose');
 
 router.get('/', function (req, res) {
     UserModel.findOne(req.query).populate('projects').exec().then(function(user){
-        console.log('user', user)
         res.send(user);
     }, function(err){
         res.status(500).send(err.message);
@@ -30,14 +29,12 @@ router.post('/', function(req, res){
 
 router.put('/', function(req, res, next){
     if(req.body.userToFollow){
-        console.log("follow", req.body);
         UserModel.update({_id: req.body.loggedInUser._id}, {$push: {following: req.body.userToFollow._id}}).exec().then(function(update){
 
         }, function(err){
             next(err);
         });
         UserModel.update({_id: req.body.userToFollow._id},{$push: {followers: req.body.loggedInUser._id}}).exec().then(function(user){
-            console.log('Both have been updated')
             res.send(user)
         }, function(err){
             next(err);
@@ -45,7 +42,6 @@ router.put('/', function(req, res, next){
     }
 
     if(req.body.forkID){
-        console.log("htatlatalta", req.body);
         UserModel.update({_id: req.body.owner}, {$push: {projects: req.body._id}}).exec().then(function(update){
             res.send(update);
         }, function(err){
@@ -56,7 +52,6 @@ router.put('/', function(req, res, next){
 });
 
 router.put('/userproject', function(req, res){
-    console.log('YOOOO')
     // UserModel.findById(req.body.owner).then(function(user){
     //     console.log('User has been updated', user);
     //     user.save();

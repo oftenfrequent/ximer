@@ -36,6 +36,13 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 					console.log('Delete request is', response);
 				});
 			}
+
+			$scope.uploadProject = function(project){
+				console.log('Uploading Project', project);
+				ProjectFct.uploadProject(project).then(function(response){
+					console.log('Upload Request is', response);
+				})
+			}
 		});
 	
 });
