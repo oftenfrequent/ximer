@@ -38,19 +38,38 @@ router.post('/', function(req, res, next) {
 	var newProject = req.body;
 	if(newProject.forkID){
 		newProject.name = req.body.name + "(Forked)";
-		console.log(newProject);
+		// console.log(newProject);
 		Project.create(newProject).then(function(project) {
 			User.update({_id: project.owner}, {$push: {projects: project._id}}).exec().then(function(update){
-	            res.send(update);
+	            // res.send(update);
 	        }, function(err){
-	            res.send(err);
+	            next(err);
 	        });
-	        // if(Fork.find({original: newProject.forkOrigin}).length === 0){
-	        // 	var newFork = new Fork
-	        // 	Fork.create
-	        // } else {
-
-	        // }
+	        Fork.findOne({original: project.forkOrigin}).exec().then(function(afork){
+	        	if(!afork){
+		        	Fork.create({
+		        		original: project.forkOrigin,
+		        		name: project.name.split('(')[0] + ' Alpha',
+		        		branch: [project]
+		        	}).then(function(newFork){
+		        		console.log("NEWFORK!", newFork, project);
+		        		res.send(newFork);
+		        	}, function(err){
+		        		next(err);
+		        	});
+	        	} else{
+	        		console.log("here");
+	        		console.log(project.forkOrigin);
+		        	Fork.update({original: project.forkOrigin}, {$push: {branch: project._id}}).exec().then(function(fork){
+		        		console.log("adding to fork", fork);
+		        		res.send(fork);
+		        	}, function(err){
+		        		next(err);
+		        	});	
+	        	}
+	        }, function(err){
+	        	next(err);
+	        });
 		}, function(err){
 			next(err);
 		});
