@@ -165,7 +165,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
   $scope.sendToAWS = function () {
 
-    RecorderFct.sendToAWS($scope.tracks, $scope.projectId).then(function (response) {
+    RecorderFct.sendToAWS($scope.tracks, $scope.projectId, $scope.projectName).then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 

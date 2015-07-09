@@ -19,7 +19,7 @@ router.post('/', function (req, res, next) {
 
 	var tracks = req.body.tracks;
 	var projectId = req.body.projectId;
-
+	var projectName = req.body.projectName;
 	var urlTracks = [];
 	
 
@@ -48,7 +48,10 @@ router.post('/', function (req, res, next) {
 
 	Project.findById(projectId).exec().then(function (project) {
 
+		// clearing all the project tracks so that the updated tracks can be pushed
 		project.tracks = [];
+
+		project.name = projectName;
 
 		tracks.forEach(function (track, i) {
 
