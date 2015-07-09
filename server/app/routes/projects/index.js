@@ -7,6 +7,7 @@ module.exports = router;
 var mongoose = require('mongoose');
 var Project = mongoose.model('Project');
 var User = mongoose.model('User');
+var Fork = mongoose.model('Fork');
 
 
 
@@ -16,10 +17,10 @@ router.get('/:id', function (req, res, next) {
     if(req.params.id === 'all'){
     	Project.find({}).populate('owner').exec().then(function(projects){
             console.log('project is', projects);
-            res.send(projects)
+            res.send(projects);
         }, function(err){
             next(err);
-        })
+        });
     }
     else{
         Project.findById(req.params.id).exec().then(function (project) {
@@ -39,7 +40,17 @@ router.post('/', function(req, res, next) {
 		newProject.name = req.body.name + "(Forked)";
 		console.log(newProject);
 		Project.create(newProject).then(function(project) {
-			res.send(project);
+			User.update({_id: project.owner}, {$push: {projects: project._id}}).exec().then(function(update){
+	            res.send(update);
+	        }, function(err){
+	            res.send(err);
+	        });
+	        // if(Fork.find({original: newProject.forkOrigin}).length === 0){
+	        // 	var newFork = new Fork
+	        // 	Fork.create
+	        // } else {
+
+	        // }
 		}, function(err){
 			next(err);
 		});

@@ -3,15 +3,17 @@ var router = require('express').Router();
 var fs = require('fs');
 var path = require('path');
 module.exports = router;
-var UserModel = require('mongoose').model('User');
 
 var mongoose = require('mongoose');
+var UserModel = require('mongoose').model('User');
+var ProjectModel = require('mongoose').model('Project');
+
 
 
 
 
 router.get('/', function (req, res) {
-    UserModel.findOne(req.query).populate('projects').exec().then(function(user){
+    UserModel.findOne(req.query).populate('projects followers following').exec().then(function(user){
         console.log('user', user)
         res.send(user);
     }, function(err){
@@ -37,8 +39,8 @@ router.put('/', function(req, res, next){
             next(err);
         });
         UserModel.update({_id: req.body.userToFollow._id},{$push: {followers: req.body.loggedInUser._id}}).exec().then(function(user){
-            console.log('Both have been updated')
-            res.send(user)
+            console.log('Both have been updated');
+            res.send(user);
         }, function(err){
             next(err);
         })
@@ -50,6 +52,19 @@ router.put('/', function(req, res, next){
             res.send(update);
         }, function(err){
             res.send(err);
+        });
+    }
+    if(req.body.userToUnfollow){
+        UserModel.update({_id: req.body.loggedInUser._id}, {$pull: {following: req.body.userToUnfollow._id}}).exec().then(function(update){
+
+        }, function(err){
+            next(err);
+        });
+        UserModel.update({_id: req.body.userToUnfollow._id},{$pull: {followers: req.body.loggedInUser._id}}).exec().then(function(user){
+            console.log('Both have been updated');
+            res.send(user);
+        }, function(err){
+            next(err);
         });
     }
     UserModel.update({_id: req.params.id}, req.body);

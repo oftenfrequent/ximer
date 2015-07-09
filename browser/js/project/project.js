@@ -11,6 +11,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 	//window events
 	window.onblur = function () {
         $scope.stop();
+		$scope.$digest();
     };
     window.onbeforeunload = function() {
 		return "Are you sure you want to leave this page before saving your work?";
@@ -180,7 +181,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
   $scope.sendToAWS = function () {
 
-    RecorderFct.sendToAWS($scope.tracks, $scope.projectId).then(function (response) {
+    RecorderFct.sendToAWS($scope.tracks, $scope.projectId, $scope.projectName).then(function (response) {
         // wave logic
         console.log('response from sendToAWS', response);
 

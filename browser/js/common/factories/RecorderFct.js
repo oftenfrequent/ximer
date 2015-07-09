@@ -111,13 +111,11 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
 
 
     return {
-        sendToAWS: function (tracksArray, projectId) {
+        sendToAWS: function (tracksArray, projectId, projectName) {
 
             var readPromises = tracksArray.map(convertToBase64);
 
             return $q.all(readPromises).then(function (storeData) {
-
-                
 
                 tracksArray.forEach(function (track, i) {
                     if (storeData[i]) {
@@ -128,7 +126,7 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                     }
                 });
 
-                return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId })
+                return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId, projectName : projectName })
                     .then(function (response) {
                         console.log('response in sendToAWSFactory', response);
                         return response.data; 
