@@ -39,7 +39,11 @@ router.post('/', function(req, res, next) {
 		newProject.name = req.body.name + "(Forked)";
 		console.log(newProject);
 		Project.create(newProject).then(function(project) {
-			res.send(project);
+			User.update({_id: project.owner}, {$push: {projects: project._id}}).exec().then(function(update){
+	            res.send(update);
+	        }, function(err){
+	            res.send(err);
+	        });
 		}, function(err){
 			next(err);
 		});
