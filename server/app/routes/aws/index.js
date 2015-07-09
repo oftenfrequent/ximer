@@ -79,10 +79,23 @@ router.post('/', function (req, res, next) {
 			}
 		});
 
-		return project.save();
-		 
-	}, next)
-    .then(function() {
+		// invocation of the node script to stitch wav files and retrieve compiled file
+		// script will take project id
+		// dispatching async request to create track wavs
+		var executeCommand = require('child_process').exec;
+        var command = 'node stitch.js ' + projectId;
+        var options = {
+            cwd : path.join(__dirname, '../../../../')
+        };
+
+        executeCommand(command, options, function (err, stdout, stderr) {
+            if (stderr) console.log('stderr', stderr);
+            else console.log('stdout', stdout);
+        });
+
+    	return project.save();
+
+    }).then(function () {
     	res.send('great success!');
     });
 
