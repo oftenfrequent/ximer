@@ -54,14 +54,27 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
 		if (project.tracks.length) {
 
+			console.log('project.tracks.length', project.tracks.length);
+
 			project.tracks.forEach(function (track) {
 
+				var loadableTracks = [];
+
+				project.tracks.forEach(function (track) {
+					if (track.url) {
+						loadableTracks++;
+					}
+				});
+
 				if (track.url) {
+
 					var doneLoading = function () {
+
 						loaded++;
-						if(loaded === project.tracks.length) {
+
+						if(loaded === loadableTracks) {
 							$scope.loading = false;
-							// Tone.Transport.start();
+							$scope.$digest();
 						}
 					};
 
