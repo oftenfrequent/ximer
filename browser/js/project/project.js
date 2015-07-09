@@ -8,9 +8,16 @@ app.config(function ($stateProvider) {
 
 app.controller('ProjectController', function($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
+	//window events
 	window.onblur = function () {
         $scope.stop();
     };
+    window.onbeforeunload = function() {
+		return "Are you sure you want to leave this page before saving your work?";
+	};
+	window.onunload = function () {
+		Tone.Transport.clearTimelines();
+	}
 
 	var maxMeasure = 0;
 
@@ -36,6 +43,8 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 	$scope.projectId = $stateParams.projectID;
 	$scope.position = 0;
 	$scope.playing = false;
+	$scope.currentlyRecording = false;
+	$scope.previewingId = null;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
@@ -99,6 +108,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
     				obj.location = [];
     				$scope.tracks.push(obj);
   			}
+  			$scope.loading = false;
 		}
 
 		//dynamically set measures
@@ -150,6 +160,11 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		var playHead = document.getElementById('playbackHead');
 		playHead.style.left = '300px';
 		Tone.Transport.stop();
+		//stop and track currently being previewed
+		if($scope.previewingId) {
+			Tone.Transport.clearInterval($scope.previewingId);
+			$scope.previewingId = null;
+		}
 	}
 	$scope.nameChange = function(newName) {
 		$scope.nameChanging = false;

@@ -10,6 +10,9 @@ body {
   background: transparent;
   /* WebKit/Blink Browsers */ }
 
+input::selection {
+  background: #8AC007 !important; }
+
 ::-moz-selection {
   background: transparent;
   /* Gecko Browsers */ }
@@ -25,10 +28,12 @@ navbar {
   background: #202630;
   margin-bottom: -20px; }
   navbar fullstack-logo {
-    padding-top: 20px;
+    padding-top: 10px;
     margin: auto;
     width: 120px;
     padding-bottom: 20px; }
+    navbar fullstack-logo img {
+      width: 100%; }
   navbar a {
     color: white; }
     navbar a:hover {
@@ -88,6 +93,23 @@ xim-track .grayed {
 #project-container {
   background: #202630;
   padding-bottom: 40px; }
+  #project-container #loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(32, 38, 48, 0.6);
+    z-index: 99999;
+    text-align: center; }
+    #project-container #loadingOverlay loading-gif .helper {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle; }
+    #project-container #loadingOverlay loading-gif img {
+      vertical-align: middle;
+      width: 120px;
+      margin: auto; }
 
 #projectHeader {
   text-align: center; }
