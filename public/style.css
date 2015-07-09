@@ -73,13 +73,12 @@ xim-track .trackControllsContainer {
   height: 100px;
   position: absolute;
   top: 0px; }
-  xim-track .trackControllsContainer button {
+  xim-track .trackControllsContainer button.btn, xim-track .trackControllsContainer button.btn:hover, xim-track .trackControllsContainer button.btn:focus, xim-track .trackControllsContainer button.btn:active {
     color: #ccc;
     background-color: transparent;
     border: 0px; }
-  xim-track .trackControllsContainer button:hover {
-    color: #ccc;
-    background-color: transparent; }
+xim-track .grayed {
+  opacity: 0.2; }
 
 .timeline-container {
   background: #202630;

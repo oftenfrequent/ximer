@@ -16,15 +16,16 @@ xim-track {
     height:100px;
     position:absolute;
     top:0px;
-      button {
+      button.btn,
+      button.btn:hover,
+      button.btn:focus,
+      button.btn:active {
         color: #ccc;
         background-color:rgba(0,0,0,0);
         border:0px;
-
       }
-      button:hover {
-        color: #ccc;
-        background-color:rgba(0,0,0,0);
-      }
+  }
+  .grayed {
+    opacity: 0.2;
   }
 }

@@ -222,6 +222,10 @@ app.config(function ($stateProvider) {
 
 app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
+    window.onblur = function () {
+        $scope.stop();
+    };
+
     var maxMeasure = 0;
 
     // number of measures on the timeline
@@ -245,6 +249,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
     $scope.loading = true;
     $scope.projectId = $stateParams.projectID;
     $scope.position = 0;
+    $scope.playing = false;
 
     ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
         var loaded = 0;
@@ -263,6 +268,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
                             // Tone.Transport.start();
                         }
                     };
+<<<<<<< HEAD
 
                     var max = Math.max.apply(null, track.location);
                     if (max + 2 > maxMeasure) maxMeasure = max + 2;
@@ -273,6 +279,18 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
                     track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
                     //init effects, connect, and add to scope
 
+=======
+
+                    var max = Math.max.apply(null, track.location);
+                    if (max + 2 > maxMeasure) maxMeasure = max + 2;
+
+                    track.empty = false;
+                    track.recording = false;
+                    // TODO: this is assuming that a player exists
+                    track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+                    //init effects, connect, and add to scope
+
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
                     track.effectsRack = ToneTrackFct.effectsInitialize(track.effectsRack);
                     track.player.connect(track.effectsRack[0]);
 
@@ -282,7 +300,10 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
                     } else {
                         track.onTimeline = false;
                     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
                     $scope.tracks.push(track);
                 } else {
                     track.empty = true;
@@ -303,6 +324,10 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
                 obj.recording = false;
                 obj.onTimeline = false;
                 obj.previewing = false;
+<<<<<<< HEAD
+=======
+                obj.silence = false;
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
                 obj.effectsRack = ToneTrackFct.effectsInitialize([0, 0, 0, 0]);
                 obj.player = null;
                 obj.name = 'Track ' + (i + 1);
@@ -328,18 +353,17 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
     $scope.dropInTimeline = function (index) {
         var track = scope.tracks[index];
-
-        console.log(track);
     };
 
     $scope.addTrack = function () {};
 
     $scope.play = function () {
+        $scope.playing = true;
         Tone.Transport.position = $scope.position.toString() + ':0:0';
         Tone.Transport.start();
     };
     $scope.pause = function () {
-        console.log('METRONMONE', $scope.tracks);
+        $scope.playing = false;
         $scope.metronome.stop();
         ToneTimelineFct.stopAll($scope.tracks);
         $scope.position = Tone.Transport.position.split(':')[0];
@@ -349,6 +373,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
         Tone.Transport.pause();
     };
     $scope.stop = function () {
+        $scope.playing = false;
         $scope.metronome.stop();
         ToneTimelineFct.stopAll($scope.tracks);
         $scope.position = 0;
@@ -357,7 +382,6 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
         Tone.Transport.stop();
     };
     $scope.nameChange = function (newName) {
-        console.log('SHOW INPUT', newName);
         $scope.nameChanging = false;
     };
 
@@ -608,8 +632,13 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
         });
     };
 
+<<<<<<< HEAD
     $scope.clicker = function () {
         console.log('clicked');
+=======
+    $scope.logMe = function () {
+        console.log($scope.user);
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
     };
 });
 app.factory('AnalyserFct', function () {
@@ -691,27 +720,18 @@ app.factory('ProjectFct', function ($http) {
         });
     };
 
+    var deleteProject = function deleteProject(project) {
+        return $http['delete']('/api/projects/' + project._id).then(function (response) {
+            console.log('Delete Proj Fct', response.data);
+            return response.data;
+        });
+    };
+
     return {
         getProjectInfo: getProjectInfo,
         createAFork: createAFork,
-        newProject: newProject
-    };
-});
-
-'use strict';
-app.factory('RandomGreetings', function () {
-
-    var getRandomFromArray = function getRandomFromArray(arr) {
-        return arr[Math.floor(Math.random() * arr.length)];
-    };
-
-    var greetings = ['Hello, world!', 'At long last, I live!', 'Hello, simple human.', 'What a beautiful day!', 'I\'m like any other project, except that I am yours. :)', 'This empty string is for Lindsay Levine.', 'こんにちは、ユーザー様。', 'Welcome. To. WEBSITE.', ':D'];
-
-    return {
-        greetings: greetings,
-        getRandomGreeting: function getRandomGreeting() {
-            return getRandomFromArray(greetings);
-        }
+        newProject: newProject,
+        deleteProject: deleteProject
     };
 });
 
@@ -1142,7 +1162,13 @@ app.directive('followdirective', function () {
 app.controller('FollowDirectiveController', function ($scope, $stateParams, $state, AuthService, userFactory) {
 
     // AuthService.getLoggedInUser().then(function(loggedInUser){
+<<<<<<< HEAD
     //        	$scope.loggedInUser = loggedInUser;
+=======
+
+    //        	$scope.loggedInUser = loggedInUser;
+
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
     //         	userFactory.getUserObj($stateParams.theID).then(function(user){
     //            $scope.user = user;
     //            console.log('user is', user);
@@ -1151,6 +1177,7 @@ app.controller('FollowDirectiveController', function ($scope, $stateParams, $sta
 
     $scope.goToFollower = function (myFollower) {
         console.log('clicked', myFollower);
+<<<<<<< HEAD
         $state.go('userProfile', { theID: myFollower });
     };
 });
@@ -1175,6 +1202,9 @@ app.controller('FollowingDirectiveController', function ($scope, $stateParams, $
     $scope.goToFollowee = function (myFollowee) {
         console.log('clicked', myFollowee);
         $state.go('userProfile', { theID: myFollowee });
+=======
+        $state.go('userProfile', { theID: myFollower._id });
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
     };
 });
 'use strict';
@@ -1267,6 +1297,13 @@ app.controller('projectdirectiveController', function ($scope, $stateParams, $st
                 console.log('Fork response is', response);
             });
         };
+
+        $scope.deleteProject = function (project) {
+            console.log('DeleteProject', project);
+            ProjectFct.deleteProject(project).then(function (response) {
+                console.log('Delete request is', response);
+            });
+        };
     });
 });
 app.directive('ximTrack', function ($rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AnalyserFct, $q) {
@@ -1311,7 +1348,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                 scope.track.location.push(position);
                 scope.track.location.sort();
                 var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
-                angular.element(canvasRow[position]).append($compile('<canvas width=\'198\' height=\'98\' position=\'' + position + '\' timelineId=\'' + timelineId + '\' id=\'mdisplay' + index + '-' + position + '\' class=\'item\' style=\'position: absolute;\' draggable></canvas>')(scope));
+                angular.element(canvasRow[position]).append($compile('<canvas width=\'198\' height=\'98\' position=\'' + position + '\' timelineId=\'' + timelineId + '\' id=\'mdisplay' + index + '-' + position + '\' class=\'item trackLoop' + index + '\' style=\'position: absolute;\' draggable></canvas>')(scope));
                 var canvas = document.getElementById('mdisplay' + index + '-' + position);
                 drawBuffer(198, 98, canvas.getContext('2d'), scope.track.buffer);
                 console.log('track', scope.track);
@@ -1331,13 +1368,16 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                 console.log(scope.track.location.indexOf(position));
                 if (scope.track.onTimeline) {
                     if (loopIndex === -1) {
-                        console.log('APPEAR');
                         var canvasRow = element[0].getElementsByClassName('canvas-box');
                         scope.track.location.push(position);
                         scope.track.location.sort();
                         console.log(scope.track.location);
                         var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
+<<<<<<< HEAD
                         console.log('TIMELINE_ID', timelineId);
+=======
+                        // angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + position + "' class='item trackLoop"+trackIndex+"' style='position: absolute;' draggable></canvas>")(scope));
+>>>>>>> 5745bc440b5329deea51dfded185ccf8c30717c4
                         angular.element(canvasRow[position]).append($compile('<canvas width=\'198\' height=\'98\' position=\'' + position + '\' timelineId=\'' + timelineId + '\' id=\'mdisplay' + trackIndex + '-' + position + '\' class=\'item\' style=\'position: absolute; background: url(data:image/png;base64,' + scope.track.img + ');\' draggable></canvas>')(scope));
                         // console.log('track', scope.track);
                         var canvas = document.getElementById('mdisplay' + trackIndex + '-' + position);
@@ -1350,7 +1390,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                         };
 
                         var canvas = document.getElementById('mdisplay' + trackIndex + '-' + position);
-                        console.log('DISAPPEAR');
                         //remove from locations array
                         scope.track.location.splice(loopIndex, 1);
                         //remove timelineId
@@ -1362,8 +1401,60 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                 }
             };
 
+            scope.reRecord = function (index) {
+                console.log('RERECORD');
+                console.log(scope.track);
+                //change all params back as if empty track
+                scope.track.empty = true;
+                scope.track.onTimeline = false;
+                scope.track.player = null;
+                scope.track.silence = false;
+                scope.track.rawAudio = null;
+                scope.track.img = null;
+                scope.track.previewing = false;
+                //dispose of effectsRack
+                scope.track.effectsRack.forEach(function (effect) {
+                    effect.dispose();
+                });
+                scope.track.effectsRack = ToneTrackFct.effectsInitialize([0, 0, 0, 0]);
+                scope.track.location = [];
+                //remove all loops from UI
+                var loopsUI = document.getElementsByClassName('trackLoop' + index.toString());
+                while (loopsUI.length !== 0) {
+                    for (var i = 0; i < loopsUI.length; i++) {
+                        loopsUI[i].parentNode.removeChild(loopsUI[i]);
+                    }
+                    var loopsUI = document.getElementsByClassName('trackLoop' + index.toString());
+                }
+            };
+
+            scope.solo = function () {
+                var otherTracks = scope.$parent.tracks.map(function (track) {
+                    if (track !== scope.track) {
+                        track.silence = true;
+                        return track;
+                    }
+                }).filter(function (track) {
+                    if (track && track.player) return true;
+                });
+
+                console.log(otherTracks);
+                ToneTimelineFct.muteAll(otherTracks);
+                scope.track.silence = false;
+                scope.track.player.volume.value = 0;
+            };
+
+            scope.silence = function () {
+                if (!scope.track.silence) {
+                    scope.track.player.volume.value = -100;
+                    scope.track.silence = true;
+                } else {
+                    scope.track.player.volume.value = 0;
+                    scope.track.silence = false;
+                }
+            };
+
             scope.record = function (index) {
-                // console.log('TRACKS', scope.$parent.tracks);
                 ToneTimelineFct.muteAll(scope.$parent.tracks);
                 var recorder = scope.recorder;
 
@@ -1378,7 +1469,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                 scope.track.recording = true;
                 scope.track.empty = true;
                 RecorderFct.recordStart(recorder);
-                scope.track.empty = true;
+                scope.track.previewing = false;
 
                 function update() {
                     var SPACING = 3;
@@ -1409,13 +1500,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                     }
                 }
 
-                //RECORDING STARTS AT MEASURE 1
-                var micStartID = Tone.Transport.setTimeline(function () {
-                    RecorderFct.recordStart(recorder, index);
-                }, '1m');
-
-                //RECORDING ENDS AT MEASURE 2
-                var micEndID = Tone.Transport.setTimeline(function () {
+                window.setTimeout(function () {
                     RecorderFct.recordStop(index, recorder).then(function (player) {
                         scope.track.recording = false;
                         scope.track.empty = false;
@@ -1426,16 +1511,23 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
                         scope.track.buffer = window.latestBuffer;
                         scope.track.rawAudio = window.latestRecording;
                         player.connect(scope.track.effectsRack[0]);
-                        console.log('player', player);
-                        console.log('IN STOPPPPPPP');
-                        Tone.Transport.clearTimeline(micStartID);
-                        Tone.Transport.clearTimeline(micEndID);
+                        scope.$parent.metronome.stop();
+                        window.clearInterval(click);
+
                         scope.$parent.stop();
                         ToneTimelineFct.unMuteAll(scope.$parent.tracks);
                     });
-                }, '2m');
+                }, 4000);
 
-                Tone.Transport.start();
+                window.setTimeout(function () {
+                    RecorderFct.recordStart(recorder, index);
+                }, 2000);
+                scope.$parent.metronome.start();
+
+                var click = window.setInterval(function () {
+                    scope.$parent.metronome.stop();
+                    scope.$parent.metronome.start();
+                }, 500);
             };
             scope.preview = function (currentlyPreviewing) {
                 console.log(currentlyPreviewing);

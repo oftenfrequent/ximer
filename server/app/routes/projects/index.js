@@ -67,8 +67,15 @@ router.put('/:id', function (req, res, next) {
 });
 
 router.delete('/:id', function(req, res, next) {
-	Project.findByIdAndRemove(req.params.id).exec().then(function (data) {
-        res.sendStatus(200);
+	Project.findByIdAndRemove(req.params.id).exec().then(function (project) {
+		console.log('Data is',data)
+		if(project.forkID){
+
+			//need to fill this up
+
+
+		}
+        res.sendStatus('its been deleted');
     }, function (err){
         next(err);
     });
