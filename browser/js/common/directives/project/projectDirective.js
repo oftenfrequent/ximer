@@ -25,7 +25,7 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				project.forkID = project._id;
 				project.owner = loggedInUser._id;
 				delete project._id;
-				console.log(project);
+				// console.log(project);
 				ProjectFct.createAFork(project).then(function(response){
 					console.log('Fork response is', response);
 				});

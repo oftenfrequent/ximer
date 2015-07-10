@@ -28,7 +28,7 @@ router.post('/', function (req, res, next) {
 		if (track.rawAudio) {
 			// base64 data prepends header, spliting the header
 			var slicedTrack = track.rawAudio.split(',');
-			var trackBuffer = new Buffer(slicedTrack[1],'base64'); // the blob
+			var trackBuffer = new Buffer(slicedTrack[1], 'base64'); // the blob
 
 			//the uuid generates a unique string of characters each time
 			var keyName = uuid.v4() + '.wav';
@@ -79,10 +79,23 @@ router.post('/', function (req, res, next) {
 			}
 		});
 
-		return project.save();
-		 
-	}, next)
-    .then(function() {
+		// invocation of the node script to stitch wav files and retrieve compiled file
+		// script will take project id
+		// dispatching async request to create track wavs
+		var executeCommand = require('child_process').exec;
+        var command = 'node stitch.js ' + projectId;
+        var options = {
+            cwd : path.join(__dirname, '../../../../')
+        };
+
+        executeCommand(command, options, function (err, stdout, stderr) {
+            if (stderr) console.log('stderr', stderr);
+            else console.log('stdout', stdout);
+        });
+
+    	return project.save();
+
+    }).then(function () {
     	res.send('great success!');
     });
 
