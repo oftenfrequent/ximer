@@ -1,4 +1,3 @@
-
 app.controller('HomeController', function ($scope, AuthService, ToneTrackFct, ProjectFct, $stateParams, $state) {
 	console.log('in Home controller');
 	var trackBucket = [];
@@ -12,8 +11,8 @@ app.controller('HomeController', function ($scope, AuthService, ToneTrackFct, Pr
     $scope.projects = function (){
     	ProjectFct.getProjectInfo().then(function(projects){
     		$scope.allProjects = projects;
-    	})
-    }
+    	});
+    };
 	$scope.projects();
 
 	$scope.makeFork = function(project){
