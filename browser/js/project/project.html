@@ -7,8 +7,8 @@
 	    </div> -->
 	    <div id="projectHeader">
 	    	<div id="projectName">
-	    		<span ng-click="nameChanging = true" ng-hide="nameChanging">{{projectName}}</span>
-	    		<input ng-show="nameChanging" ng-model="projectName" value="{{projectName}}" ng-blur="nameChange(projectName)">
+	    		<button ng-click="nameClick()" ng-hide="nameChanging">{{projectName}}</button>
+	    		<input ng-show="nameChanging" ng-model="projectName" id="projectNameInput" value="{{projectName}}" ng-blur="nameChange(projectName)" required><div ng-show="nameError">{{nameError}}</div>
 	    	</div>
 	    	<button class="btn btn-primary" ng-click="play()" ng-disabled="playing"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
 	    	<button class="btn btn-primary" ng-click="pause()"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>

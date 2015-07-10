@@ -34,7 +34,7 @@ router.get('/:id', function (req, res, next) {
 router.post('/', function(req, res, next) {
 
 	//req.body {name: req.body.name, bpm: req.body.bpm}
-	// TODO  - Need to Change to be dynamic
+	// TODO: Need to Change to be dynamic
 	var newProject = req.body;
 	if(newProject.forkID){
 		newProject.name = req.body.name + "(Forked)";
@@ -75,6 +75,12 @@ router.post('/', function(req, res, next) {
 router.put('/:id', function (req, res, next) {
 	//update project info
 	//WILL REQUIRE A LOT MORE LOGIC
+	Project.findByIdAndUpdate(req.params.id, {$set: req.body}, {upsert: false})
+	.exec().then(function (err, project) {
+            res.send(project);
+    }, function (err) {
+        return next(err);
+    });
 });
 
 router.delete('/:id', function(req, res, next) {

@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ProjectController', function($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
+app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
 	//window events
 	window.onblur = function () {
@@ -167,8 +167,24 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 			$scope.previewingId = null;
 		}
 	}
+	$scope.nameClick = function() {
+		console.log('NAME Clicked');
+		$scope.nameChanging = true;
+		document.getElementById('projectNameInput').focus();
+	}
 	$scope.nameChange = function(newName) {
-		$scope.nameChanging = false;
+		console.log('NEW', newName);
+		if(newName) {
+			$scope.nameChanging = false;
+			$scope.nameError = false;
+			ProjectFct.nameChange(newName, $scope.projectId).then(function (response) {
+				console.log("RES", response);
+			});
+		} else {
+			$scope.nameError = "You must set a name!";
+			$scope.projectName = "Untitled";
+			document.getElementById('projectNameInput').focus();
+		}
 	}
 
 	$scope.toggleMetronome = function () {

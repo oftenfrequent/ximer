@@ -21,7 +21,7 @@ fullstack-logo {
   display: block; }
   fullstack-logo img {
     display: block;
-    width: 80%; }
+    width: 100%; }
 
 navbar {
   display: block;
@@ -126,6 +126,8 @@ xim-track .grayed {
     background-size: 50%; }
   #projectHeader #projectName {
     font-size: 18px; }
+    #projectHeader #projectName button {
+      color: #fff; }
     #projectHeader #projectName input {
       background-color: transparent;
       border: 0px;
@@ -211,7 +213,69 @@ div[class*="col-"] {
 .collection {
   background: #202630; }
 
-#login-form {
+#lpBackground {
+  background-image: url(images/lpBackground.png);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  height: 600px; }
+  #lpBackground #lpBackgroundOverlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 400px; }
+
+#fullpage {
+  background: #202630; }
+  #fullpage #lpSpaciousText {
+    padding: 80px;
+    letter-spacing: 10px; }
+    #fullpage #lpSpaciousText h1, #fullpage #lpSpaciousText h4 {
+      margin-bottom: 20px; }
+    #fullpage #lpSpaciousText fullstack-logo {
+      width: 30%;
+      margin: 0 auto; }
+    #fullpage #lpSpaciousText button {
+      background: #C5C1C8; }
+  #fullpage #sellingPoints {
+    background: #202630;
+    color: #C5C1C8;
+    padding: 20px; }
+    #fullpage #sellingPoints h1 {
+      text-transform: uppercase;
+      font-size: 4em;
+      margin-bottom: 0px;
+      text-shadow: 0px 0px 14px #D93A54; }
+    #fullpage #sellingPoints h3 {
+      font-style: italic;
+      font-weight: 200;
+      margin-bottom: 80px;
+      margin-top: 0px; }
+    #fullpage #sellingPoints ul {
+      padding-left: 0px;
+      font-size: 2em; }
+    #fullpage #sellingPoints li {
+      list-style: none;
+      margin-bottom: 40px; }
+  #fullpage #lpForms {
+    padding: 80px 20px; }
+    #fullpage #lpForms .half {
+      width: 50%;
+      float: left; }
+      #fullpage #lpForms .half button {
+        margin: 0 auto;
+        height: 34px;
+        width: 120px;
+        display: block;
+        margin-bottom: 15px; }
+      #fullpage #lpForms .half #scOAuth {
+        background: #FF6600 url('/images/soundcloud-black.png') center no-repeat;
+        border: 0px;
+        background-size: 87%;
+        border-radius: 4px; }
+
+.t-c {
+  text-align: center; }
+
+#login-form, #signup-form {
   width: 60%;
   margin: 0 auto; }
 

@@ -121,6 +121,7 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                     if (storeData[i]) {
                         track.rawAudio = storeData[i];
                         track.effectsRack = track.effectsRack.map(function (effect) {
+                            console.log("EFFECT", effect, effect.wet.value);
                             return effect.wet.value;
                         });
                     }

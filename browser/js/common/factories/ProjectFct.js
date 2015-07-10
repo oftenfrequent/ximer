@@ -20,19 +20,25 @@ app.factory('ProjectFct', function($http){
     		return response.data;
     	});
     }
+    var nameChange = function(newName, projectId) {
+        return $http.put('/api/projects/'+projectId, {name: newName}).then(function (response){
+            return response.data;
+        });
+    }
 
     var deleteProject = function(project){
         return $http.delete('/api/projects/'+project._id).then(function(response){
             console.log('Delete Proj Fct', response.data);
             return response.data;
-        })
+        });
     }
 
     return {
         getProjectInfo: getProjectInfo,
         createAFork: createAFork,
         newProject: newProject, 
-        deleteProject: deleteProject
+        deleteProject: deleteProject,
+        nameChange: nameChange
     };
 
 });
