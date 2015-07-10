@@ -118,31 +118,69 @@ router.delete('/:id', function(req, res, next) {
     });
 });
 
-router.post('/soundcloud', function(req, res, next){
-	console.log('req.user is', req.user);
-	  var soundCloudCode = req.user.soundcloud.code;
-	  console.log('soundCloudCode', soundCloudCode);
+router.post('/soundcloud', function(req, res, next) {
 
-	  	SC.init({
-  		clientId: '45c5e6212ac58c73e7d05f8636a9bf22',
-  		clientSecret: 'ae88cd6434e65ec74ed1ade69eeb9cca',
-  		redirectUri: 'https://127.0.0.1:8000/auth/soundcloud/callback'
+	console.log('download', req.body.download);
+
+	var dlfile = req.body.project.download;
+
+	var projTitle = req.body.project.name;
+
+	var soundCloudCode = req.user.soundcloud.code;
+
+	var accessToken = req.user.soundcloud.accessToken;
+
+	console.log('accessToken', accessToken);
+
+	// Initialize client with additional accessToken field
+	SC.init({
+		id: '45c5e6212ac58c73e7d05f8636a9bf22',
+		secret: 'ae88cd6434e65ec74ed1ade69eeb9cca',
+		uri: 'https://127.0.0.1:8000/auth/soundcloud/callback',
+		accessToken: accessToken
 	});
 
 
-	  SC.authorize(soundCloudCode, function(err, accessToken) {
-    	if ( err ) {
-    		console.log('ERRORR IS ', err)
-      		throw err;
-    	} else {
-      // Client is now authorized and able to make API calls
-      console.log('access token:', accessToken);
-    	}
-  	});
+	var executeCommand = require('child_process').exec;
+    var command = 'python test.py ' + accessToken + ' ' + dlfile + ' ' + projTitle;
+    var options = {
+        cwd : path.join(__dirname, '../../../../')
+    };
+    console.log('starting child process', command);
+    executeCommand(command, options, function (err, stdout, stderr) {
+        if (stderr) console.log('stderr', stderr);
+        else console.log('stdout', stdout);
+    });
+
+
+	// SC.post('/tracks', function(err, track) {
+	// 	if ( err ) {
+	// 		throw err;
+	// 	} else {
+	// 		console.log('track retrieved:', track);
+	// 	}
+	// });
  
 
 	// SC.post('/tracks',{title: 'Hey'}, function(err, response){
 	// 	console.log('error is',err);
 	// 	console.log('response is', response)
 	// })
-})
+});
+
+
+// router.get('/soundcloud/cb', function(req, res, next) {
+
+// 	console.log('got here');
+
+// 	var code = req.query.code;
+
+// 	SC.authorize(code, function(err, accessToken) {
+// 		if ( err ) {
+// 		  throw err;
+// 		} else {
+// 		  // Client is now authorized and able to make API calls
+// 		  console.log('access token:', accessToken);
+// 		}
+// 	});
+// });
