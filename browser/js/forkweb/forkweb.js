@@ -1,8 +1,9 @@
 'use strict';
 app.config(function ($stateProvider) {
     $stateProvider.state('forkweb', {
-        url: '/',
-        templateUrl: 'js/forkweb/forkweb.html'
+        url: '/forkweb',
+        templateUrl: 'js/forkweb/forkweb.html',
+        controller: "ForkWebController"
     });
 
 });
@@ -22,7 +23,7 @@ app.controller('ForkWebController', function($scope, $stateParams, $state, Proje
 
 		ForkFactory.getWeb().then(function(webs){
 	        $scope.forks = webs;
-	        console.log('webs are', user);
+	        console.log('webs are', $scope.forks);
 	    });
 	
 });
