@@ -8,6 +8,13 @@ var blank = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/28a683ec-da26-4f
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 
+// for AWS
+var AWS = require('aws-sdk');
+var uuid = require('node-uuid');
+var s3 = new AWS.S3();
+var path = require('path');
+var bucketName = 'fullstacktracks';
+
 
 function createFolder (dir) {
     if (!fs.existsSync(dir)) {
@@ -29,6 +36,7 @@ connectToDb.then(function () {
 
         var promiseArray;
 
+        // we would have to add unique folder to maintain scalability
         createFolder('tmp');
 
         project.tracks.forEach(function (track, tindex) {
@@ -78,18 +86,76 @@ connectToDb.then(function () {
             command += folder + ' ';
         });
 
-        console.log('command', command);
 
         var options = {
             cwd : __dirname
         };
 
-        executeCommand(command, options, function (err, stdout, stderr) {
+        setTimeout(function() {
 
-            if (stderr) console.log('stderr', stderr);
-            else console.log('stdout', stdout);
+            console.log('command', command);
+            executeCommand(command, options, function (err, stdout, stderr) {
 
-        });
+                if (stderr) console.log('stderr', stderr);
+                else console.log('stdout', stdout);
+
+            });
+
+        }, 5000);
+
+
+
+
+        setTimeout(function() {
+
+            var projectWAV = fs.readFileSync('tmp/final.wav');
+
+            console.log('projectWAV', projectWAV);
+            
+            // the uuid generates a unique string of characters each time
+            var keyName = uuid.v4() + '.wav';
+            var url = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/' + keyName;
+            console.log('url', url);
+            var params = {
+                Bucket: bucketName, 
+                Key: keyName, 
+                Body: projectWAV
+            };
+
+            s3.putObject(params, function(err, data) {
+                if (err)
+                 console.log(err)
+                else
+                 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
+            });
+
+            setTimeout(function () {
+
+                Project.findById(process.argv[2]).exec().then(function (project) {
+                    project.download = url;
+                    return project.save();
+                }).then(function () {
+
+                    var executeCommand = require('child_process').exec;
+                    var command = 'rm -rf tmp';
+                    var options = {
+                        cwd : __dirname
+                    };
+
+                    executeCommand(command, options, function (err, stdout, stderr) {
+
+                        if (stderr) console.log('stderr', stderr);
+                        else console.log('stdout', stdout);
+
+                    });
+
+                    console.log('great success');
+
+                });
+            }, 5000);
+
+        }, 10000);
+
     });
 
 }).catch(function (err) {

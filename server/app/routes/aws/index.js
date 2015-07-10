@@ -28,7 +28,7 @@ router.post('/', function (req, res, next) {
 		if (track.rawAudio) {
 			// base64 data prepends header, spliting the header
 			var slicedTrack = track.rawAudio.split(',');
-			var trackBuffer = new Buffer(slicedTrack[1],'base64'); // the blob
+			var trackBuffer = new Buffer(slicedTrack[1], 'base64'); // the blob
 
 			//the uuid generates a unique string of characters each time
 			var keyName = uuid.v4() + '.wav';
