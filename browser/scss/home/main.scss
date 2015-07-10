@@ -10,45 +10,6 @@
   }
 }
 
-.track-row {
-  font-size: 0;
-}
-
-.main-timeline {
-}
-
-.measures {
-  display: inline-block;
-  height: 100%;
-  border: 1px solid #502640;
-  min-height: 100px;
-  min-width: 200px;
-}
-
-.over {
-  background: #D63953;
-}
-
-.item {
-  min-height: 98px;
-  min-width: 198px;
-  background: #202630;
-  -webkit-box-shadow:inset 0px 0px 0px 1px #D63953;
-  -moz-box-shadow:inset 0px 0px 0px 1px #D63953;
-  box-shadow:inset 0px 0px 0px 1px #D63953;
-}
-
-.drag {
-  opacity: 0.5;
-}
-
-.tracks {
-  margin-left: 1em;
-  height: 100%;
-  border: 1px solid #502640;
-  min-height: 100px;
-  min-width: 200px;
-}
 
 div[class*="col-"] {
     padding-right: 0px;

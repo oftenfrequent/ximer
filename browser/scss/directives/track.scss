@@ -5,7 +5,8 @@ xim-track {
     border: 1px solid #333;
     height: 100px;
     float: left;
-    position:relative;
+    position:absolute;
+    z-index: 999999;
   }
   .trackAnalyser, .trackWave {
     width:300px;

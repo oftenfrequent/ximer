@@ -48,6 +48,7 @@
     "mocha-mongoose": "^1.0.3",
     "mongodb": "^1.4.33",
     "mongoose": "3.8.23",
+    "ng-knob": "^1.0.1",
     "ngstorage": "^0.3.6",
     "node-soundcloud": "0.0.2",
     "node-uuid": "^1.4.3",
