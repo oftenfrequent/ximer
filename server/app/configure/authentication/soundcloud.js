@@ -5,6 +5,9 @@ var SC = require('node-soundcloud');
 var SoundCloudStrategy = require('passport-soundcloud').Strategy;
 var mongoose = require('mongoose');
 var UserModel = mongoose.model('User');
+var socketio = require('../../../io/index.js')();
+var soundclouduser;
+
 
 module.exports = function (app) {
 
@@ -22,6 +25,7 @@ module.exports = function (app) {
             if (err) return done(err);
 
             if (user) {
+                soundclouduser = user;
                 done(null, user);
             } else {
                 UserModel.create({
@@ -33,6 +37,7 @@ module.exports = function (app) {
                     },
                     username: profile._json.username
                 }).then(function (user) {
+                    soundclouduser = user;
                     done(null, user);
                 }, function (err) {
                     console.error('Error creating user from SoundCloud authentication', err);
@@ -51,6 +56,11 @@ module.exports = function (app) {
     app.get('/auth/soundcloud/callback',
         passport.authenticate('soundcloud', { failureRedirect: '/login' }),
         function (req, res) {
+
+            console.log('The soundcloud is', soundclouduser);
+            soundclouduser.soundcloud.code= req.query.code;
+            soundclouduser.save()
+            console.log('The soundclouduser is', soundclouduser);
             res.redirect('/');
         });
 

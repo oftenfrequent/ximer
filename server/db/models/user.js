@@ -39,7 +39,8 @@ var schema = new mongoose.Schema({
         id: String
      },
      soundcloud:{
-        id: String
+        id: String,
+        code: String
      },
     projects: [{
         type: mongoose.Schema.Types.ObjectId,

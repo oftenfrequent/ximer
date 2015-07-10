@@ -8,21 +8,23 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
         link: function (scope) {
 
             var setNavbar = function(){
-                AuthService.getLoggedInUser().then(function(user){
-                    scope.userId = user._id;
-                    scope.items = [
-                        { label: 'Home', state: 'home' },
-                        { label: 'Profile', state: 'userProfile({theID: userId})', auth: true }
-                    ];
+                AuthService.getLoggedInUser().then(function (user){
+                    if(user) {
+                        scope.userId = user._id;
+                        scope.items = [
+                            { label: 'Home', state: 'home' },
+                            { label: 'Profile', state: 'userProfile({theID: userId})', auth: true }
+                        ];
+                    }
                 });
             }
             setNavbar();
 
-            scope.items = [
-                { label: 'Home', state: 'project' },
-                // { label: 'Sign Up', state: 'signup' },
-                { label: 'Members Only', state: 'userProfile', auth: true }
-            ];
+            // scope.items = [
+            //     // { label: 'Home', state: 'project' },
+            //     // { label: 'Sign Up', state: 'signup' },
+            //     { label: 'Members Only', state: 'userProfile', auth: true }
+            // ];
 
             scope.user = null;
 
