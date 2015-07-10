@@ -19,6 +19,6 @@ module.exports = {
   "SOUNDCLOUD": {
     "clientID": "45c5e6212ac58c73e7d05f8636a9bf22",
     "clientSecret": "ae88cd6434e65ec74ed1ade69eeb9cca",
-    "callbackURL": "http://127.0.0.1:1337/auth/soundcloud/callback"
+    "callbackURL": "https://127.0.0.1:8000/auth/soundcloud/callback"
   }
 };

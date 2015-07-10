@@ -1,10 +1,27 @@
 <div ng-controller="HomeController">
-        <ul class="collection">
-            <li ng-repeat="project in allProjects" class="collection-item avatar">
-                <i class="icon circle"></i>
-                <span class="title"> {{project.name}}</span>
-                <p ng-click="getUserProfile(project.owner)">{{project.owner.username}}</p>
-                <div ng-repeat="track in project.tracks" ng-click="sampleTrack(track)"> {{track.name}} 
+    <md-content>
+    <md-card ng-repeat="project in allProjects" class="collection">
+        <img src="/images/logo.png" class="md-card-image" style="width:50px; height:50px;"alt="image caption">
+        <md-card-content class="cardContent">
+            <h2>{{project.name}}</h2>
+           <h3 ng-click="getUserProfile(project.owner)">{{project.owner.username}}</h3>
+        </md-card-content>
+        <md-card-footer>
+            <div class="md-actions" layout="row">
+                <md-button ng-repeat="track in project.tracks" ng-click="sampleTrack(track)" class="md-raised" aria-label="button for track"><i class="fa fa-music "></i></md-button>
+           </div>
+           <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button ng-click="makeFork(project)"> Fork </md-button>
+           </div>
+        </md-card-footer>
+    </md-card>
+</md-content>
+
+</div>
+
+
+
+<!-- div ng-repeat="track in project.tracks" ng-click="sampleTrack(track)"> {{track.name}} 
                     
                  </div>
 
@@ -13,11 +30,7 @@
                     <button ng-click="makeFork(project)">
                         <i class="fa fa-code-fork"></i> Fork
                     </button>
-                </div>
-            </li>
-        </ul>
-</div>
-
+                </div> -->
 	        <!-- <div id="viz" style="background: #202630;">
             <canvas id="analyser" width="1200" height="50"></canvas> -->
             <!-- <canvas id="wavedisplay" width="100" height="100"></canvas> -->

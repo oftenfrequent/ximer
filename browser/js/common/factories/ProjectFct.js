@@ -33,12 +33,19 @@ app.factory('ProjectFct', function($http){
         });
     }
 
+    var uploadProject = function(project){
+        return $http.post('api/projects/soundcloud').then(function(response){
+            return response.data;
+        })
+    }
+
     return {
         getProjectInfo: getProjectInfo,
         createAFork: createAFork,
         newProject: newProject, 
         deleteProject: deleteProject,
-        nameChange: nameChange
+        nameChange: nameChange,
+        uploadProject: uploadProject
     };
 
 });
