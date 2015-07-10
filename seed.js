@@ -23,6 +23,7 @@ var mongoose = require('mongoose');
 var connectToDb = require('./server/db');
 var User = mongoose.model('User');
 var Project = mongoose.model('Project');
+var Fork = mongoose.model('Fork');
 var q = require('q');
 var chalk = require('chalk');
 

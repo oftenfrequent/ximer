@@ -8,6 +8,10 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    forkOrigin: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    },
     forkID: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
@@ -20,7 +24,8 @@ var schema = new mongoose.Schema({
         effectsRack: [Number]
     }],
     endMeasure: Number,
-    bpm: Number
+    bpm: Number,
+    download: String
 });
 
 

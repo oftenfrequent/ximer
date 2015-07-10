@@ -11,6 +11,9 @@ body {
 ::selection {
   background: transparent; /* WebKit/Blink Browsers */
 }
+input::selection {
+  background: #8AC007 !important;
+}
 
 ::-moz-selection {
   background: transparent; /* Gecko Browsers */

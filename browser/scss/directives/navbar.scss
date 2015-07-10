@@ -5,10 +5,13 @@ navbar {
   margin-bottom: -20px;
 
   fullstack-logo {
-    padding-top: 20px;
+    padding-top: 10px;
     margin: auto;
     width: 120px;
     padding-bottom: 20px;
+      img {
+        width:100%;
+      }
   }
 
   a {

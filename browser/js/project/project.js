@@ -6,11 +6,19 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ProjectController', function($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
+app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 
+	//window events
 	window.onblur = function () {
         $scope.stop();
+		$scope.$digest();
     };
+    window.onbeforeunload = function() {
+		return "Are you sure you want to leave this page before saving your work?";
+	};
+	window.onunload = function () {
+		Tone.Transport.clearTimelines();
+	}
 
 	var maxMeasure = 0;
 
@@ -36,6 +44,8 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 	$scope.projectId = $stateParams.projectID;
 	$scope.position = 0;
 	$scope.playing = false;
+	$scope.currentlyRecording = false;
+	$scope.previewingId = null;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
@@ -44,14 +54,27 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 
 		if (project.tracks.length) {
 
+			console.log('project.tracks.length', project.tracks.length);
+
 			project.tracks.forEach(function (track) {
 
+				var loadableTracks = [];
+
+				project.tracks.forEach(function (track) {
+					if (track.url) {
+						loadableTracks++;
+					}
+				});
+
 				if (track.url) {
+
 					var doneLoading = function () {
+
 						loaded++;
-						if(loaded === project.tracks.length) {
+
+						if(loaded === loadableTracks) {
 							$scope.loading = false;
-							// Tone.Transport.start();
+							$scope.$digest();
 						}
 					};
 
@@ -99,6 +122,7 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
     				obj.location = [];
     				$scope.tracks.push(obj);
   			}
+  			$scope.loading = false;
 		}
 
 		//dynamically set measures
@@ -150,9 +174,30 @@ app.controller('ProjectController', function($scope, $stateParams, $compile, Rec
 		var playHead = document.getElementById('playbackHead');
 		playHead.style.left = '300px';
 		Tone.Transport.stop();
+		//stop and track currently being previewed
+		if($scope.previewingId) {
+			Tone.Transport.clearInterval($scope.previewingId);
+			$scope.previewingId = null;
+		}
+	}
+	$scope.nameClick = function() {
+		console.log('NAME Clicked');
+		$scope.nameChanging = true;
+		document.getElementById('projectNameInput').focus();
 	}
 	$scope.nameChange = function(newName) {
-		$scope.nameChanging = false;
+		console.log('NEW', newName);
+		if(newName) {
+			$scope.nameChanging = false;
+			$scope.nameError = false;
+			ProjectFct.nameChange(newName, $scope.projectId).then(function (response) {
+				console.log("RES", response);
+			});
+		} else {
+			$scope.nameError = "You must set a name!";
+			$scope.projectName = "Untitled";
+			document.getElementById('projectNameInput').focus();
+		}
 	}
 
 	$scope.toggleMetronome = function () {
