@@ -24,7 +24,8 @@ var schema = new mongoose.Schema({
         effectsRack: [Number]
     }],
     endMeasure: Number,
-    bpm: Number
+    bpm: Number,
+    download: String
 });
 
 
