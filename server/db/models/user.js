@@ -40,7 +40,8 @@ var schema = new mongoose.Schema({
      },
      soundcloud:{
         id: String,
-        code: String
+        code: String,
+        accessToken: String
      },
     projects: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -38,7 +38,7 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				});
 			}
 
-			$scope.uploadProject = function(project){
+			$scope.postToSoundcloud = function(project){
 				console.log('Uploading Project', project);
 				ProjectFct.uploadProject(project).then(function(response){
 					console.log('Upload Request is', response);

@@ -34,7 +34,7 @@ app.factory('ProjectFct', function($http){
     }
 
     var uploadProject = function(project){
-        return $http.post('api/projects/soundcloud').then(function(response){
+        return $http.post('api/projects/soundcloud', { project : project } ).then(function(response){
             return response.data;
         })
     }
