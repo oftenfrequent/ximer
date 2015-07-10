@@ -25,7 +25,7 @@ app.factory('ProjectFct', function($http){
         return $http.delete('/api/projects/'+project._id).then(function(response){
             console.log('Delete Proj Fct', response.data);
             return response.data;
-        })
+        });
     }
 
     return {
