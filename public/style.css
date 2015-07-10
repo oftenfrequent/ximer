@@ -213,7 +213,6 @@ div[class*="col-"] {
 .collection {
   background: #202630; }
 
-<<<<<<< HEAD
 #lpBackground {
   background-image: url(images/lpBackground.png);
   background-size: cover;
@@ -276,8 +275,6 @@ div[class*="col-"] {
 .t-c {
   text-align: center; }
 
-#login-form, #signup-form {
-=======
 .face {
   border-radius: 30px;
   border: 1px solid #ddd;
@@ -287,8 +284,7 @@ div[class*="col-"] {
 .cardContent {
   border: red; }
 
-#login-form {
->>>>>>> soundcloudupload
+#login-form, #signup-form {
   width: 60%;
   margin: 0 auto; }
 
