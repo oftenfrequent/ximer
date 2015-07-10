@@ -8,6 +8,14 @@ app.config(function ($stateProvider) {
 	.state('home',{
 		url: '/',
 		templateUrl: 'js/home/landing.html',
-		controller: 'LandingPageController'
+		controller: 'LandingPageController',
+		resolve: {
+			 checkIfLoggedIn: function (AuthService, $state) {
+			 	// console.log(AuthService.getLoggedInUser());
+		        AuthService.getLoggedInUser().then(function (user) {
+		        	if(user) $state.go('loggedInHome');
+		        });
+		    }
+		}
 	});
 });
