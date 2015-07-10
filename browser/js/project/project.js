@@ -19,6 +19,14 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	window.onunload = function () {
 		Tone.Transport.clearTimelines();
 	}
+	$('.timeline-container').scroll(function(){
+		console.log('SCROLLING TIMELINE');
+	    $('.trackMainSection').css({
+	        'left': $(this).scrollLeft()
+	    });
+	});
+
+
 
 	var maxMeasure = 0;
 
@@ -38,7 +46,6 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
     });
 
 	$scope.measureLength = 1;
-	$scope.nameChanging = false;
 	$scope.tracks = [];
 	$scope.loading = true;
 	$scope.projectId = $stateParams.projectID;
@@ -46,6 +53,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	$scope.playing = false;
 	$scope.currentlyRecording = false;
 	$scope.previewingId = null;
+	$scope.zoom = 100;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
@@ -128,11 +136,11 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		//dynamically set measures
 		//if less than 16 set 18 as minimum
 		$scope.numMeasures = [];
-		if(maxMeasure < 32) maxMeasure = 34;
+		if(maxMeasure < 32) maxMeasure = 32;
 		for (var i = 0; i < maxMeasure; i++) {
 			$scope.numMeasures.push(i);
 		}
-		console.log('MEASURES', $scope.numMeasures);
+		// console.log('MEASURES', $scope.numMeasures);
 
 
 
@@ -143,9 +151,23 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 	});
 
+	$scope.zoomOut = function() {
+		$scope.zoom -= 10;
+		var zoom = ($scope.zoom - 10).toString() + "%";
+		$('.timeline-container').css('zoom', zoom);
+		console.log('OUT', $scope.zoom);
+	};
+
+	$scope.zoomIn = function() {
+		$scope.zoom += 10;
+		var zoom = ($scope.zoom + 10).toString() + "%";
+		$('.timeline-container').css('zoom', zoom);
+		console.log('IN', $scope.zoom);
+	};
+
 	$scope.dropInTimeline = function (index) {
 		var track = scope.tracks[index];
-	}
+	};
 
 	$scope.addTrack = function () {
 
@@ -155,7 +177,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		$scope.playing = true;
 		Tone.Transport.position = $scope.position.toString() + ":0:0";
 		Tone.Transport.start();
-	}
+	};
 	$scope.pause = function () {
 		$scope.playing = false;
 		$scope.metronome.stop();
@@ -165,7 +187,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		var playHead = document.getElementById('playbackHead');
 		playHead.style.left = ($scope.position * 200 + 300).toString()+'px';
 		Tone.Transport.pause();
-	}
+	};
 	$scope.stop = function () {
 		$scope.playing = false;
 		$scope.metronome.stop();
@@ -180,15 +202,9 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 			$scope.previewingId = null;
 		}
 	}
-	$scope.nameClick = function() {
-		console.log('NAME Clicked');
-		$scope.nameChanging = true;
-		document.getElementById('projectNameInput').focus();
-	}
 	$scope.nameChange = function(newName) {
 		console.log('NEW', newName);
 		if(newName) {
-			$scope.nameChanging = false;
 			$scope.nameError = false;
 			ProjectFct.nameChange(newName, $scope.projectId).then(function (response) {
 				console.log("RES", response);

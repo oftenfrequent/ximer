@@ -44,6 +44,7 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 					console.log('Upload Request is', response);
 				})
 			}
+
 		});
 	
 });

@@ -9,8 +9,6 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
             $scope.user = user;
             console.log('user is', user, $state);
           });
-        
-
     });
 
     $scope.displaySettings = function(){
@@ -25,7 +23,10 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
       });
     }
 
-    
+    $scope.displayWeb = function(){
+      console.log("clicked");
+      $state.go('forkweb');
+    }
 
 
 });

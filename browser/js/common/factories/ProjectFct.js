@@ -39,6 +39,7 @@ app.factory('ProjectFct', function($http){
         })
     }
 
+
     return {
         getProjectInfo: getProjectInfo,
         createAFork: createAFork,

@@ -32,7 +32,7 @@
 		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 	</div>
 </div>
-<div class="track-row" id="measure-row{{$index}}" style="width: {{300 + (numMeasures.length * 200)}}px;">
+<div class="track-row" id="measure-row{{$index}}" style="width: {{numMeasures.length * 200}}px;">
 	<!-- Droppable Directive -->
     <div ng-repeat="measure in numMeasures" xposition="{{$index}}" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.location.indexOf($index) > -1 }" droppable drop="handleDrop()" ng-dblclick="appearOrDisappear($index)">
     	<div class="canvas-box"  ng-class="{grayed: track.silence}"></div>
