@@ -1,5 +1,5 @@
 
-app.controller('HomeController', function($scope, AuthService, ToneTrackFct, ProjectFct, $stateParams, $state) {
+app.controller('HomeController', function($scope, AuthService, ToneTrackFct, ProjectFct, $stateParams, $state, $mdToast) {
 	console.log('in Home controller');
 	var trackBucket = [];
 	$scope.isLoggedIn = function () {
@@ -16,8 +16,24 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
 	$scope.projects();
 
 		$scope.makeFork = function(project){
+			AuthService.getLoggedInUser().then(function(loggedInUser){
+				console.log('loggedInUser', loggedInUser);
+				project.owner = loggedInUser._id;
+				project.forkID = project._id;
+				delete project._id;
+				console.log(project);
+				$mdToast.show({
+					hideDelay: 2000,
+					position: 'bottom right',
+					template:"<md-toast> It's been forked </md-toast>"
+				});
 
-			}
+				ProjectFct.createAFork(project).then(function(response){
+					console.log('Fork response is', response);
+				});
+			})
+		
+		}
 		var stop =false;
 
 		$scope.sampleTrack = function(track){
