@@ -1,15 +1,27 @@
 'use strict';
-app.factory('ToneTimelineFct', function ($http) {
+app.factory('ToneTimelineFct', function ($http, $q) {
 
-	var getTransport = function (loopEnd) {
-		Tone.Transport.loop = true;
-		Tone.Transport.loopStart = '0m';
-		Tone.Transport.loopEnd = loopEnd.toString() + 'm';
+	var createTransport = function (loopEnd) {
+        return new $q(function (resolve, reject) {
+			Tone.Transport.loop = true;
+			Tone.Transport.loopStart = '0m';
+			Tone.Transport.loopEnd = loopEnd.toString() + 'm';
+			var playHead = document.getElementById('playbackHead');
 
-		Tone.Transport.setInterval(function () {
-			console.log(Tone.Transport.position);
-		}, '4n');
-		return Tone.Transport;
+			createMetronome().then(function (metronome) {
+				Tone.Transport.setInterval(function () {
+					var posArr = Tone.Transport.position.split(':');
+					var leftPos = ((parseInt(posArr[0]) * 200 ) + (parseInt(posArr[1]) * 50) + 500).toString() + 'px';
+					playHead.style.left = leftPos;
+					metronome.start();
+				}, '1m');
+				Tone.Transport.setInterval(function () {
+					console.log(Tone.Transport.position);
+					metronome.start();
+				}, '4n');
+				return resolve(metronome);
+			});
+        });
 	};
 
 	var changeBpm = function (bpm) {
@@ -17,11 +29,30 @@ app.factory('ToneTimelineFct', function ($http) {
 		return Tone.Transport;
 	};
 
-	var stopAll = function (loopArray) {
-		Tone.Transport.stop();
-		loopArray.forEach(function (loop) {
-			loop.stop();
+	var stopAll = function (tracks) {
+		tracks.forEach(function (track) {
+			if(track.player) track.player.stop();
 		});
+	};
+
+	var muteAll = function (tracks) {
+		tracks.forEach(function (track) {
+			if(track.player) track.player.volume.value = -100;
+		});
+	};
+
+	var unMuteAll = function (tracks) {
+		tracks.forEach(function (track) {
+			if(track.player) track.player.volume.value = 0;
+		});
+	};
+
+	var createMetronome = function () {
+        return new $q(function (resolve, reject) {
+	        var met = new Tone.Player("/api/wav/Click1.wav", function () {
+				return resolve(met);
+	        }).toMaster();
+        });
 	};
 
 	var addLoopToTimeline = function (player, startTimeArray) {
@@ -52,10 +83,15 @@ app.factory('ToneTimelineFct', function ($http) {
 		});
 
 	};
+	
     return {
-        getTransport: getTransport,
+        createTransport: createTransport,
         changeBpm: changeBpm,
-        addLoopToTimeline: addLoopToTimeline
+        addLoopToTimeline: addLoopToTimeline,
+        createMetronome: createMetronome,
+        stopAll: stopAll,
+        muteAll: muteAll,
+        unMuteAll: unMuteAll
     };
 
 });

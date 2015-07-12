@@ -1,0 +1,14 @@
+.ng-knob {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    border: 3px solid black;
+    cursor: pointer;
+}
+
+.ng-knob .ng-knob-tick {
+    width: 2px;
+    height: 35%;
+    background: black;
+    margin: 0 auto;
+}

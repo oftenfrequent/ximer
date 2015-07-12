@@ -6,6 +6,17 @@ body {
   background: #202630;
   font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif; }
 
+::selection {
+  background: transparent;
+  /* WebKit/Blink Browsers */ }
+
+input::selection {
+  background: #8AC007 !important; }
+
+::-moz-selection {
+  background: transparent;
+  /* Gecko Browsers */ }
+
 fullstack-logo {
   display: block; }
   fullstack-logo img {
@@ -17,10 +28,12 @@ navbar {
   background: #202630;
   margin-bottom: -20px; }
   navbar fullstack-logo {
-    padding-top: 20px;
+    padding-top: 10px;
     margin: auto;
     width: 120px;
     padding-bottom: 20px; }
+    navbar fullstack-logo img {
+      width: 100%; }
   navbar a {
     color: white; }
     navbar a:hover {
@@ -36,7 +49,8 @@ navbar {
       background: transparent; }
   navbar .navbar-header {
     margin: auto;
-    float: none; }
+    float: none;
+    height: 85px; }
   navbar .login-button {
     float: right;
     margin-top: 8px; }
@@ -49,24 +63,117 @@ navbar {
       color: #f30046;
       cursor: pointer; }
 
+xim-track .trackMainSection {
+  background: #202630;
+  width: 300px;
+  border: 1px solid #333;
+  height: 100px;
+  float: left;
+  position: absolute;
+  z-index: 999999; }
+xim-track .trackAnalyser, xim-track .trackWave {
+  width: 300px;
+  height: 100px; }
+xim-track .trackControllsContainer {
+  width: 300px;
+  height: 100px;
+  position: absolute;
+  top: 0px; }
+  xim-track .trackControllsContainer button.btn, xim-track .trackControllsContainer button.btn:hover, xim-track .trackControllsContainer button.btn:focus, xim-track .trackControllsContainer button.btn:active {
+    color: #ccc;
+    background-color: transparent;
+    border: 0px; }
+xim-track .grayed {
+  opacity: 0.2; }
+
 .timeline-container {
   background: #202630;
-  width: 100%; }
+  width: 100%;
+  overflow-x: scroll; }
 
-#home fullstack-logo {
-  padding-top: 30px;
-  width: 150px;
-  margin: 0 auto; }
-#home h1 {
-  margin-top: 40px;
+#project-container {
+  background: #202630;
+  padding-bottom: 40px; }
+  #project-container #loadingOverlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(32, 38, 48, 0.6);
+    z-index: 99999;
+    text-align: center; }
+    #project-container #loadingOverlay loading-gif .helper {
+      display: inline-block;
+      height: 100%;
+      vertical-align: middle; }
+    #project-container #loadingOverlay loading-gif img {
+      vertical-align: middle;
+      width: 120px;
+      margin: auto; }
+
+#projectHeader {
   text-align: center; }
+  #projectHeader button {
+    color: #f30046;
+    background-color: transparent;
+    border: 0px; }
+  #projectHeader #metronome {
+    background: url('/images/metronome.png') center no-repeat;
+    text-indent: -9999px;
+    padding: 3px;
+    border: 0px;
+    width: 50px;
+    background-size: 40%; }
+  #projectHeader #metronome.grey {
+    background: url('/images/metronomeGrey.png') center no-repeat;
+    background-size: 40%; }
+  #projectHeader #projectName {
+    font-size: 18px; }
+    #projectHeader #projectName button {
+      color: #fff; }
+    #projectHeader #projectName input {
+      background-color: transparent;
+      border: 0px;
+      text-align: center;
+      padding: 0px; }
+    #projectHeader #projectName input:focus {
+      outline: none !important;
+      border: 1px solid #f30046;
+      box-shadow: 0 0 10px #f30046; }
+
+#playbackHead {
+  position: relative;
+  width: 1px;
+  background-color: #fff;
+  height: 814px;
+  z-index: 9999;
+  left: 300px;
+  margin-bottom: -814px;
+  transition-property: left;
+  transition-duration: 2s;
+  transition-timing-function: linear;
+  transition-delay: 0s; }
+
+#measure-container {
+  height: 14px; }
+  #measure-container #measure-left {
+    height: 14px;
+    width: 300px;
+    float: left;
+    display: inline; }
+  #measure-container .measureMarkers {
+    border-left: 1px solid #ccc;
+    color: #ccc;
+    font-size: 10px;
+    float: left;
+    width: 200px;
+    padding: 2px;
+    height: 10px; }
 
 .track-row {
-  font-size: 0; }
-
-.main-timeline {
-  overflow-x: scroll;
-  overflow-y: hidden; }
+  font-size: 0;
+  margin-left: 300px; }
 
 .measures {
   display: inline-block;
@@ -96,16 +203,95 @@ navbar {
   min-height: 100px;
   min-width: 200px; }
 
+#home fullstack-logo {
+  padding-top: 30px;
+  width: 150px;
+  margin: 0 auto; }
+#home h1 {
+  margin-top: 40px;
+  text-align: center; }
+
 div[class*="col-"] {
   padding-right: 0px;
   padding-left: 0px; }
 
-#login-form {
+.collection {
+  background: #202630; }
+
+#lpBackground {
+  background-image: url(images/lpBackground.png);
+  background-size: cover;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  height: 600px; }
+  #lpBackground #lpBackgroundOverlay {
+    background-color: rgba(0, 0, 0, 0.3);
+    height: 400px; }
+
+#fullpage {
+  background: #202630; }
+  #fullpage #lpSpaciousText {
+    padding: 80px;
+    letter-spacing: 10px; }
+    #fullpage #lpSpaciousText h1, #fullpage #lpSpaciousText h4 {
+      margin-bottom: 20px; }
+    #fullpage #lpSpaciousText fullstack-logo {
+      width: 30%;
+      margin: 0 auto; }
+    #fullpage #lpSpaciousText button {
+      background: #C5C1C8; }
+  #fullpage #sellingPoints {
+    background: #202630;
+    color: #C5C1C8;
+    padding: 20px; }
+    #fullpage #sellingPoints h1 {
+      text-transform: uppercase;
+      font-size: 4em;
+      margin-bottom: 0px;
+      text-shadow: 0px 0px 14px #D93A54; }
+    #fullpage #sellingPoints h3 {
+      font-style: italic;
+      font-weight: 200;
+      margin-bottom: 80px;
+      margin-top: 0px; }
+    #fullpage #sellingPoints ul {
+      padding-left: 0px;
+      font-size: 2em; }
+    #fullpage #sellingPoints li {
+      list-style: none;
+      margin-bottom: 40px; }
+  #fullpage #lpForms {
+    padding: 80px 20px; }
+    #fullpage #lpForms .half {
+      width: 50%;
+      float: left; }
+      #fullpage #lpForms .half button {
+        margin: 0 auto;
+        height: 34px;
+        width: 120px;
+        display: block;
+        margin-bottom: 15px; }
+      #fullpage #lpForms .half #scOAuth {
+        background: #FF6600 url('/images/soundcloud-black.png') center no-repeat;
+        border: 0px;
+        background-size: 87%;
+        border-radius: 4px; }
+
+.t-c {
+  text-align: center; }
+
+.face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 48px;
+  margin: 16px; }
+
+.cardContent {
+  border: red; }
+
+#login-form, #signup-form {
   width: 60%;
   margin: 0 auto; }
-
-body {
-  background: #F1F3FA; }
 
 /* Profile container */
 .profile {

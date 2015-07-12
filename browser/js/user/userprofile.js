@@ -1,7 +1,7 @@
 app.config(function($stateProvider) {
 
     $stateProvider.state('userProfile', {
-        url: '/userprofile/:theID/',
+        url: '/userprofile/:theID',
         templateUrl: 'js/user/userprofile.html',
         controller: 'UserController',
         // The following data.authenticate is read by an event listener
@@ -9,39 +9,27 @@ app.config(function($stateProvider) {
         data: {
             authenticate: true
         }
+    })
+    .state('userProfile.artistInfo', {
+        url: '/info',
+        templateUrl: 'js/user/info.html',
+        controller: 'UserController'
+    })
+    .state('userProfile.project', {
+        url: '/projects',
+        templateUrl: 'js/user/projects.html',
+        controller: 'UserController'
+    })
+    .state('userProfile.followers', {
+        url: '/followers',
+        templateUrl: 'js/user/followers.html',
+        controller: 'UserController'
+    })
+    .state('userProfile.following', {
+        url: '/following',
+        templateUrl: 'js/user/following.html',
+        controller: 'UserController'
     });
 
 });
 
-app.controller('UserController', function($scope, $state, AuthService, userFactory, $stateParams) {
-    AuthService.getLoggedInUser().then(function(aUser){
-        $scope.theUser = aUser;
-    });
-
-    $scope.displaySettings = function(){
-        if($scope.showSettings) $scope.showSettings = false;
-        else $scope.showSettings = true;
-        console.log($scope.showSettings);
-    }
-
-    $scope.displayProjects = function(){
-        userFactory.getAllProjects($scope.theUser._id).then(function(data){
-            $scope.projects = data;
-            if($scope.showProjects) $scope.showProjects = false;
-            else $scope.showProjects = true;
-            console.log($scope.projects);
-        });
-    }
-
-    $scope.displayForks = function(){
-        userFactory.getForks($scope.theUser._id).then(function(data){
-            $scope.forks = data;
-            console.log($scope.forks);
-        });
-    }
-
-    $scope.createAProject = function(){
-        
-    }
-
-});

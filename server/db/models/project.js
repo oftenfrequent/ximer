@@ -8,18 +8,24 @@ var schema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
     },
+    forkOrigin: { 
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Project'
+    },
     forkID: { 
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Project'
     },
     tracks: [{
         name: String,
-        locations: [Number],
+        location: [Number],
         url: String,
-        img: String
+        img: String,
+        effectsRack: [Number]
     }],
     endMeasure: Number,
-    bpm: Number
+    bpm: Number,
+    download: String
 });
 
 

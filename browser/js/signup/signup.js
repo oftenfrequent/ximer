@@ -18,7 +18,7 @@ app.controller('SignupCtrl', function($scope, AuthService, $state) {
         $scope.error = null;
         console.log(signupInfo);
         AuthService.signup(signupInfo).then(function () {
-            $state.go('home');
+            $state.go('loggedInHome');
         }).catch(function () {
             $scope.error = 'Invalid login credentials.';
         });

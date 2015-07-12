@@ -1,0 +1,32 @@
+xim-track {
+  .trackMainSection {
+    background: #202630;
+    width: 300px;
+    border: 1px solid #333;
+    height: 100px;
+    float: left;
+    position:absolute;
+    z-index: 999999;
+  }
+  .trackAnalyser, .trackWave {
+    width:300px;
+    height:100px;
+  }
+  .trackControllsContainer {
+    width:300px;
+    height:100px;
+    position:absolute;
+    top:0px;
+      button.btn,
+      button.btn:hover,
+      button.btn:focus,
+      button.btn:active {
+        color: #ccc;
+        background-color:rgba(0,0,0,0);
+        border:0px;
+      }
+  }
+  .grayed {
+    opacity: 0.2;
+  }
+}

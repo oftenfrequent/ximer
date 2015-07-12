@@ -8,6 +8,16 @@ module.exports = app;
 // function located at server/app/configure/index.js
 require('./configure')(app);
 
+app.all('*', ensureSecure);
+
+function ensureSecure(req, res, next){
+  if(req.secure){
+    return next();
+  };
+  res.redirect('https://' + req.hostname + ':' + 8000 + req.url);
+};
+
+
 // Routes that will be accessed via AJAX should be prepended with
 // /api so they are isolated from our GET /* wildcard.
 app.use('/api', require('./routes'));

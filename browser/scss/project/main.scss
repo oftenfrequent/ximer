@@ -1,4 +1,147 @@
 .timeline-container {
   background: #202630;
   width:100%;
+  overflow-x: scroll;
+}
+
+#project-container {
+	background: #202630;
+	padding-bottom: 40px;
+
+	#loadingOverlay {
+		position:absolute;
+		top:0;
+		left:0;
+		right:0;
+		bottom:0;
+		background: rgba(32,38,48,0.6);
+		z-index:99999;
+		text-align:center;
+
+		loading-gif {
+			.helper {
+				display:inline-block;
+				height:100%;
+				vertical-align: middle;
+			}
+			img {
+				vertical-align: middle;
+				width:120px;
+				margin:auto;
+			}
+		}
+	}
+}
+
+#projectHeader {
+	text-align:center;
+	button {
+		color: #f30046;
+		background-color:rgba(0,0,0,0);
+		border:0px;
+	}
+	#metronome {
+		background:url('/images/metronome.png') center no-repeat;
+		text-indent:-9999px;
+		padding:3px;
+		border: 0px;
+		width:50px;
+		background-size:40%;
+	}
+	#metronome.grey {
+		background:url('/images/metronomeGrey.png') center no-repeat;
+		background-size:40%;
+	}
+	#projectName {
+		font-size: 18px;
+		button {
+			color:#fff;
+		}
+		input {
+			background-color: rgba(0,0,0,0);
+			border:0px;
+			text-align:center;
+			padding:0px;
+		}
+		input:focus {
+		    outline: none !important;
+		    border:1px solid #f30046;
+		    box-shadow: 0 0 10px #f30046;
+		}
+	}
+}
+
+#playbackHead {
+	position: relative;
+	width:1px;
+	background-color: #fff;
+	height:814px;
+	z-index:9999;
+	left:300px;
+	margin-bottom: -814px;
+	transition-property: left;
+	transition-duration: 2s;
+	transition-timing-function: linear;
+	transition-delay: 0s;
+}
+
+#measure-container {
+	height:14px;
+	#measure-left {
+		height:14px;
+		width:300px;
+		float: left;
+		display:inline
+	}
+	.measureMarkers {
+		border-left: 1px solid #ccc;
+		color:#ccc;
+		font-size:10px;
+		float: left;
+		width:200px;
+		padding:2px;
+		height:10px;
+	}
+}
+
+
+.track-row {
+  font-size: 0;
+  margin-left:300px;
+}
+
+.main-timeline {
+}
+
+.measures {
+  display: inline-block;
+  height: 100%;
+  border: 1px solid #502640;
+  min-height: 100px;
+  min-width: 200px;
+}
+
+.over {
+  background: #D63953;
+}
+
+.item {
+  min-height: 98px;
+  min-width: 198px;
+  background: #202630;
+  -webkit-box-shadow:inset 0px 0px 0px 1px #D63953;
+  -moz-box-shadow:inset 0px 0px 0px 1px #D63953;
+  box-shadow:inset 0px 0px 0px 1px #D63953;
+}
+
+.drag {
+  opacity: 0.5;
+}
+
+.tracks {
+  margin-left: 1em;
+  height: 100%;
+  border: 1px solid #502640;
+  min-height: 100px;
+  min-width: 200px;
 }

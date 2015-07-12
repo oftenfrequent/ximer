@@ -1,4 +1,4 @@
-app.controller('TimelineController', function($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, TonePlayerFct, ToneTimelineFct) {
+app.controller('TimelineController', function ($scope, $stateParams, $localStorage, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct) {
   
   var wavArray = [];
   
@@ -26,15 +26,15 @@ app.controller('TimelineController', function($scope, $stateParams, $localStorag
                     // Tone.Transport.start();
                 }
             };
-            track.player = TonePlayerFct.createPlayer(track.url, doneLoading);
-            ToneTimelineFct.addLoopToTimeline(track.player, track.locations);
+            track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
+            ToneTimelineFct.addLoopToTimeline(track.player, track.location);
             $scope.tracks.push(track);
         });
       } else {
         for (var i = 0; i < 6; i++) {
           var obj = {};
           obj.name = 'Track ' + (i+1);
-          obj.locations = [];
+          obj.location = [];
           $scope.tracks.push(obj);
         }
       }
