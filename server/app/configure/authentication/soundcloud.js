@@ -20,34 +20,37 @@ module.exports = function (app) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-        UserModel.findOne({ 'soundcloud.id': profile.id }, function (err, user) {
+       UserModel.findOne({ 'soundcloud.id': profile.id }, function (err, user) {
 
-            if (err) return done(err);
+           if (err) return done(err);
 
-            if (user) {
-                soundclouduser = user;
-                done(null, user);
-            } else {
-                UserModel.create({
-                    soundcloud: {
-                        id: profile.id
-                    },
-                    profpic:{
-                        contentType: profile._json.avatar_url
-                    },
-                    username: profile._json.username
-                }).then(function (user) {
-                    soundclouduser = user;
-                    done(null, user);
-                }, function (err) {
-                    console.error('Error creating user from SoundCloud authentication', err);
-                    done(err);
-                });
-            }
+           if (user) {
+               user.soundcloud.accessToken = accessToken;
+               user.save();
+               done(null, user);
+           } else {
+               UserModel.create({
+                   soundcloud: {
+                       id: profile.id,
+                       accessToken: accessToken
+                   },
+                   profpic:{
+                       contentType: profile._json.avatar_url
+                   },
+                   username: profile._json.username
+               }).then(function (user) {
+                   soundclouduser = user;
+                   done(null, user);
+               }, function (err) {
+                   console.error('Error creating user from SoundCloud authentication', err);
+                   done(err);
+               });
+           }
 
-        });
 
-    };
+       });
+
+   };
 
     passport.use(new SoundCloudStrategy(soundCloudCredentials, verifyCallback));
 
@@ -56,11 +59,6 @@ module.exports = function (app) {
     app.get('/auth/soundcloud/callback',
         passport.authenticate('soundcloud', { failureRedirect: '/login' }),
         function (req, res) {
-
-            console.log('The soundcloud is', soundclouduser);
-            soundclouduser.soundcloud.code= req.query.code;
-            soundclouduser.save()
-            console.log('The soundclouduser is', soundclouduser);
             res.redirect('/');
         });
 

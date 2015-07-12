@@ -4,6 +4,12 @@
   overflow-x: scroll;
 }
 
+.controls-third{
+	display:inline-block;
+	width:33.33333%;
+	float: left;
+}
+
 #project-container {
 	background: #202630;
 	padding-bottom: 40px;
@@ -41,12 +47,16 @@
 		border:0px;
 	}
 	#metronome {
-		background:url('https://apps.ubuntu.com/site_media/icons/2015/04/gtklick_24.png') center no-repeat;
+		background:url('/images/metronome.png') center no-repeat;
 		text-indent:-9999px;
 		padding:3px;
 		border: 0px;
 		width:50px;
-		background-size:50%;
+		background-size:40%;
+	}
+	#metronome.grey {
+		background:url('/images/metronomeGrey.png') center no-repeat;
+		background-size:40%;
 	}
 	#projectName {
 		font-size: 18px;
@@ -64,6 +74,32 @@
 		    border:1px solid #f30046;
 		    box-shadow: 0 0 10px #f30046;
 		}
+	}
+	#positionSelector {
+		color:#ccc;
+		background-color: #f30046;
+		border: 0px;
+		height: 25px;
+		text-align:center;
+
+	}
+	input[type=number]::-webkit-inner-spin-button, 
+	input[type=number]::-webkit-outer-spin-button { 
+		-webkit-appearance: none; 
+		margin: 0; 
+	}
+	#timelinePosition {
+		color:#ccc;
+		border: 3px  solid #f30046;
+		background-color: #202630;
+		display: inline-block;
+		height: 25px;
+		width:31px;
+		padding:2px 0px;
+		margin-left:-5px;
+		text-align:center;
+		border-left:0px;
+		margin-top:1px;
 	}
 }
 

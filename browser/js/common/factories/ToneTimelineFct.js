@@ -16,7 +16,8 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 					metronome.start();
 				}, '1m');
 				Tone.Transport.setInterval(function () {
-					console.log(Tone.Transport.position);
+					$('#timelinePosition').val(Tone.Transport.position.substr(1));
+					$('#positionSelector').val(Tone.Transport.position.substr(0,1));
 					metronome.start();
 				}, '4n');
 				return resolve(metronome);

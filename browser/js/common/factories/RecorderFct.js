@@ -73,9 +73,11 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
             recorder.getBuffers(function (buffers) {
                 //display wav image
                 var canvas = document.getElementById( "wavedisplay" +  index );
+                var canvasLoop = document.getElementById( "waveForLoop" +  index );
                 drawBuffer( 300, 100, canvas.getContext('2d'), buffers[0] );
+                drawBuffer( 198, 98, canvasLoop.getContext('2d'), buffers[0] );
                 window.latestBuffer = buffers[0];
-                window.latestRecordingImage = canvas.toDataURL("image/png");
+                window.latestRecordingImage = canvasLoop.toDataURL("image/png");
 
                 // the ONLY time gotBuffers is called is right after a new recording is completed - 
                 // so here's where we should set up the download.

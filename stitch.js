@@ -4,7 +4,7 @@ var connectToDb = require('./server/db');
 var q = require('q');
 var Project = mongoose.model('Project');
 var request = require('request');
-var blank = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/28a683ec-da26-4f24-a5ed-a114172a0f82.wav';
+var blank = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/4a08e37c-2828-4186-95fd-032f43b4baca.wav';
 var bluebird = require('bluebird');
 var fs = bluebird.promisifyAll(require('fs'));
 
@@ -18,6 +18,7 @@ var bucketName = 'fullstacktracks';
 
 function createFolder (dir) {
     if (!fs.existsSync(dir)) {
+        fs.unlinkSync('final.wav');
         fs.mkdirSync(dir);
     }
 }
@@ -108,7 +109,7 @@ connectToDb.then(function () {
 
         setTimeout(function() {
 
-            var projectWAV = fs.readFileSync('tmp/final.wav');
+            var projectWAV = fs.readFileSync('final.wav');
 
             console.log('projectWAV', projectWAV);
             
@@ -154,7 +155,7 @@ connectToDb.then(function () {
                 });
             }, 5000);
 
-        }, 10000);
+        }, 20000);
 
     });
 
