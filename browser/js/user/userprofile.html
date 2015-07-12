@@ -5,7 +5,7 @@
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
 
-					<img src="{{user.profpic.contentType}}" class="img-responsive" alt="">
+					<img src="{{user.profpic}}" class="img-responsive" alt="">
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
@@ -14,7 +14,8 @@
 						{{user.username}}
 					</div>
 					<div>
-						<button ng-show="loggedInUser._id !== user._id" ng-click="follow(user)">Follow</button>
+						<button ng-show="loggedInUser._id !== user._id" ng-hide="followStatus" ng-click="follow(user)">Follow</button>
+						<button ng-show="followStatus">Following</button>
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -35,12 +36,12 @@
 						<li ui-sref="userProfile.followers">
 							<a href="#">
 							<i class="glyphicon glyphicon-link"></i>
-							Followers </a>
+							Followers      ({{user.followers.length}})</a>
 						</li>
 						<li ui-sref="userProfile.following">
 							<a href="#">
 							<i class="glyphicon glyphicon-headphones"></i>
-							Following </a>
+							Following      ({{user.following.length}})</a>
 						</li>
 						<!-- <li ng-click="displayForks()">
 							<a href="#">
