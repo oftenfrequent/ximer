@@ -3,19 +3,21 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
-			scope.effectWetnesses = [{
-					name: 'Chorus',
-					amount: 0
-				},{
-					name: 'Phaser',
-					amount: 0
-				},{
-					name: 'Distortion',
-					amount: 0
-				},{
-					name: 'PingPongDelay',
-					amount: 0
-				}];
+			scope.effectWetnesses = [0,0,0,0];
+
+			// scope.effectWetnesses = [{
+			// 		name: 'Chorus',
+			// 		amount: 0
+			// 	},{
+			// 		name: 'Phaser',
+			// 		amount: 0
+			// 	},{
+			// 		name: 'Distortion',
+			// 		amount: 0
+			// 	},{
+			// 		name: 'PingPongDelay',
+			// 		amount: 0
+			// 	}];
 				scope.volume = new Tone.Volume();
 				scope.volume.volume.value = 0;
 			setTimeout(function () {
@@ -110,7 +112,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.effectsRack.forEach(function (effect) {
 					effect.dispose();
 				});
-				// scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
+				scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
 				// scope.track.player.connect(effectsRack[0]);
 				// scope.volume = new Tone.Volume();
 				// scope.track.effectsRack[3].connect(scope.volume);

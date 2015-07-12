@@ -86,6 +86,20 @@ xim-track .trackControllsContainer {
     padding: 6px 13px; }
 xim-track .grayed {
   opacity: 0.2; }
+xim-track .effectContainers {
+  width: 50%;
+  float: left;
+  font-size: 8px;
+  padding: 0px 5px;
+  margin-top: -10px;
+  margin-bottom: 1px; }
+  xim-track .effectContainers md-slider .md-thumb:after {
+    border-color: #f30046;
+    background-color: #f30046; }
+  xim-track .effectContainers md-slider .md-track.md-track-fill {
+    background-color: #ccc; }
+  xim-track .effectContainers md-slider .md-slider-wrapper {
+    margin-top: -12px; }
 
 .timeline-container {
   background: #202630;
