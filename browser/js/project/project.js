@@ -185,6 +185,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		$scope.position = Tone.Transport.position.split(':')[0];
 		console.log('POS', $scope.position);
 		var playHead = document.getElementById('playbackHead');
+		$('#timelinePosition').text(Tone.Transport.position);
 		playHead.style.left = ($scope.position * 200 + 300).toString()+'px';
 		Tone.Transport.pause();
 	};
@@ -196,6 +197,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		var playHead = document.getElementById('playbackHead');
 		playHead.style.left = '300px';
 		Tone.Transport.stop();
+		$('#timelinePosition').text(Tone.Transport.position);
 		//stop and track currently being previewed
 		if($scope.previewingId) {
 			Tone.Transport.clearInterval($scope.previewingId);

@@ -28,7 +28,11 @@
 			<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
 		</button>
 
-		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline">
+		<!-- <input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline"> -->
+		<div>
+			<!-- <ng-knob ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index].amount" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline"></ng-knob> -->
+			<ng-knob value="0" min="0" max="20" ng-model="track.volume" ng-change="volumeChange(volume.volume.value)" ng-show="track.onTimeline"></ng-knob>
+		</div>
 		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 	</div>
 </div>

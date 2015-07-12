@@ -3,7 +3,21 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
-			scope.effectWetnesses = [0,0,0,0];
+			scope.effectWetnesses = [{
+					name: 'Chorus',
+					amount: 0
+				},{
+					name: 'Phaser',
+					amount: 0
+				},{
+					name: 'Distortion',
+					amount: 0
+				},{
+					name: 'PingPongDelay',
+					amount: 0
+				}];
+				scope.volume = new Tone.Volume();
+				scope.volume.volume.value = 0;
 			setTimeout(function () {
 				var canvasRow = element[0].getElementsByClassName('canvas-box');
 				for (var i = 0; i < canvasRow.length; i++) {
@@ -101,6 +115,10 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					effect.dispose();
 				});
 				scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
+				// scope.volume = new Tone.Volume();
+				scope.track.effectsRack[3].connect(scope.volume);
+				scope.volume.toMaster();
+				console.log("RACK", scope.track.effectsRack);
 				scope.track.location = [];
 				//remove all loops from UI
 				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
@@ -207,6 +225,9 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 							scope.track.buffer = window.latestBuffer;
 							scope.track.rawAudio = window.latestRecording;
 							player.connect(scope.track.effectsRack[0]);
+							// scope.volume = new Tone.Volume();
+							scope.track.effectsRack[3].connect(scope.volume);
+							scope.volume.toMaster();
 							scope.$parent.metronome.stop();
 							window.clearInterval(click);
 							scope.$parent.currentlyRecording = false;
@@ -251,16 +272,11 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}, endBar.toString() + "m");
 				}
 			}
+			scope.volumeChange = function (amount) {
+				console.log('VOL AMOUNT', amount)
+				scope.volume.volume.value  = amount - 20;
+			}
 			scope.preview = function(currentlyPreviewing) {
-				// if(Tone.Transport.state === "stopped") {
-				// 	if(currentlyPreviewing) {
-				// 		scope.track.player.stop();
-				// 		scope.track.previewing = false;
-				// 	} else {
-				// 		scope.track.player.start();
-				// 		scope.track.previewing = true;
-				// 	}
-				// } else {
 				var nextBar;
 				if(!scope.$parent.previewingId) {
 					scope.track.previewing = true;

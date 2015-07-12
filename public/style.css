@@ -66,7 +66,7 @@ navbar {
 xim-track .trackMainSection {
   background: #202630;
   width: 300px;
-  border: 1px solid #333;
+  border: 1px solid #502640;
   height: 100px;
   float: left;
   position: absolute;
@@ -90,6 +90,11 @@ xim-track .grayed {
   background: #202630;
   width: 100%;
   overflow-x: scroll; }
+
+.controls-third {
+  display: inline-block;
+  width: 33%;
+  float: left; }
 
 #project-container {
   background: #202630;

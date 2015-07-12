@@ -9,13 +9,20 @@
 	    	<div id="projectName">
 	    		<input ng-model="projectName" id="projectNameInput" value="{{projectName}}" ng-blur="nameChange(projectName)" required><div ng-show="nameError">{{nameError}}</div>
 	    	</div>
-	    	<button class="btn btn-primary" ng-click="play()" ng-disabled="playing"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
-	    	<button class="btn btn-primary" ng-click="pause()"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
-	    	<button class="btn btn-primary" ng-click="stop()"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
-	    	<button class="btn btn-primary" ng-click="sendToAWS()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
-	    	<button id="metronome" ng-click="toggleMetronome()">Metro</button>
-	    	<button class="btn btn-primary" ng-disabled="zoom === 100" ng-click="zoomIn()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-	    	<button class="btn btn-primary" ng-disabled="zoom === 50" ng-click="zoomOut()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+	    	<div class="controls-third">
+	    		<span id="timelinePosition">0:0:0</span>
+		    	<button id="metronome" ng-click="toggleMetronome()">Metro</button>
+    		</div>
+	    	<div class="controls-third">
+		    	<button class="btn btn-primary" ng-click="play()" ng-disabled="playing"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
+		    	<button class="btn btn-primary" ng-click="pause()"><span class="glyphicon glyphicon-pause" aria-hidden="true"></span></button>
+		    	<button class="btn btn-primary" ng-click="stop()"><span class="glyphicon glyphicon-stop" aria-hidden="true"></span></button>
+		    </div>
+	    	<div class="controls-third">
+		    	<button class="btn btn-primary" ng-click="sendToAWS()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
+		    	<button class="btn btn-primary" ng-disabled="zoom === 100" ng-click="zoomIn()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+		    	<button class="btn btn-primary" ng-disabled="zoom === 50" ng-click="zoomOut()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+		    </div>
 	    </div>
 	    <div id="loadingOverlay" ng-show="loading">
 			<loading-gif></loading-gif>
