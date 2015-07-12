@@ -50,16 +50,16 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				}
 
 				//append canvas element
-				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item trackLoop"+index+"' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
 				scope.track.location.push(position);
 				scope.track.location.sort();
 				var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
+				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item trackLoop"+index+"' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
 				
 			}
 
 			scope.moveInTimeline = function (oldTimelineId, newMeasure) {
 				return new $q(function (resolve, reject) {
-					// console.log('ELEMENT', oldTimelineId, newMeasure);
+					console.log('ELEMENT', oldTimelineId, newMeasure);
 					ToneTrackFct.replaceTimelineLoop(scope.track.player, oldTimelineId, newMeasure).then(resolve);
 				});
 			};
