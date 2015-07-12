@@ -96,7 +96,7 @@ app.directive('droppable', function() {
               }     
           }
           
-
+          console.log('oldTimelineId', oldTimelineId);
           scope.$parent.$parent.moveInTimeline(oldTimelineId, xposition).then(function (newTimelineId) {
               theCanvas.attributes.timelineid.value = newTimelineId;
           });
