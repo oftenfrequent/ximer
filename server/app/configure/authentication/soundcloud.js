@@ -25,12 +25,14 @@ module.exports = function (app) {
             if (err) return done(err);
 
             if (user) {
-                soundclouduser = user;
+                user.soundcloud.accessToken = accessToken;
+                user.save();
                 done(null, user);
             } else {
                 UserModel.create({
                     soundcloud: {
-                        id: profile.id
+                        id: profile.id,
+                        accessToken: accessToken
                     },
                     profpic:{
                         contentType: profile._json.avatar_url
@@ -57,10 +59,10 @@ module.exports = function (app) {
         passport.authenticate('soundcloud', { failureRedirect: '/login' }),
         function (req, res) {
 
-            console.log('The soundcloud is', soundclouduser);
-            soundclouduser.soundcloud.code= req.query.code;
-            soundclouduser.save()
-            console.log('The soundclouduser is', soundclouduser);
+            // console.log('The soundcloud is', soundclouduser);
+            // soundclouduser.soundcloud.code= req.query.code;
+            // soundclouduser.save()
+            // console.log('The soundclouduser is', soundclouduser);
             res.redirect('/');
         });
 

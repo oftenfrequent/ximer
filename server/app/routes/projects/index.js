@@ -119,30 +119,26 @@ router.delete('/:id', function(req, res, next) {
 });
 
 router.post('/soundcloud', function(req, res, next){
-	console.log('req.user is', req.user);
-	  var soundCloudCode = req.user.soundcloud.code;
-	  console.log('soundCloudCode', soundCloudCode);
+	  var accessToken = req.user.soundcloud.accessToken;
+	  console.log('accessToken', accessToken);
 
 	  	SC.init({
-  		clientId: '45c5e6212ac58c73e7d05f8636a9bf22',
-  		clientSecret: 'ae88cd6434e65ec74ed1ade69eeb9cca',
-  		redirectUri: 'https://127.0.0.1:8000/auth/soundcloud/callback'
+  		id: '45c5e6212ac58c73e7d05f8636a9bf22',
+  		secret: 'ae88cd6434e65ec74ed1ade69eeb9cca',
+  		uri: 'https://127.0.0.1:8000/auth/soundcloud/callback',
+  		accessToken: accessToken
 	});
 
 
-	  SC.authorize(soundCloudCode, function(err, accessToken) {
-    	if ( err ) {
-    		console.log('ERRORR IS ', err)
-      		throw err;
-    	} else {
-      // Client is now authorized and able to make API calls
-      console.log('access token:', accessToken);
-    	}
-  	});
- 
 
-	// SC.post('/tracks',{title: 'Hey'}, function(err, response){
-	// 	console.log('error is',err);
-	// 	console.log('response is', response)
-	// })
-})
+
+	SC.post('/tracks',{track:{name:hry}}, function(err, response){
+		if(err){
+			console.log('error is',err);
+
+		}
+		else{
+			console.log(response)
+		}
+	})
+});
