@@ -1,8 +1,4 @@
 app.controller('LandingPageController', function ($scope, AuthService, ToneTrackFct, $state) {
-    $scope.isLoggedIn = function () {
-        return AuthService.isAuthenticated();
-    };
-    if($scope.isLoggedIn()) $state.go('loggedInHome');
     // $('#fullpage').fullpage();
     document.getElementsByTagName('navbar')[0].style.display = "none";
 

@@ -31,9 +31,13 @@ app.factory('ToneTrackFct', function ($http, $q) {
 
 
 		var chorus = new Tone.Chorus();
+		chorus.name = "Chorus";
 		var phaser = new Tone.Phaser();
+		phaser.name = "Phaser";
 		var distort = new Tone.Distortion();
-		var pingpong = new Tone.PingPongDelay("1m");
+		distort.name = "Distortion";
+		var pingpong = new Tone.PingPongDelay("4m");
+		pingpong.name = "Ping Pong";
 
 		if (arr.length) {
 			chorus.wet.value = arr[0];
@@ -46,6 +50,8 @@ app.factory('ToneTrackFct', function ($http, $q) {
 		phaser.connect(distort);
 		distort.connect(pingpong);
 		pingpong.toMaster();
+		// pingpong.connect(volume);
+		// volume.toMaster();
 
 		return [chorus, phaser, distort, pingpong];
 	};

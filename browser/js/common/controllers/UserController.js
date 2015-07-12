@@ -9,8 +9,6 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
             $scope.user = user;
             console.log('user is', user, $state);
           });
-        
-
     });
 
     $scope.displaySettings = function(){

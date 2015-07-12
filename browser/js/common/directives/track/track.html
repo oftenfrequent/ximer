@@ -3,6 +3,7 @@
 		
 	</canvas>
 	<canvas id="wavedisplay{{$index}}" height="100px" class="trackWave" ng-show="!track.empty && !track.recording && !track.onTimeline"></canvas>
+	<canvas id="waveForLoop{{$index}}" width="198" height="98px" ng-hide="true"></canvas>
 	<div class="trackControllsContainer">
 		<button class="btn btn-primary" ng-click="record($index)" ng-show="track.empty || !track.onTimeline" ng-disabled="$parent.currentlyRecording">
 			<span class="glyphicon glyphicon-record" aria-hidden="true"></span>
@@ -28,11 +29,15 @@
 			<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
 		</button>
 
-		<input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline">
+		<!-- <input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline"> -->
+		<div>
+			<ng-knob ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index].amount" ng-show="track.onTimeline"></ng-knob>
+			<!-- <ng-knob min="0" max="100" ng-model="track.volume" ng-show="track.onTimeline"></ng-knob> -->
+		</div>
 		<a id="save{{$index}}" href="#" ng-hide="true">DOWNLOAD</a>
 	</div>
 </div>
-<div class="track-row" id="measure-row{{$index}}" style="width: {{300 + (numMeasures.length * 200)}}px;">
+<div class="track-row" id="measure-row{{$index}}" style="width: {{numMeasures.length * 200}}px;">
 	<!-- Droppable Directive -->
     <div ng-repeat="measure in numMeasures" xposition="{{$index}}" id="measure{{$index}}" class="measures track{{$parent.$index}}" ng-class="{ 'taken' : track.location.indexOf($index) > -1 }" droppable drop="handleDrop()" ng-dblclick="appearOrDisappear($index)">
     	<div class="canvas-box"  ng-class="{grayed: track.silence}"></div>

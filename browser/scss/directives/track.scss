@@ -2,10 +2,11 @@ xim-track {
   .trackMainSection {
     background: #202630;
     width: 300px;
-    border: 1px solid #333;
+    border: 1px solid #502640;
     height: 100px;
     float: left;
-    position:relative;
+    position:absolute;
+    z-index: 999999;
   }
   .trackAnalyser, .trackWave {
     width:300px;
@@ -23,6 +24,8 @@ xim-track {
         color: #ccc;
         background-color:rgba(0,0,0,0);
         border:0px;
+        margin-left: 26px;
+        padding: 6px 13px;
       }
   }
   .grayed {

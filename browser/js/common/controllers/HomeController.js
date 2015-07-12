@@ -1,7 +1,5 @@
 app.controller('HomeController', function($scope, AuthService, ToneTrackFct, ProjectFct, $stateParams, $state, $mdToast) {
-	console.log('in Home controller');
 	var trackBucket = [];
-	console.log('HASDFJANDSJ');
     document.getElementsByTagName('navbar')[0].style.display = "block";
 
 	$scope.isLoggedIn = function () {
