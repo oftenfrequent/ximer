@@ -17,7 +17,7 @@ final = AudioSegment.from_file('tmp/'+sys.argv[1]+'.wav', format="wav");
 
 for wav in [ 'tmp/' + x + '.wav' for x in sys.argv[2:] ]:
 	final = final.overlay(AudioSegment.from_file(wav, format="wav"));
-final.export('tmp/final.wav', format='wav')
+final.export('final.wav', format='wav')
 
 
 

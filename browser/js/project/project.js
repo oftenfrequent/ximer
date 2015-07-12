@@ -20,7 +20,6 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		Tone.Transport.clearTimelines();
 	}
 	$('.timeline-container').scroll(function(){
-		console.log('SCROLLING TIMELINE');
 	    $('.trackMainSection').css({
 	        'left': $(this).scrollLeft()
 	    });
@@ -146,10 +145,25 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 		ToneTimelineFct.createTransport(project.endMeasure).then(function (metronome) {
 			$scope.metronome = metronome;
+			$scope.metronome.on = true;
 		});
 		ToneTimelineFct.changeBpm(project.bpm);
 
 	});
+
+	$scope.jumpToMeasure = function(measure) {
+		if(maxMeasure > measure) {
+			$scope.position = measure;
+			Tone.Transport.position = measure.toString() + ":0:0";
+			$scope.movePlayhead(measure);
+		}
+	}
+
+	$scope.movePlayhead = function (numberMeasures) {
+		var playHead = document.getElementById('playbackHead');
+		$('#timelinePosition').val(Tone.Transport.position.substr(1));
+		playHead.style.left = (numberMeasures * 200 + 300).toString()+'px';
+	}
 
 	$scope.zoomOut = function() {
 		$scope.zoom -= 10;
@@ -173,6 +187,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 	};
 
+
 	$scope.play = function () {
 		$scope.playing = true;
 		Tone.Transport.position = $scope.position.toString() + ":0:0";
@@ -183,9 +198,8 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		$scope.metronome.stop();
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];
-		console.log('POS', $scope.position);
 		var playHead = document.getElementById('playbackHead');
-		$('#timelinePosition').text(Tone.Transport.position);
+		$('#timelinePosition').val(":0:0");
 		playHead.style.left = ($scope.position * 200 + 300).toString()+'px';
 		Tone.Transport.pause();
 	};
@@ -197,7 +211,8 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		var playHead = document.getElementById('playbackHead');
 		playHead.style.left = '300px';
 		Tone.Transport.stop();
-		$('#timelinePosition').text(Tone.Transport.position);
+		$('#timelinePosition').val(":0:0");
+		$('#positionSelector').val("0");
 		//stop and track currently being previewed
 		if($scope.previewingId) {
 			Tone.Transport.clearInterval($scope.previewingId);
@@ -221,8 +236,11 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	$scope.toggleMetronome = function () {
 		if($scope.metronome.volume.value === 0) {
 			$scope.metronome.volume.value = -100;
+			$scope.metronome.on = false;
 		} else {
 			$scope.metronome.volume.value = 0;
+			$scope.metronome.on = true;
+
 		}
 	}
 

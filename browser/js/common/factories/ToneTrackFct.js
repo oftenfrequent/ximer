@@ -49,6 +49,7 @@ app.factory('ToneTrackFct', function ($http, $q) {
 		chorus.connect(phaser);
 		phaser.connect(distort);
 		distort.connect(pingpong);
+		pingpong.toMaster();
 		// pingpong.connect(volume);
 		// volume.toMaster();
 

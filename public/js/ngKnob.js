@@ -7,7 +7,7 @@
     var ngKnob = angular.module('ngKnob', []);
 
     var tmpl =  '<div class="ng-knob" style="transform: rotate({{ getRotation() }}deg)">' +
-                    '<div class="ng-knob-tick"></div>' + '<span>{{effectWetnesses[index].name}}</span>' +
+                    '<div class="ng-knob-tick"></div>' + '<span>{{ effectWetnesses[index].name }}</span>' +
                 '</div>';
 
     ngKnob.directive('ngKnob', function () {

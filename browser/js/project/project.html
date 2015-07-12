@@ -10,8 +10,9 @@
 	    		<input ng-model="projectName" id="projectNameInput" value="{{projectName}}" ng-blur="nameChange(projectName)" required><div ng-show="nameError">{{nameError}}</div>
 	    	</div>
 	    	<div class="controls-third">
-	    		<span id="timelinePosition">0:0:0</span>
-		    	<button id="metronome" ng-click="toggleMetronome()">Metro</button>
+	    		<input id="positionSelector" type="number" min="0" max="31" ng-model="position" ng-blur="jumpToMeasure(position)" value="{{position}}">
+	    		<input id="timelinePosition" type="string" value=":0:0">
+		    	<button id="metronome" ng-class="{grey: !metronome.on}" ng-click="toggleMetronome()">Metro</button>
     		</div>
 	    	<div class="controls-third">
 		    	<button class="btn btn-primary" ng-click="play()" ng-disabled="playing"><span class="glyphicon glyphicon-play" aria-hidden="true"></span></button>
