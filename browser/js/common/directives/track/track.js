@@ -25,7 +25,9 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 	
 					for (var j = 0; j < canvasClasses.length; j++) {
 						if (canvasClasses[j] === 'taken') {
-							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
+							var trackIndex = scope.$parent.tracks.indexOf(scope.track);
+
+							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item trackLoop" + trackIndex.toString() + "' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
 						}
 					}
 				}
@@ -117,6 +119,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.location = [];
 				//remove all loops from UI
 				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
+				console.log("LOOPS", loopsUI);
 				while(loopsUI.length !== 0) {
 					console.log('LOOPS ARR', loopsUI);
 					for(var i = 0; i < loopsUI.length;i++) {
@@ -272,7 +275,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 
 				if(scope.track.player) scope.track.player.volume.value  = amount - 20;
 			}
-	        scope.$watch('track.volume', scope.volumeChange);
+	        // scope.$watch('track.volume', scope.volumeChange);
+
 			scope.preview = function(currentlyPreviewing) {
 				var nextBar;
 				if(!scope.$parent.previewingId) {

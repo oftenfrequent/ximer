@@ -82,7 +82,9 @@ xim-track .trackControllsContainer {
   xim-track .trackControllsContainer button.btn, xim-track .trackControllsContainer button.btn:hover, xim-track .trackControllsContainer button.btn:focus, xim-track .trackControllsContainer button.btn:active {
     color: #ccc;
     background-color: transparent;
-    border: 0px; }
+    border: 0px;
+    margin-left: 26px;
+    padding: 6px 13px; }
 xim-track .grayed {
   opacity: 0.2; }
 
@@ -165,7 +167,8 @@ xim-track .grayed {
     padding: 2px 0px;
     margin-left: -5px;
     text-align: center;
-    border-left: 0px; }
+    border-left: 0px;
+    margin-top: 1px; }
 
 #playbackHead {
   position: relative;
