@@ -21,125 +21,24 @@
     <script src="/angular-bootstrap/dist/ui-bootstrap.js"></script>
     <script src="/socket.io-client/socket.io.js"></script>
     <script src="/ngstorage/ngStorage.min.js"></script>
+    <script src="/js/wavesurfer/wavesurfer.min.js"></script>
     <script src="/js/Tone.min.js"></script>
     <script src="/js/ngKnob.js"></script>
     <script src="/main.js"></script>
     <script src="/js/audiodisplay.js"></script>
     <script src="/js/recorderjs/recorder.js"></script>
     <script src="/js/d3/d3.min.js"></script>
-
-
     
 </head>
 <body ng-app="FullstackGeneratedApp">
 
     <navbar></navbar>
     <div id="ui" ui-view></div>
-    
-    <script>
-
-        // var loop = new Tone.Player("/api/wav/percussionvocalssynths.wav", function () {
-        //     console.log('LOADED');
-        // }).toMaster();
-
-        // var timelineId = Tone.Transport.setTimeline(function() {
-        //     loop.start();
-        // }, "1m");
-
-        // var timelineId2 = Tone.Transport.setTimeline(function() {
-        //     loop.start();
-        // }, "5m");
-        // var timelineId3 = Tone.Transport.setTimeline(function() {
-        //     loop.start();
-        // }, "7m");
-
-        // console.log("IDs", timelineId, timelineId2, timelineId3);
-
-
-        // var t = Tone.Transport;
-
-        // t.bpm.value = 123;
-
-        // setTimeout(function () {
-
-        //     samples.forEach(function (s) {
-
-        //         s.player.toMaster();
-        //         s.player.loop = true;
-
-        //         t.setTimeline(function () {
-        //             s.player.stop();
-        //             s.player.start();
-        //         }, s.startTime);
-
-        //         t.setTimeline(function () {
-        //             console.log('End:', t.position);
-        //             s.player.stop();
-        //         }, s.endTime);
-
-        //     });
-
-        //     t.start();
-
-        // }, 2000);
-
-        // t.loop = true;
-        // t.loopStart = '0m';
-        // t.loopEnd = '16m';
-        // console.log('TRANSPORTTING',t)
-//
-//        Tone.Transport.setInterval(function () {
-//            console.log(Tone.Transport.position);
-//        }, '4n');
-
-        // window.onblur = function () {
-        //     t.stop();
-        //     samples.forEach(function (s) {
-        //         s.player.stop();
-        //     });
-        // };
-
-        // window.onfocus = function () {
-        //     t.start();
-        // };
-        // // button for recording, button for dropping loop on timeline
-
-        // $('#stop').click(function() {
-        //     t.clearTimelines();
-
-        //     samples.forEach(function (s) {
-        //         s.player.stop();
-        //     });
-        //     t.stop();
-        // });
-        // $('#record').click(function() {
-        //     var mic = new Tone.Microphone();
-        //     t.clearTimelines();
-        //     mic.sync('1m');
-            // var met = new Tone.DrumSynth().toMaster();
-
-            // t.setTimeline(function () {
-            //         met.triggerAttackRelease("C2", "4n");
-            //         // met.start();
-            // }, '0m');
-
-        //     t.setTimeline(function () {
-        //             mic.start();
-        //     }, '1m');
-
-        //     t.setTimeline(function () {
-        //             mic.stop();
-        //     }, '2m');
-
-        //     // t.start();
-        // });
-    </script>
 
     <!-- Angular Material Dependencies -->
     <script src="/angular-animate/angular-animate.min.js"></script>
     <script src="/angular-aria/angular-aria.min.js"></script>
     <script src="/angular-material/angular-material.min.js"></script>
-
 
 </body>
 </html>

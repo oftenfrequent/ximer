@@ -18,7 +18,7 @@ var bucketName = 'fullstacktracks';
 
 function createFolder (dir) {
     if (!fs.existsSync(dir)) {
-        fs.unlinkSync('final.wav');
+        // fs.unlinkSync('final.wav');
         fs.mkdirSync(dir);
     }
 }

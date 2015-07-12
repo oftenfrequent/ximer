@@ -1,21 +1,49 @@
 <div ng-controller="HomeController">
-    <md-content>
-    <md-card ng-repeat="project in allProjects" class="collection">
-        <img src="/images/logo.png" class="md-card-image" style="width:50px; height:50px;"alt="image caption">
-        <md-card-content class="cardContent">
-            <h2>{{project.name}}</h2>
-           <h3 ng-click="getUserProfile(project.owner)">{{project.owner.username}}</h3>
-        </md-card-content>
-        <md-card-footer>
-            <div class="md-actions" layout="row">
-                <md-button ng-repeat="track in project.tracks" ng-click="sampleTrack(track)" class="md-raised" aria-label="button for track"><i class="fa fa-music "></i></md-button>
-           </div>
-           <div class="md-actions" layout="row" layout-align="end center">
-                    <md-button ng-click="makeFork(project)"> Fork </md-button>
-           </div>
-        </md-card-footer>
-    </md-card>
-</md-content>
+    <md-content class="row">
+        <div class="col-xs-8">
+            <div ng-repeat="project in allProjects" class="collection">
+               
+                <div class="cardContent">
+                    <h4>{{project.name}}</h4>
+                    <h5 ng-click="getUserProfile(project.owner)">{{project.owner.username}}</h5>
+
+                    <div class="row" style="margin: 30px 0">
+                        <div class="col-sm-10">
+                            <wavesurfer url="drum-loop-32_drums.wav" wave-color="#337ab7" progress-color="#23527c" height="64">
+                            </wavesurfer>
+                        </div>
+
+                        <div class="col-sm-2">
+                            <button class="btn btn-success btn-block" ng-click="wavesurfer.playPause()">
+                                <span id="play" ng-show="paused">
+                                    <i class="glyphicon glyphicon-play"></i>
+                                    Play
+                                </span>
+
+                                <span id="pause" ng-show="!paused">
+                                    <i class="glyphicon glyphicon-pause"></i>
+                                    Pause
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+
+
+                </div>
+                <md-card-footer>
+                    <div class="md-actions" layout="row">
+                        <md-button ng-repeat="track in project.tracks" ng-click="sampleTrack(track)" class="md-raised" aria-label="button for track"><i class="fa fa-music "></i></md-button>
+                   </div>
+                   <div class="md-actions" layout="row" layout-align="end center">
+                            <md-button ng-click="makeFork(project)"> Fork </md-button>
+                   </div>
+                </md-card-footer>
+        </div>
+        
+        </div>
+        <div class="col-xs-4" style="background-color: green; height: 100vh">HELLO</div>
+    </md-content>
 
 </div>
 

@@ -58,11 +58,6 @@ module.exports = function (app) {
     app.get('/auth/soundcloud/callback',
         passport.authenticate('soundcloud', { failureRedirect: '/login' }),
         function (req, res) {
-
-            console.log('The soundcloud is', soundclouduser);
-            soundclouduser.soundcloud.code = req.query.code;
-            soundclouduser.save()
-            console.log('The soundclouduser is', soundclouduser);
             res.redirect('/');
         });
 
