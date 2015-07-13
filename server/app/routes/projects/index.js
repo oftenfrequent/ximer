@@ -20,7 +20,7 @@ router.get('/:id', function (req, res, next) {
     //for HomeController
     if(req.params.id === 'all'){
     	Project.find({}).sort({_id:-1}).populate('owner').exec().then(function(projects){
-            res.send(projects)
+            res.send(projects);
         }, function(err){
             next(err);
         });
@@ -117,6 +117,7 @@ router.delete('/:id', function(req, res, next) {
         next(err);
     });
 });
+
 
 router.post('/soundcloud', function(req, res, next) {
 

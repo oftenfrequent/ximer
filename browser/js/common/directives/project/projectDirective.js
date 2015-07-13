@@ -6,7 +6,7 @@ app.directive('projectdirective', function() {
 	};
 });
 
-app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct, AuthService){
+app.controller('projectdirectiveController', function($scope, $stateParams, $state, ProjectFct, AuthService, $mdToast){
 
 
 
@@ -22,6 +22,12 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 
 			$scope.makeFork = function(project){
 				if(!project.forkOrigin) project.forkOrigin = project._id;
+				$mdToast.show({
+				hideDelay: 2000,
+				position: 'bottom right',
+				template:"<md-toast> It's been forked </md-toast>"
+			});
+
 				project.forkID = project._id;
 				project.owner = loggedInUser._id;
 				delete project._id;
@@ -32,6 +38,13 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 			}
 
 			$scope.deleteProject = function(project){
+				console.log($scope.user.projects);
+				for (var i = 0; i < $scope.user.projects.length; i++) {
+    				if($scope.user.projects[i]._id === project._id){
+    					var del = $scope.user.projects.splice(i, 1);
+    					console.log("delete", del, $scope.user.projects);
+    				}
+    			};
 				console.log('DeleteProject', project)
 				ProjectFct.deleteProject(project).then(function(response){
 					console.log('Delete request is', response);

@@ -15,7 +15,6 @@ var ProjectModel = require('mongoose').model('Project');
 router.get('/', function (req, res) {
 
     UserModel.findOne(req.query).populate('projects followers following').exec().then(function(user){
-        console.log('user', user)
       res.send(user);
     }, function(err){
         res.status(500).send(err.message);
@@ -39,11 +38,10 @@ router.put('/', function(req, res, next){
             next(err);
         });
         UserModel.update({_id: req.body.userToFollow._id},{$push: {followers: req.body.loggedInUser._id}}).exec().then(function(user){
-            console.log('Both have been updated');
             res.send(user);
         }, function(err){
             next(err);
-        })
+        });
     }
 
     if(req.body.forkID){

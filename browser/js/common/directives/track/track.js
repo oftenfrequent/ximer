@@ -107,7 +107,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					for(var i = 0; i < loopsUI.length;i++) {
 						loopsUI[i].parentNode.removeChild(loopsUI[i]);
 					}
-					var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
+					loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
 				}
 				Tone.Transport.stop();
 			};
@@ -124,7 +124,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				ToneTimelineFct.muteAll(otherTracks);
 				scope.track.silence = false;
 				scope.track.player.volume.value = 0;
-			}
+			};
 
 			scope.silence = function () {
 				if(!scope.track.silence) {
@@ -134,7 +134,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					scope.track.player.volume.value = 0;
 					scope.track.silence = false;
 				}
-			}
+			};
 
 			scope.record = function (index) {
 				var recorder = scope.recorder;
@@ -243,7 +243,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 
 					}, endBar.toString() + "m");
 				}
-			}
+			};
 
 
 			scope.preview = function(currentlyPreviewing) {
@@ -281,5 +281,5 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		}
 		
 
-	}
+	};
 });

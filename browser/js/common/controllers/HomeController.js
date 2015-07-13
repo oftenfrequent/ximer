@@ -30,9 +30,9 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
 			ProjectFct.createAFork(project).then(function(response){
 				console.log('Fork response is', response);
 			});
-		})
+		});
 	
-	}
+	};
 		
 	var stop =false;
 
@@ -53,13 +53,13 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
 				stop = false;
 			}
 		});
-	}
+	};
 
 
 	$scope.getUserProfile = function(user){
 	    // console.log("clicked", user);
 	    $state.go('userProfile', {theID: user._id});
-	}
+	};
 
     
 

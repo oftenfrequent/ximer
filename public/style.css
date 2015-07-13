@@ -30,8 +30,7 @@ navbar {
   navbar fullstack-logo {
     padding-top: 10px;
     margin: auto;
-    width: 120px;
-    padding-bottom: 20px; }
+    width: 120px; }
     navbar fullstack-logo img {
       width: 100%; }
   navbar a {
