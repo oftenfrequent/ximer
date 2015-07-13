@@ -3,26 +3,28 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
-			scope.effectWetnesses = [{
-					name: 'Chorus',
-					amount: 0
-				},{
-					name: 'Phaser',
-					amount: 0
-				},{
-					name: 'Distortion',
-					amount: 0
-				},{
-					name: 'PingPongDelay',
-					amount: 0
-				}];
+			scope.effectWetnesses = [0,0,0,0];
+
+			// scope.effectWetnesses = [{
+			// 		name: 'Chorus',
+			// 		amount: 0
+			// 	},{
+			// 		name: 'Phaser',
+			// 		amount: 0
+			// 	},{
+			// 		name: 'Distortion',
+			// 		amount: 0
+			// 	},{
+			// 		name: 'PingPongDelay',
+			// 		amount: 0
+			// 	}];
 				scope.volume = new Tone.Volume();
 				scope.volume.volume.value = 0;
 			setTimeout(function () {
 				scope.track.location.forEach(function (loc) {
 					var trackIndex = scope.$parent.tracks.indexOf(scope.track);
 					var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, loc);
-					$('#measure' + loc + '.track' + trackIndex).first().append($compile("<canvas width='198' height='98' position='" + loc + "' data-timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + loc + "' class='item trackLoop"+trackIndex+"' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
+					$('#measure' + loc + '.track' + trackIndex).first().append($compile("<canvas width='198' height='98' position='" + loc + "' timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + loc + "' class='item trackLoop"+trackIndex+"' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
 				});
 			}, 0);
 
@@ -98,6 +100,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.effectsRack.forEach(function (effect) {
 					effect.dispose();
 				});
+				scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
 				scope.track.location = [];
 				//remove all loops from UI
 				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());

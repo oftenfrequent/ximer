@@ -16,8 +16,13 @@ div[class*="col-"] {
     padding-left: 0px;
 }
 
-.collection{
+.collection {
   background: #202630;
+}
+
+.infoStats__value {
+  font-family: 'Avenir Next','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 40px;
 }
 
 #lpBackground {
@@ -39,14 +44,15 @@ div[class*="col-"] {
       margin-bottom: 20px;
     }
     fullstack-logo {
-      width: 30%;
-      margin: 0 auto;
+      width: 60%;
+      margin: 3em auto;
     }
     button {
-      background: #C5C1C8;
+      margin-top: 2em;
     }
     padding: 80px;
     letter-spacing: 10px;
+    overflow: hidden;
   }
   #sellingPoints {
     background:#202630;
@@ -105,5 +111,119 @@ div[class*="col-"] {
   margin: 16px; }   
 
   .cardContent{
-  border: red;
+    margin: 0em 2em;
   } 
+
+.landing-top {
+  height:100vh;
+}
+
+md-content.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+/* =Magic Mouse
+-------------------------------------------------------------- */
+
+.mouse {
+  position: relative;
+  width: 30px;
+  height: 44px;
+  border: 2px solid #EB315D;
+  border-radius: 15px;
+  background: transparent;
+  position: absolute;
+  bottom: 30px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.mouse .wheel {
+  width: 6px;
+  height: 6px;
+  background-color: #D63953;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6px;
+  left: 0;
+  right: 0;
+  -webkit-animation: magic-mouse 1.7s infinite ease;
+  animation: magic-mouse 1.7s infinite ease;
+}
+
+@keyframes magic-mouse {
+  0% {
+    margin-top: 6px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    margin-top: 18px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes magic-mouse {
+  0% {
+    margin-top: 6px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    margin-top: 18px;
+    opacity: 0;
+  }
+}
+
+/***********************
+  OUTLINE BUTTONS
+************************/
+
+.btn.outline {
+    background: none;
+    padding: 12px 22px;
+}
+.btn-ximer.outline {
+    border: 1px solid #EB315D;
+    color: #EB315D;
+}
+.btn-ximer.outline:hover, .btn-ximer.outline:focus, .btn-ximer.outline:active, .btn-ximer.outline.active, .open > .dropdown-toggle.btn-ximer {
+    color: #BFBCC3;
+    border-color: #BFBCC3;
+}
+.btn-ximer.outline:active, .btn-ximer.outline.active {
+    border-color: #BFBCC3;
+    color: #BFBCC3;
+    box-shadow: none;
+}
+
+/***********************
+  CUSTON BTN VALUES
+************************/
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+#ui {
+  background-color: #202630;
+}
+
+.scplayer {
+
+}
+
+

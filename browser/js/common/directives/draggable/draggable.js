@@ -107,14 +107,16 @@ app.directive('droppable', function() {
 
                         if (canvasNode[j].nodeName === 'CANVAS') {
                             canvasNode[j].attributes.position.value = xposition;
-                            oldTimelineId = canvasNode[j].attributes.timelineid.value;
+                            oldTimelineId = canvasNode[j].attributes.timelineId.value;
+                            // oldTimelineId = canvasNode[j].dataset.timelineId;
+                            console.log('OLD TIMELINE', oldTimelineId);
                             theCanvas = canvasNode[j];
 
                         }
                     }
                 }     
             }
-            
+
             console.log('oldTimelineId', oldTimelineId);
             scope.$parent.$parent.moveInTimeline(oldTimelineId, xposition).then(function (newTimelineId) {
                 theCanvas.attributes.timelineid.value = newTimelineId;

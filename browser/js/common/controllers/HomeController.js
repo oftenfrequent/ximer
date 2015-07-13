@@ -8,6 +8,7 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
 
     $scope.projects = function (){
     	ProjectFct.getProjectInfo().then(function(projects){
+    		console.log('PROJCS', projects);
     		$scope.allProjects = projects;
     	});
     };

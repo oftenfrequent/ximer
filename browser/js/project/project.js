@@ -95,6 +95,14 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 					track.player.connect(track.effectsRack[0]);
 
 					if(track.location.length) {
+						track.location.forEach(function (loc) {
+							console.log('TRACK', track, loc);
+							var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(track.player, loc);
+							$('#measure' + loc + '.track' + i )
+								.first().append($compile("<canvas width='198' height='98' position='" + loc + "' timelineId='"+timelineId+"' id='mdisplay" +  i + "-" + loc + "' class='item trackLoop"+i+"' style='position: absolute; background: url(" + track.img + ");' draggable></canvas>"));
+						});
+						// ToneTimelineFct.addLoopToTimeline(track.player, track.location);
+						//add loop to UI
 						track.onTimeline = true;
 					} else {
 						track.onTimeline = false;
