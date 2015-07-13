@@ -19,23 +19,14 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.volume = new Tone.Volume();
 				scope.volume.volume.value = 0;
 			setTimeout(function () {
-				var canvasRow = element[0].getElementsByClassName('canvas-box');
-				for (var i = 0; i < canvasRow.length; i++) {
-					var canvasClasses = canvasRow[i].parentNode.classList;
-	
-					for (var j = 0; j < canvasClasses.length; j++) {
-						if (canvasClasses[j] === 'taken') {
-							var trackIndex = scope.$parent.tracks.indexOf(scope.track);
-
-							angular.element(canvasRow[i]).append($compile("<canvas width='198' height='98' id='wavedisplay' class='item trackLoop" + trackIndex.toString() + "' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
-						}
-					}
-				}
-			}, 0)
+				scope.track.location.forEach(function (loc) {
+					var trackIndex = scope.$parent.tracks.indexOf(scope.track);
+					var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, loc);
+					$('#measure' + loc + '.track' + trackIndex).first().append($compile("<canvas width='198' height='98' position='" + loc + "' data-timelineId='"+timelineId+"' id='mdisplay" +  trackIndex + "-" + loc + "' class='item trackLoop"+trackIndex+"' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
+				});
+			}, 0);
 
 			scope.dropInTimeline = function (index, position) {
-				console.log('DROPPING');
-				// scope.track.player.loop = false;
 				scope.track.player.stop();
 				scope.track.onTimeline = true;
 				scope.track.previewing = false;
@@ -55,11 +46,10 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(scope.track.player, position);
 				angular.element(canvasRow[position]).append($compile("<canvas width='198' height='98' position='" + position + "' timelineId='"+timelineId+"' id='mdisplay" +  index + "-" + position + "' class='item trackLoop"+index+"' style='position: absolute; background: url(" + scope.track.img + ");' draggable></canvas>")(scope));
 				
-			}
+			};
 
 			scope.moveInTimeline = function (oldTimelineId, newMeasure) {
 				return new $q(function (resolve, reject) {
-					console.log('ELEMENT', oldTimelineId, newMeasure);
 					ToneTrackFct.replaceTimelineLoop(scope.track.player, oldTimelineId, newMeasure).then(resolve);
 				});
 			};
@@ -96,8 +86,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			};
 
 			scope.reRecord = function (index) {
-				console.log('RERECORD');
-				console.log(scope.track);
 				//change all params back as if empty track
 				scope.track.empty = true;
 				scope.track.onTimeline = false;
@@ -110,12 +98,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 				scope.track.effectsRack.forEach(function (effect) {
 					effect.dispose();
 				});
-				// scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
-				// scope.track.player.connect(effectsRack[0]);
-				// scope.volume = new Tone.Volume();
-				// scope.track.effectsRack[3].connect(scope.volume);
-				// scope.volume.toMaster();
-				console.log("RACK", scope.track.effectsRack);
 				scope.track.location = [];
 				//remove all loops from UI
 				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
@@ -138,9 +120,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}
 				}).filter(function (track) {
 					if(track && track.player) return true;
-				})
-
-				console.log(otherTracks);
+				});
 				ToneTimelineFct.muteAll(otherTracks);
 				scope.track.silence = false;
 				scope.track.player.volume.value = 0;
@@ -246,7 +226,6 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						RecorderFct.recordStart(recorder, index);
 					}, 2050);
 				} else {
-					console.log('WHILE PLAYING');
 					var nextBar = parseInt(Tone.Transport.position.split(':')[0]) + 1;
 					var endBar = nextBar + 1;
 
@@ -265,17 +244,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}, endBar.toString() + "m");
 				}
 			}
-			scope.volumeChange = function (amount) {
-				console.log('VOL AMOUNT', amount);
 
-	            if (typeof amount === 'undefined') return;
-	            var volume = parseFloat(amount / 100, 10);
-	            console.log('AFTER / 100, 10', volume);
-
-
-				if(scope.track.player) scope.track.player.volume.value  = amount - 20;
-			}
-	        // scope.$watch('track.volume', scope.volumeChange);
 
 			scope.preview = function(currentlyPreviewing) {
 				var nextBar;
@@ -288,11 +257,9 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					} else {
 						nextBar = parseInt(Tone.Transport.position.split(':')[0]) + 1;
 					}
-					console.log('NEXT', nextBar);
 					var playLaunch = Tone.Transport.setTimeline(function () {
 							scope.track.player.start();
 						var previewInteval = Tone.Transport.setInterval(function () {
-							console.log('SHOULD PLAY');
 							scope.track.player.stop();
 							scope.track.player.start();
 							Tone.Transport.clearTimeline(playLaunch);
