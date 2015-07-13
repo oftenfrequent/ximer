@@ -42,6 +42,7 @@ navbar {
     navbar .nav > li > a.active {
       color: #f30046; }
     navbar .nav > li > a:hover {
+      color: #eee;
       transition: color 0.2s; }
     navbar .nav > li > a:focus {
       color: #f30046;
@@ -61,6 +62,10 @@ navbar {
     navbar .welcome a {
       color: #f30046;
       cursor: pointer; }
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #EB315D; }
 
 xim-track .trackMainSection {
   background: #202630;
@@ -86,6 +91,20 @@ xim-track .trackControllsContainer {
     padding: 6px 13px; }
 xim-track .grayed {
   opacity: 0.2; }
+xim-track .effectContainers {
+  width: 50%;
+  float: left;
+  font-size: 8px;
+  padding: 0px 5px;
+  margin-top: -10px;
+  margin-bottom: 1px; }
+  xim-track .effectContainers md-slider .md-thumb:after {
+    border-color: #f30046;
+    background-color: #f30046; }
+  xim-track .effectContainers md-slider .md-track.md-track-fill {
+    background-color: #ccc; }
+  xim-track .effectContainers md-slider .md-slider-wrapper {
+    margin-top: -12px; }
 
 .timeline-container {
   background: #202630;
@@ -245,6 +264,10 @@ div[class*="col-"] {
 .collection {
   background: #202630; }
 
+.infoStats__value {
+  font-family: 'Avenir Next','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 40px; }
+
 #lpBackground {
   background-image: url(images/lpBackground.png);
   background-size: cover;
@@ -259,14 +282,15 @@ div[class*="col-"] {
   background: #202630; }
   #fullpage #lpSpaciousText {
     padding: 80px;
-    letter-spacing: 10px; }
+    letter-spacing: 10px;
+    overflow: hidden; }
     #fullpage #lpSpaciousText h1, #fullpage #lpSpaciousText h4 {
       margin-bottom: 20px; }
     #fullpage #lpSpaciousText fullstack-logo {
-      width: 30%;
-      margin: 0 auto; }
+      width: 60%;
+      margin: 3em auto; }
     #fullpage #lpSpaciousText button {
-      background: #C5C1C8; }
+      margin-top: 2em; }
   #fullpage #sellingPoints {
     background: #202630;
     color: #C5C1C8;
@@ -314,11 +338,112 @@ div[class*="col-"] {
   margin: 16px; }
 
 .cardContent {
-  border: red; }
+  margin: 0em 2em; }
+
+.landing-top {
+  height: 100vh; }
+
+md-content.row {
+  margin-right: 0px;
+  margin-left: 0px; }
+
+/* =Magic Mouse
+-------------------------------------------------------------- */
+.mouse {
+  position: relative;
+  width: 30px;
+  height: 44px;
+  border: 2px solid #EB315D;
+  border-radius: 15px;
+  background: transparent;
+  position: absolute;
+  bottom: 30px;
+  margin: 0 auto;
+  left: 0;
+  right: 0; }
+
+.mouse .wheel {
+  width: 6px;
+  height: 6px;
+  background-color: #D63953;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6px;
+  left: 0;
+  right: 0;
+  -webkit-animation: magic-mouse 1.7s infinite ease;
+  animation: magic-mouse 1.7s infinite ease; }
+
+@keyframes magic-mouse {
+  0% {
+    margin-top: 6px;
+    opacity: 0; }
+
+  30% {
+    opacity: 1; }
+
+  100% {
+    margin-top: 18px;
+    opacity: 0; } }
+
+@-webkit-keyframes magic-mouse {
+  0% {
+    margin-top: 6px;
+    opacity: 0; }
+
+  30% {
+    opacity: 1; }
+
+  100% {
+    margin-top: 18px;
+    opacity: 0; } }
+
+/***********************
+  OUTLINE BUTTONS
+************************/
+.btn.outline {
+  background: none;
+  padding: 12px 22px; }
+
+.btn-ximer.outline {
+  border: 1px solid #EB315D;
+  color: #EB315D; }
+
+.btn-ximer.outline:hover, .btn-ximer.outline:focus, .btn-ximer.outline:active, .btn-ximer.outline.active, .open > .dropdown-toggle.btn-ximer {
+  color: #BFBCC3;
+  border-color: #BFBCC3; }
+
+.btn-ximer.outline:active, .btn-ximer.outline.active {
+  border-color: #BFBCC3;
+  color: #BFBCC3;
+  box-shadow: none; }
+
+/***********************
+  CUSTON BTN VALUES
+************************/
+.btn {
+  padding: 14px 24px;
+  border: 0 none;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase; }
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+  outline: 0 none; }
+
+#ui {
+  background-color: #202630; }
 
 #login-form, #signup-form {
   width: 60%;
   margin: 0 auto; }
+
+.container {
+  max-width: 100%; }
+
+.nav > li > a.statelink:hover, .nav > li > a.statelink:focus {
+  background-color: #eee; }
 
 /* Profile container */
 .profile {

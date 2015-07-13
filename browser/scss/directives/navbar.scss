@@ -26,6 +26,7 @@ navbar {
       color: #f30046;
     }
     &:hover {
+      color: #eee;
       transition: color 0.2s;
     }
     &:focus {
@@ -57,4 +58,10 @@ navbar {
     }
   }
 
+}
+
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #EB315D;
 }

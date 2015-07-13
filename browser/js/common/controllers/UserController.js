@@ -34,11 +34,11 @@ app.controller('UserController', function ($scope, $state, AuthService, $statePa
       });
       
       $scope.followStatus = true;
-    }
+    };
 
     $scope.displayWeb = function(){
       $state.go('forkweb');
-    }
+    };
 
 
 });

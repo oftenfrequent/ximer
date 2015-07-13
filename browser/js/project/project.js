@@ -56,18 +56,15 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
-		console.log('PROJECT', project);
 		$scope.projectName = project.name;
 
 		if (project.tracks.length) {
-
-			console.log('project.tracks.length', project.tracks.length);
 
 			project.tracks.forEach(function (track) {
 
 				var loadableTracks = [];
 
-				project.tracks.forEach(function (track) {
+				project.tracks.forEach(function (track, i) {
 					if (track.url) {
 						loadableTracks++;
 					}
@@ -98,7 +95,14 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 					track.player.connect(track.effectsRack[0]);
 
 					if(track.location.length) {
-						ToneTimelineFct.addLoopToTimeline(track.player, track.location);
+						track.location.forEach(function (loc) {
+							console.log('TRACK', track, loc);
+							var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(track.player, loc);
+							$('#measure' + loc + '.track' + i )
+								.first().append($compile("<canvas width='198' height='98' position='" + loc + "' timelineId='"+timelineId+"' id='mdisplay" +  i + "-" + loc + "' class='item trackLoop"+i+"' style='position: absolute; background: url(" + track.img + ");' draggable></canvas>"));
+						});
+						// ToneTimelineFct.addLoopToTimeline(track.player, track.location);
+						//add loop to UI
 						track.onTimeline = true;
 					} else {
 						track.onTimeline = false;
@@ -139,7 +143,6 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		for (var i = 0; i < maxMeasure; i++) {
 			$scope.numMeasures.push(i);
 		}
-		// console.log('MEASURES', $scope.numMeasures);
 
 
 
@@ -169,24 +172,17 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		$scope.zoom -= 10;
 		var zoom = ($scope.zoom - 10).toString() + "%";
 		$('.timeline-container').css('zoom', zoom);
-		console.log('OUT', $scope.zoom);
 	};
 
 	$scope.zoomIn = function() {
 		$scope.zoom += 10;
 		var zoom = ($scope.zoom + 10).toString() + "%";
 		$('.timeline-container').css('zoom', zoom);
-		console.log('IN', $scope.zoom);
-	};
-
-	$scope.dropInTimeline = function (index) {
-		var track = scope.tracks[index];
 	};
 
 	$scope.addTrack = function () {
 
 	};
-
 
 	$scope.play = function () {
 		$scope.playing = true;
@@ -218,20 +214,18 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 			Tone.Transport.clearInterval($scope.previewingId);
 			$scope.previewingId = null;
 		}
-	}
+	};
 	$scope.nameChange = function(newName) {
-		console.log('NEW', newName);
 		if(newName) {
 			$scope.nameError = false;
 			ProjectFct.nameChange(newName, $scope.projectId).then(function (response) {
-				console.log("RES", response);
 			});
 		} else {
 			$scope.nameError = "You must set a name!";
 			$scope.projectName = "Untitled";
 			document.getElementById('projectNameInput').focus();
 		}
-	}
+	};
 
 	$scope.toggleMetronome = function () {
 		if($scope.metronome.volume.value === 0) {
@@ -242,7 +236,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 			$scope.metronome.on = true;
 
 		}
-	}
+	};
 
   $scope.sendToAWS = function () {
 

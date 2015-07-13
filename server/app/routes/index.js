@@ -14,7 +14,7 @@ var ensureAdminAuthenticated = function(req, res, next) {
     } else {
         res.status(401).end();
     }
-}
+};
 
 
 //anything below this users need to be authenticated

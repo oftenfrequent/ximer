@@ -31,4 +31,26 @@ xim-track {
   .grayed {
     opacity: 0.2;
   }
+  .effectContainers{
+    width:50%;
+    float:left;
+    font-size: 8px;
+    padding: 0px 5px;
+    margin-top: -10px;
+    margin-bottom: 1px;
+    md-slider .md-thumb:after{
+      border-color: #f30046;
+      background-color: #f30046;
+    }
+    md-slider .md-track.md-track-fill {
+      background-color: #ccc;
+    }
+
+    md-slider {
+      .md-slider-wrapper {
+        margin-top: -12px;
+
+      }
+    }
+  }
 }
