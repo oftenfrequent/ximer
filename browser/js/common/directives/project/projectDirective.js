@@ -38,6 +38,13 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 			}
 
 			$scope.deleteProject = function(project){
+				console.log($scope.user.projects);
+				for (var i = 0; i < $scope.user.projects.length; i++) {
+    				if($scope.user.projects[i]._id === project._id){
+    					var del = $scope.user.projects.splice(i, 1);
+    					console.log("delete", del, $scope.user.projects);
+    				}
+    			};
 				console.log('DeleteProject', project)
 				ProjectFct.deleteProject(project).then(function(response){
 					console.log('Delete request is', response);
