@@ -1,11 +1,30 @@
 <div id="fullpage" class="t-c">
-	<div id="lpSpaciousText" class=" section">
-        <fullstack-logo></fullstack-logo>
-		<!-- <h1>Welcome to Ximer</h1> -->
-		<h4>THE FIRST DAW OF ITS KIND</h4>
-	    <button class="btn login-button" ng-click="goToForms()">Already a Member</button>
-	    <button class="btn signup-button" ng-click="goToForms()">Enlist Yourself</button>
+
+	<div id="lpSpaciousText" class="landing-top section">
+
+	    <div id="large-header" class="large-header">
+	    	<!-- inline styling to get the landing logo in center of canvas -->
+		    <div style="position: absolute; left: 50%;">
+		        <div class="" style="position: relative; left: -50%;">
+
+		        	<fullstack-logo class="landing-logo"></fullstack-logo>
+					<!-- <h1>Welcome to Ximer</h1> -->
+					<h4>THE FIRST DAW OF ITS KIND</h4>
+				    <button class="btn btn-ximer btn-sm signup-button outline login-button" ng-click="goToForms()">Already a Member</button>
+				    <button class="btn btn-ximer btn-sm signup-button outline" ng-click="goToForms()">Enlist Yourself</button>
+
+		        </div>
+		    </div>
+			<canvas id="demo-canvas"></canvas>
+		</div>
+
+	    <!-- Magic Mouse -->
+		<div class="mouse hidden-xs" style="opacity: 1;"> 
+			<div class="wheel"></div> 
+		</div>
 	</div>
+
+
 	<div id="lpBackground" class="section">
 		<div></div>
 	</div>
@@ -55,5 +74,10 @@
 	</div>
 </div>
 
+    <!-- Landing Page Animation -->
+    <script src="js/landing/TweenLite.min.js"></script>
+    <script src="js/landing/EasePack.min.js"></script>
+    <script src="js/landing/rAF.js"></script>
+    <script src="js/landing/landingweb.js"></script>
 
 

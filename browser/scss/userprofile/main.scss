@@ -1,3 +1,11 @@
+.container {
+  max-width: 100%;
+}
+
+.nav > li > a.statelink:hover, .nav > li > a.statelink:focus {
+  background-color: #eee;
+}
+
 /* Profile container */
 .profile {
   margin: 20px 0;
