@@ -30,7 +30,7 @@
 		</button>
 		<div ng-repeat="effect in track.effectsRack" ng-show="track.onTimeline" class="effectContainers">
 			<span>{{effect.name}}</span>
-			<md-slider flex min="0" max="1000" value="1" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" aria-label="red" id="red-slider" class="effectSliders">
+			<md-slider flex min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" aria-label="red" id="red-slider" class="effectSliders">
 			</md-slider>
 		</div>
 		<!-- <input type="range" ng-repeat="effect in track.effectsRack" value="0" min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" ng-show="track.onTimeline"> -->
