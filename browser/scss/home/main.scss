@@ -18,9 +18,11 @@ div[class*="col-"] {
 
 .collection {
   background: #202630;
-  margin-left: 15px;
-  margin-top: -10px;
-  border-bottom: 1px solid #EB315D;
+}
+
+.infoStats__value {
+  font-family: 'Avenir Next','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 40px;
 }
 
 #lpBackground {
@@ -114,6 +116,11 @@ div[class*="col-"] {
 
 .landing-top {
   height:100vh;
+}
+
+md-content.row {
+  margin-right: 0px;
+  margin-left: 0px;
 }
 
 /* =Magic Mouse
