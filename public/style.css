@@ -171,7 +171,9 @@ xim-track .effectContainers {
     background-color: #f30046;
     border: 0px;
     height: 25px;
-    text-align: center; }
+    text-align: center;
+    margin-top: -1px;
+    padding: 1px; }
   #projectHeader input[type=number]::-webkit-inner-spin-button, #projectHeader input[type=number]::-webkit-outer-spin-button {
     -webkit-appearance: none;
     margin: 0; }
@@ -227,6 +229,9 @@ xim-track .effectContainers {
   border: 1px solid #502640;
   min-height: 100px;
   min-width: 200px; }
+
+.measures:focus {
+  display: none; }
 
 .over {
   background: #D63953; }

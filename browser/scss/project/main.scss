@@ -81,7 +81,8 @@
 		border: 0px;
 		height: 25px;
 		text-align:center;
-
+		margin-top:-1px;
+		padding:1px;
 	}
 	input[type=number]::-webkit-inner-spin-button, 
 	input[type=number]::-webkit-outer-spin-button { 
@@ -151,6 +152,10 @@
   border: 1px solid #502640;
   min-height: 100px;
   min-width: 200px;
+}
+
+.measures:focus {
+	display:none;
 }
 
 .over {
