@@ -43,8 +43,8 @@ app.controller('FollowDirectiveController', function($scope, $stateParams, $stat
 	    		console.log("succesful", response);
 	    		$scope.$digest();	
 	    	});
-	    };
 
+	    };
 
 	
 });

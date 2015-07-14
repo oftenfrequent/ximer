@@ -1,4 +1,41 @@
-<div class="panel-body" ng-repeat="project in user.projects">
+<div class="collection" ng-repeat="project in user.projects">  
+    <div class="cardContent">
+        <div plangular="https://soundcloud.com/nmbrs/pol-style-numbers-x-rinse-fm-4th-january-2015" class="relative overflow-hidden white bg-black ng-scope">
+            <div class="absolute left-0 right-0" style="top:50%;margin-top:-50%;">
+                <img style="min-width:100%;-webkit-filter:blur(32px);filter:blur(32px)" ng-src='{{project.backgroundImg}}' src='{{project.backgroundImg}}'>
+            </div>
+            <div class="relative flex flex-center bg-darken-1">
+                <div class="clearfix">
+                    <img style="width: 100px;" class="left" alt="SRCD Party artwork" ng-src='{{project.backgroundImg}}' src='{{project.backgroundImg}}'>
+                </div>
+                <div class="flex-auto px2" ng-click="displayAProject(project)">
+                    <h3 class="h4 regular m0"><span class="inline-block px1 bg-black ng-binding">{{user.username}}</span></h3>
+                    <h2 class="h4 caps m0"><span class="inline-block px1 bg-black ng-binding">{{project.name}}</span></h2>
+                    <div class="flex flex-center py1">
+                        <button ng-click="playPause()" title="Play/Pause" class="flex-none h4 mr2 button button-small bg-black button-grow rounded">
+                        <!-- ngIf: player.playing !== track.src --><svg ng-if="player.playing !== track.src" class="icon geomicon ng-scope" data-icon="play" viewBox="0 0 32 32" width="32" height="32" style="fill:currentcolor"><path d="M4 4 L28 16 L4 28 z "></path></svg><!-- end ngIf: player.playing !== track.src -->
+                        <!-- ngIf: player.playing === track.src -->
+                        </button>
+                        <div class="flex-auto">
+                            <progress class="progress ng-binding" ng-click="seek($event)" ng-value="currentTime / duration || 0" value="0">
+                                {{ currentTime / duration }}
+                            </progress>
+                        </div>
+                    </div>
+                </div>
+                <div class="md-actions" layout="row" layout-align="end center">
+                    <md-button ng-click="makeFork(project)"><i class="fa fa-code-fork"></i> Fork</md-button>
+                    <md-button ng-click="postToSoundcloud(project)">Soundcloud</md-button>
+                    <md-button ng-click="deleteProject(project)">Delete</md-button>
+               </div>
+            </div>
+        </div>
+
+    </div>
+    <hr>
+</div>
+
+<!-- <div class="panel-body" ng-repeat="project in user.projects">
     <div ng-click="displayAProject(project)"> 
         <div class="row">
             <div class="col-xs-4" >
@@ -28,4 +65,4 @@
         <i class="fa fa-code-fork"></i> Fork
     </button>
     <hr>
-</div>
+</div> -->
