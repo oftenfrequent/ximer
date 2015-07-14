@@ -78,7 +78,6 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
 		});
 	};
 
-
 	$scope.getUserProfile = function(user){
 	    // console.log("clicked", user);
 	    $state.go('userProfile', {theID: user._id});
