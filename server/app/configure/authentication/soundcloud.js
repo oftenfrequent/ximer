@@ -13,6 +13,8 @@ module.exports = function (app) {
 
     var soundcloudConfig = app.getValue('env').SOUNDCLOUD;
 
+	console.log(soundcloudConfig);
+
    var soundCloudCredentials = {
         clientID: soundcloudConfig.clientID,
         clientSecret: soundcloudConfig.clientSecret,

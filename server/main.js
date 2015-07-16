@@ -9,19 +9,12 @@ var startDb = require('./db');
 // Create a node server instance! cOoL!
 var server = require('http').createServer();
 
-var https = require('https');
 var fs = require('fs');
-
-var config = {
-    key: fs.readFileSync('./file.pem'),
-    cert: fs.readFileSync('./file.crt')
-};
 
 var createApplication = function () {
     var app = require('./app');
     server.on('request', app); // Attach the Express application.
     require('./io')(server);   // Attach socket.io.
-    https.createServer(config, app).listen(8000);
 };
 
 var startServer = function () {
@@ -35,7 +28,7 @@ var startServer = function () {
 };
 
 startDb.then(createApplication).then(startServer).catch(function (err) {
-    console.error('Initialization error:', chalk.red(err.message));
+    console.error('Initialization error:', chalk.red(err.message), chalk.red(err.stack));
     console.error('Process terminating . . .');
     process.kill(1);
 });
