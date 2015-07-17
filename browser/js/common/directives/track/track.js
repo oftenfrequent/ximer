@@ -206,28 +206,48 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						//set Project vars
 						scope.$parent.metronome.stop();
 						scope.$parent.currentlyRecording = false;
-						scope.$parent.stop();
+						// scope.$parent.stop();
 						ToneTimelineFct.unMuteAll(scope.$parent.tracks);
+						console.log("POSITION", scope.$parent.position);
 					});
 				}
-				if(Tone.Transport.state === "stopped") {
-					ToneTimelineFct.muteAll(scope.$parent.tracks);
-					scope.$parent.metronome.start();
 
+				if(Tone.Transport.state === "stopped") {
+					scope.$parent.countNumber = 1;
+					scope.$parent.countIn = true;
+
+					//count in one measure then start Tone Transport
+					scope.$parent.metronome.start();
 					var click = window.setInterval(function () {
+						console.log('COUNT', scope.$parent.countNumber);
+						scope.$parent.countNumber = scope.$parent.countNumber + 1;
 						scope.$parent.metronome.stop();
 						scope.$parent.metronome.start();
 					}, 500);
 
 					window.setTimeout(function() {
+						RecorderFct.recordStart(recorder, index);
+						Tone.Transport.start();
+						scope.$parent.countIn = false;
+						window.setTimeout(function () {
 							window.clearInterval(click);
+							console.log("POSITION", scope.$parent.position);
 							endRecording();
 
-					}, 4000);
+						}, 2000);
+					}, 1800);
 
-					window.setTimeout(function() {
-						RecorderFct.recordStart(recorder, index);
-					}, 2050);
+					//record and immediately drop on timeline where recoring
+					
+
+					// ToneTimelineFct.muteAll(scope.$parent.tracks);
+
+
+					// window.setTimeout(function() {
+					// 		window.clearInterval(click);
+					// 		endRecording();
+					// }, 4050);
+
 				} else {
 					var nextBar = parseInt(Tone.Transport.position.split(':')[0]) + 1;
 					var endBar = nextBar + 1;

@@ -28,6 +28,9 @@
 	    <div id="loadingOverlay" ng-show="loading">
 			<loading-gif></loading-gif>
 	    </div>
+	    <div id="countInOverlay" ng-show="countIn">
+			{{countNumber}}
+	    </div>
 
 	    <div class="timeline-container">
 	    	<div style="width: {{300 + (numMeasures.length * 200)}}px;">
@@ -39,10 +42,6 @@
 				    	{{$index}}
 					</div>
 				</div>
-			<!--ng-controller="TimelineController">-->
-				<!-- <pre>{{tracks}}</pre> -->
-		        <!-- <button class="btn btn-primary" ng-click="addTrack()">Add Track</button>
-		        <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button> -->
 		        <div class="clearfix">
 
 					<div class="main-timeline col-xs-12">

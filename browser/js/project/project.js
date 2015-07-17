@@ -53,6 +53,8 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	$scope.currentlyRecording = false;
 	$scope.previewingId = null;
 	$scope.zoom = 100;
+	$scope.countIn = false;
+	$scope.countNumber = 1;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
