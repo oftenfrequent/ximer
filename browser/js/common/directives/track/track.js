@@ -220,6 +220,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					scope.$parent.metronome.start();
 					var click = window.setInterval(function () {
 						console.log('COUNT', scope.$parent.countNumber);
+						scope.$parent.$digest();
 						scope.$parent.countNumber = scope.$parent.countNumber + 1;
 						scope.$parent.metronome.stop();
 						scope.$parent.metronome.start();
