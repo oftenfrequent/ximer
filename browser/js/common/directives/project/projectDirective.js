@@ -17,7 +17,6 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				if($scope.loggedInUser._id === $stateParams.theID){
 					$state.go('project', {projectID: something._id});
 				}
-				console.log("displaying a project", $scope.parent);
 			}
 
 			$scope.makeFork = function(project){
@@ -55,8 +54,9 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				console.log('Uploading Project', project);
 				ProjectFct.uploadProject(project).then(function(response){
 					console.log('Upload Request is', response);
-				})
+				});
 			}
+
 
 		});
 	
