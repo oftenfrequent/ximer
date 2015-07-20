@@ -57,6 +57,7 @@ app.factory('ToneTrackFct', function ($http, $q) {
 	};
 
 	var createTimelineInstanceOfLoop = function(player, measure) {
+		// console.log('JUST DROPPED', player, measure);
 		return Tone.Transport.setTimeline(function() {
 				player.stop();
 				player.start();

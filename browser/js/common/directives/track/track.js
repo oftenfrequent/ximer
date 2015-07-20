@@ -3,21 +3,9 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
-			scope.effectWetnesses = [0,0,0,0];
-
-			// scope.effectWetnesses = [{
-			// 		name: 'Chorus',
-			// 		amount: 0
-			// 	},{
-			// 		name: 'Phaser',
-			// 		amount: 0
-			// 	},{
-			// 		name: 'Distortion',
-			// 		amount: 0
-			// 	},{
-			// 		name: 'PingPongDelay',
-			// 		amount: 0
-			// 	}];
+			scope.effectWetnesses = scope.track.effectsRack.map(function (effect) {
+				return effect.wet.value * 1000;
+			});
 				scope.volume = new Tone.Volume();
 				scope.volume.volume.value = 0;
 			setTimeout(function () {
@@ -187,7 +175,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					}
 				}
 
-				function endRecording() {
+				function endRecording(position) {
 					RecorderFct.recordStop(index, recorder).then(function (player) {
 						//track variables
 						scope.track.recording = false;
@@ -206,28 +194,38 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						//set Project vars
 						scope.$parent.metronome.stop();
 						scope.$parent.currentlyRecording = false;
-						scope.$parent.stop();
+						// scope.$parent.stop();
 						ToneTimelineFct.unMuteAll(scope.$parent.tracks);
 					});
 				}
+
 				if(Tone.Transport.state === "stopped") {
-					ToneTimelineFct.muteAll(scope.$parent.tracks);
-					scope.$parent.metronome.start();
+					Tone.Transport.position = "-1:0:0";
+					scope.$parent.countNumber = 0;
+					scope.$parent.countIn = true;
+					Tone.Transport.start();
+					var incCount = Tone.Transport.setInterval(function () {
+						scope.$parent.countNumber = scope.$parent.countNumber + 1;
+						scope.$parent.$digest();
+						
+					}, "4n");
 
-					var click = window.setInterval(function () {
-						scope.$parent.metronome.stop();
-						scope.$parent.metronome.start();
-					}, 500);
-
-					window.setTimeout(function() {
-							window.clearInterval(click);
-							endRecording();
-
-					}, 4000);
-
-					window.setTimeout(function() {
+					var recordingID = Tone.Transport.setTimeline(function () {
+						scope.$parent.countIn = false;
+						console.log(scope.$parent.countIn);
+						scope.$parent.$digest();
+						Tone.Transport.clearInterval(incCount);
 						RecorderFct.recordStart(recorder, index);
-					}, 2050);
+						window.setTimeout(function () {
+							RecorderFct.recordStart(recorder, index);
+							window.setTimeout(function () {
+								endRecording(0);
+								Tone.Transport.clearTimeline(recordingID);
+
+							}, 2000);
+						}, 50);
+					}, "0m");
+
 				} else {
 					var nextBar = parseInt(Tone.Transport.position.split(':')[0]) + 1;
 					var endBar = nextBar + 1;
@@ -242,7 +240,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					var recEndId = Tone.Transport.setTimeline(function () {
 						Tone.Transport.clearTimeline(recId);
 						Tone.Transport.clearTimeline(recEndId);
-						endRecording();
+						endRecording(nextBar);
 
 					}, endBar.toString() + "m");
 				}

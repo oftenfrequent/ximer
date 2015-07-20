@@ -16,8 +16,15 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 					metronome.start();
 				}, '1m');
 				Tone.Transport.setInterval(function () {
-					$('#timelinePosition').val(Tone.Transport.position.substr(1));
-					$('#positionSelector').val(Tone.Transport.position.substr(0,1));
+					var posArr = Tone.Transport.position.split(":");
+					if(posArr.length === 3) {
+						$('#timelinePosition').val(posArr[1] + ":" + posArr[2]);
+						$('#positionSelector').val(posArr[0]);
+					} else {
+						$('#timelinePosition').val(posArr[1] + ":" + posArr[2]);
+						$('#positionSelector').val(posArr[0]);
+						
+					}
 					metronome.start();
 				}, '4n');
 				return resolve(metronome);
