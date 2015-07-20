@@ -15,7 +15,7 @@
 	padding-bottom: 40px;
 
 	#loadingOverlay {
-		position:absolute;
+		position:fixed;
 		top:0;
 		left:0;
 		right:0;
@@ -39,7 +39,7 @@
 	}
 
 	#countInOverlay {
-		position:absolute;
+		position:fixed;
 		top:0;
 		left:0;
 		right:0;
@@ -47,18 +47,16 @@
 		background: rgba(32,38,48,0.6);
 		z-index:99999;
 		text-align:center;
-
-		loading-gif {
-			.helper {
-				display:inline-block;
-				height:100%;
-				vertical-align: middle;
-			}
-			img {
-				vertical-align: middle;
-				width:120px;
-				margin:auto;
-			}
+		font-size: 4em;
+		.helper {
+			display:inline-block;
+			height:100%;
+			vertical-align: middle;
+		}
+		img {
+			vertical-align: middle;
+			width:120px;
+			margin:auto;
 		}
 	}
 }

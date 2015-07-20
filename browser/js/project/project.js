@@ -209,7 +209,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		var playHead = document.getElementById('playbackHead');
 		playHead.style.left = '300px';
 		Tone.Transport.stop();
-		$('#timelinePosition').val(":0:0");
+		$('#timelinePosition').val("0:0");
 		$('#positionSelector').val("0");
 		//stop and track currently being previewed
 		if($scope.previewingId) {

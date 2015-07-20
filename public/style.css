@@ -120,7 +120,7 @@ xim-track .effectContainers {
   background: #202630;
   padding-bottom: 40px; }
   #project-container #loadingOverlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
@@ -137,19 +137,20 @@ xim-track .effectContainers {
       width: 120px;
       margin: auto; }
   #project-container #countInOverlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
     background: rgba(32, 38, 48, 0.6);
     z-index: 99999;
-    text-align: center; }
-    #project-container #countInOverlay loading-gif .helper {
+    text-align: center;
+    font-size: 4em; }
+    #project-container #countInOverlay .helper {
       display: inline-block;
       height: 100%;
       vertical-align: middle; }
-    #project-container #countInOverlay loading-gif img {
+    #project-container #countInOverlay img {
       vertical-align: middle;
       width: 120px;
       margin: auto; }

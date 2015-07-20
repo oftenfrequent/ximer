@@ -11,7 +11,7 @@
 	    	</div>
 	    	<div class="controls-third">
 	    		<input id="positionSelector" type="number" min="0" max="31" ng-model="position" ng-blur="jumpToMeasure(position)" value="{{position}}">
-	    		<input id="timelinePosition" type="string" value=":0:0">
+	    		<input id="timelinePosition" type="string" value="0:0">
 		    	<button id="metronome" ng-class="{grey: !metronome.on}" ng-click="toggleMetronome()">Metro</button>
     		</div>
 	    	<div class="controls-third">
@@ -22,13 +22,14 @@
 	    	<div class="controls-third">
 		    	<button class="btn btn-primary" ng-click="sendToAWS()"><span class="glyphicon glyphicon-save" aria-hidden="true"></span></button>
 		    	<button class="btn btn-primary" ng-disabled="zoom === 100" ng-click="zoomIn()"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-		    	<button class="btn btn-primary" ng-disabled="zoom === 50" ng-click="zoomOut()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+		    	<button class="btn btn-primary" ng-disabled="zoom === 70" ng-click="zoomOut()"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
 		    </div>
 	    </div>
 	    <div id="loadingOverlay" ng-show="loading">
 			<loading-gif></loading-gif>
 	    </div>
 	    <div id="countInOverlay" ng-show="countIn">
+	    	<div class="helper"></div>
 			{{countNumber}}
 	    </div>
 
