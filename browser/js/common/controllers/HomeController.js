@@ -21,12 +21,12 @@ app.controller('HomeController', function($scope, AuthService, ToneTrackFct, Pro
     		$scope.allProjects = projects;
           	var imgArr = [
                 "https://i1.sndcdn.com/artworks-000121902503-djbqh6-t500x500.jpg",
-                "https://i1.sndcdn.com/artworks-000103418932-te6hs4-t500x500.jpg",
                 "https://i1.sndcdn.com/artworks-000121795778-cmq0x1-t500x500.jpg",
-                "https://i1.sndcdn.com/artworks-000121925392-2hw3hg-t500x500.jpg",
-                "https://i1.sndcdn.com/artworks-000122506583-ozzx85-t500x500.jpg",
                 "https://i1.sndcdn.com/artworks-000123015713-wuuuy9-t500x500.jpg",
+                "https://i1.sndcdn.com/artworks-000121925392-2hw3hg-t500x500.jpg",
                 "https://i1.sndcdn.com/artworks-000122546910-xmjb63-t500x500.jpg",
+                "https://i1.sndcdn.com/artworks-000122506583-ozzx85-t500x500.jpg",
+                "https://i1.sndcdn.com/artworks-000103418932-te6hs4-t500x500.jpg"
               ]
 
               $scope.allProjects.forEach(function(aProject){

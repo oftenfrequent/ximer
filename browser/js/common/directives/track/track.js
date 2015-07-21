@@ -195,7 +195,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 						scope.$parent.metronome.stop();
 						scope.$parent.currentlyRecording = false;
 						// scope.$parent.stop();
-						ToneTimelineFct.unMuteAll(scope.$parent.tracks);
+						// ToneTimelineFct.unMuteAll(scope.$parent.tracks);
 					});
 				}
 
