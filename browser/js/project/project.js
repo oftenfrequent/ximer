@@ -166,7 +166,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 
 	$scope.movePlayhead = function (numberMeasures) {
 		var playHead = document.getElementById('playbackHead');
-		$('#timelinePosition').val(Tone.Transport.position.substr(1));
+		$('#timelinePosition').val("0:0");
 		playHead.style.left = (numberMeasures * 200 + 300).toString()+'px';
 	}
 
@@ -197,7 +197,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 		ToneTimelineFct.stopAll($scope.tracks);
 		$scope.position = Tone.Transport.position.split(':')[0];
 		var playHead = document.getElementById('playbackHead');
-		$('#timelinePosition').val(":0:0");
+		$('#timelinePosition').val("0:0");
 		playHead.style.left = ($scope.position * 200 + 300).toString()+'px';
 		Tone.Transport.pause();
 	};
