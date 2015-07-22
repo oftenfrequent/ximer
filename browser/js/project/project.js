@@ -83,7 +83,6 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 					// TODO: this is assuming that a player exists
 					track.player = ToneTrackFct.createPlayer(track.url, doneLoading);
 					//init effects, connect, and add to scope
-
 					track.effectsRack = ToneTrackFct.effectsInitialize(track.effectsRack);
 					track.player.connect(track.effectsRack[0]);
 

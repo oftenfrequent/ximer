@@ -3,6 +3,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
+			console.log("TRCK", scope.track);
 			scope.effectWetnesses = scope.track.effectsRack.map(function (effect) {
 				return effect.wet.value * 1000;
 			});
