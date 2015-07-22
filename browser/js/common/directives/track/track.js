@@ -128,14 +128,14 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			};
 
 			scope.record = function (index) {
-				var recorder = scope.recorder;
+				var recorder = $rootScope.recorder;
 
 				var continueUpdate = true;
 
 				//analyser stuff
 		        var canvas = document.getElementById("analyser"+index);
 		        var analyserContext = canvas.getContext('2d');
-		        var analyserNode = scope.analyserNode;
+		        var analyserNode = $rootScope.analyserNode;
 				var analyserId = window.requestAnimationFrame( update );
 
 				scope.track.recording = true;

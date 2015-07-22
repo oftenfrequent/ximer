@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
     });
 });
 
-app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
+app.controller('ProjectController', function ($scope, $rootScope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
 	var initLoad = 0;
 	//window events
 	window.onblur = function () {
@@ -40,13 +40,14 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	$scope.measureLength = 1;
 
 	//Initialize recorder on project load
-	RecorderFct.recorderInit().then(function (retArr) {
-		$scope.recorder = retArr[0];
-		$scope.analyserNode = retArr[1];
-	}).catch(function (e){
-        alert('Error getting audio');
-        console.log(e);
-    });
+	// RecorderFct.recorderInit().then(function (retArr) {
+	// 	console.log("ROOT SCOPE", $rootScope)
+	// 	$scope.recorder = retArr[0];
+	// 	$scope.analyserNode = retArr[1];
+	// }).catch(function (e){
+ //        alert('Error getting audio');
+ //        console.log(e);
+ //    });
 
 	$scope.measureLength = 1;
 	$scope.tracks = [];

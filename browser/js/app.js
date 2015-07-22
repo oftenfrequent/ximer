@@ -14,12 +14,23 @@ app.config(function ($urlRouterProvider, $locationProvider) {
 });
 
 // This app.run is for controlling access to specific states.
-app.run(function ($rootScope, AuthService, $state) {
+app.run(function ($rootScope, AuthService, $state, RecorderFct) {
 
     // The given state requires an authenticated user.
     var destinationStateRequiresAuth = function (state) {
         return state.data && state.data.authenticate;
     };
+
+
+    //Initialize recorder on project load
+    RecorderFct.recorderInit().then(function (retArr) {
+        console.log("ROOT SCOPE", $rootScope)
+        $rootScope.recorder = retArr[0];
+        $rootScope.analyserNode = retArr[1];
+    }).catch(function (e){
+        alert('Error getting audio');
+        console.log(e);
+    });
 
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.

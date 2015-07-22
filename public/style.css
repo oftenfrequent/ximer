@@ -323,7 +323,7 @@ div[class*="col-"] {
   #fullpage #sellingPoints {
     background: #202630;
     color: #C5C1C8;
-    padding: 20px; }
+    padding: 80px 0px; }
     #fullpage #sellingPoints h1 {
       font-style: italic;
       font-weight: 200;
@@ -338,13 +338,12 @@ div[class*="col-"] {
       #fullpage #lpForms .half button {
         margin: 0 auto;
         height: 34px;
-        width: 120px;
+        width: 100%;
         margin-bottom: 15px;
         font-size: 16px;
         height: auto;
-        float: left;
         border-radius: 0px;
-        background-color: #eee; }
+        background-color: #C3BFC6; }
       #fullpage #lpForms .half #scOAuth {
         background: #eee url('/images/soundcloud-black.png') center no-repeat;
         border: 0px;
