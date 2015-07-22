@@ -35,6 +35,9 @@ app.run(function ($rootScope, AuthService, $state, RecorderFct) {
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
+        Tone.Transport.clearTimelines();
+        Tone.Transport.clearIntervals();
+        Tone.Transport.stop();
 
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication

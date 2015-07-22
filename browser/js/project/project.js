@@ -20,9 +20,9 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
     window.onbeforeunload = function() {
 		return "Are you sure you want to leave this page before saving your work?";
 	};
-	window.onunload = function () {
-		Tone.Transport.clearTimelines();
-	}
+	// window.onunload = function () {
+	// 	Tone.Transport.clearTimelines();
+	// }
 	$('.timeline-container').scroll(function(){
 	    $('.trackMainSection').css({
 	        'left': $(this).scrollLeft()
@@ -35,19 +35,6 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 
 	// number of measures on the timeline
 	$scope.numMeasures = _.range(0, 60);
-
-	// length of the timeline
-	$scope.measureLength = 1;
-
-	//Initialize recorder on project load
-	// RecorderFct.recorderInit().then(function (retArr) {
-	// 	console.log("ROOT SCOPE", $rootScope)
-	// 	$scope.recorder = retArr[0];
-	// 	$scope.analyserNode = retArr[1];
-	// }).catch(function (e){
- //        alert('Error getting audio');
- //        console.log(e);
- //    });
 
 	$scope.measureLength = 1;
 	$scope.tracks = [];
@@ -64,7 +51,6 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
 		$scope.projectName = project.name;
-		console.log('PROJECT',project);
 		if (project.tracks.length) {
 
 			project.tracks.forEach(function (track) {
@@ -103,7 +89,6 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 
 					if(track.location.length) {
 						track.location.forEach(function (loc) {
-							console.log('TRACK', track, loc);
 							var timelineId = ToneTrackFct.createTimelineInstanceOfLoop(track.player, loc);
 							$('#measure' + loc + '.track' + i )
 								.first().append($compile("<canvas width='198' height='98' position='" + loc + "' timelineId='"+timelineId+"' id='mdisplay" +  i + "-" + loc + "' class='item trackLoop"+i+"' style='position: absolute; background: url(" + track.img + ");' draggable></canvas>"));
