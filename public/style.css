@@ -479,9 +479,6 @@ md-content.row {
 #ui {
   background-color: #202630; }
 
-#lpBackground, #sellingPoints, #lpForms {
-  display: none; }
-
 #login-form, #signup-form {
   width: 60%;
   margin: 0 auto; }
