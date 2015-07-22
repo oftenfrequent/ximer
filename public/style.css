@@ -316,7 +316,7 @@ div[class*="col-"] {
     #fullpage #lpSpaciousText h1, #fullpage #lpSpaciousText h4 {
       margin-bottom: 20px; }
     #fullpage #lpSpaciousText fullstack-logo {
-      width: 60%;
+      width: 35%;
       margin: 3em auto; }
     #fullpage #lpSpaciousText button {
       margin-top: 2em; }
@@ -478,6 +478,9 @@ md-content.row {
 
 #ui {
   background-color: #202630; }
+
+#lpBackground, #sellingPoints, #lpForms {
+  display: none; }
 
 #login-form, #signup-form {
   width: 60%;

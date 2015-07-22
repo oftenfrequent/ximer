@@ -7,11 +7,15 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProjectController', function ($scope, $stateParams, $compile, RecorderFct, ProjectFct, ToneTrackFct, ToneTimelineFct, AuthService) {
-
+	var initLoad = 0;
 	//window events
 	window.onblur = function () {
-        $scope.stop();
+	if(initLoad) {
+        	$scope.stop();
 		$scope.$digest();
+	} else {
+		initLoad++;
+	}
     };
     window.onbeforeunload = function() {
 		return "Are you sure you want to leave this page before saving your work?";
@@ -59,7 +63,7 @@ app.controller('ProjectController', function ($scope, $stateParams, $compile, Re
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
 		var loaded = 0;
 		$scope.projectName = project.name;
-
+		console.log('PROJECT',project);
 		if (project.tracks.length) {
 
 			project.tracks.forEach(function (track) {
