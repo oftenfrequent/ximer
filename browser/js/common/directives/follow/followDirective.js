@@ -29,7 +29,7 @@ app.controller('FollowDirectiveController', function($scope, $stateParams, $stat
 		$scope.goToFollow = function(follow){
 	      console.log("clicked", follow);
 	      $state.go('userProfile', { theID: follow._id});
-	    }
+	    };
 
 	    $scope.unFollow = function(followee) {
 	    	console.log($scope.follows);
@@ -38,13 +38,13 @@ app.controller('FollowDirectiveController', function($scope, $stateParams, $stat
     					var del = $scope.follows.splice(i, 1);
     					console.log("delete", del, $scope.follows);
     				}
-    		};
+    		}
 	    	userFactory.unFollow(followee, $scope.loggedInUser).then(function(response){
 	    		console.log("succesful", response);
 	    		$scope.$digest();	
 	    	});
-	    }
 
+	    };
 
 	
 });

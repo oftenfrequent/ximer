@@ -25,21 +25,23 @@
 					<ul class="nav">
 						<!-- <li ui-sref="userProfile.artistInfo" ng-show="loggedInUser._id === user._id">
 							<a href="#">
+						<li ui-sref="userProfile.artistInfo" ng-show="loggedInUser._id === user._id">
+							<a class="statelink" href="#">
 							<i class="glyphicon glyphicon-cog"></i>
 							Account Settings </a>
 						</li> -->
 						<li ui-sref="userProfile.project">
-							<a href="#">
+							<a class="statelink" href="#">
 							<i class="glyphicon glyphicon-cd"></i>
 							Projects </a>
 						</li>
 						<li ui-sref="userProfile.followers">
-							<a href="#">
+							<a class="statelink" href="#">
 							<i class="glyphicon glyphicon-link"></i>
 							Followers      ({{user.followers.length}})</a>
 						</li>
 						<li ui-sref="userProfile.following">
-							<a href="#">
+							<a class="statelink" href="#">
 							<i class="glyphicon glyphicon-headphones"></i>
 							Following      ({{user.following.length}})</a>
 						</li>

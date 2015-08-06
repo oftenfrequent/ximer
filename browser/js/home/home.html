@@ -1,63 +1,114 @@
 <div ng-controller="HomeController">
-    <md-content>
-    <md-card ng-repeat="project in allProjects" class="collection">
-        <img src="/images/logo.png" class="md-card-image" style="width:50px; height:50px;"alt="image caption">
-        <md-card-content class="cardContent">
-            <h2>{{project.name}}</h2>
-           <h3 ng-click="getUserProfile(project.owner)">{{project.owner.username}}</h3>
-        </md-card-content>
-        <md-card-footer>
-            <div class="md-actions" layout="row">
-                <md-button ng-repeat="track in project.tracks" ng-click="sampleTrack(track)" class="md-raised" aria-label="button for track"><i class="fa fa-music "></i></md-button>
-           </div>
-           <div class="md-actions" layout="row" layout-align="end center">
-                    <md-button ng-click="makeFork(project)"> Fork </md-button>
-           </div>
-        </md-card-footer>
-    </md-card>
-</md-content>
+        
+        <md-content class="row" style="background-color:#202630">
+            <div class="col-xs-8" style="padding-top: 5em;">
+                <div class="collection">  
+                    <div class="cardContent" ng-repeat="project in allProjects">
+                        <div plangular="https://soundcloud.com/fabric/ivy-lab-focus" class="relative overflow-hidden white bg-black ng-scope">
+                        <div class="absolute left-0 right-0" style="top:50%;margin-top:-50%;">
+                            <img style="min-width:100%;-webkit-filter:blur(32px);filter:blur(32px)" ng-src="{{project.backgroundImg}}" src="{{project.backgroundImg}}">
+                        </div>
+                        <div class="relative flex flex-center bg-darken-1">
+                            <div class="clearfix">
+                                <img style="width: 100px;" class="left" alt="SRCD Party artwork" ng-src="{{project.backgroundImg}}" src="{{project.backgroundImg}}">
+                            </div>
+
+                            <div class="flex-auto px2" ng-click="getUserProfile(project.owner)">
+                                <h3 class="h4 regular m0"><span class="inline-block px1 bg-black ng-binding">{{project.owner.username}}</span></h3>
+                                <h2 class="h4 caps m0"><span class="inline-block px1 bg-black ng-binding">{{project.name}}</span></h2>
+                                <div class="flex flex-center py1">
+                                    <button ng-click="playPause()" title="Play/Pause" class="flex-none h4 mr2 button button-small bg-black button-grow rounded">
+                                    <!-- ngIf: player.playing !== track.src --><svg ng-if="player.playing !== track.src" class="icon geomicon ng-scope" data-icon="play" viewBox="0 0 32 32" width="32" height="32" style="fill:currentcolor"><path d="M4 4 L28 16 L4 28 z "></path></svg><!-- end ngIf: player.playing !== track.src -->
+                                    <!-- ngIf: player.playing === track.src -->
+                                    </button>
+                                    <div class="flex-auto">
+                                        <progress class="progress ng-binding" ng-click="seek($event)" ng-value="currentTime / duration || 0" value="0">
+                                            {{ currentTime / duration }}
+                                        </progress>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="md-actions" layout="row" layout-align="end center">
+                                <md-button ng-click="makeFork(project)"><i class="fa fa-code-fork"></i> Fork </md-button>
+                           </div>
+                        </div>
+                    </div>
+                    <br>
+                    <hr>
+                    </div>
+                    <md-card-footer>
+                        <div class="md-actions" style="height: 2em;" layout="row">
+                            <md-button ng-repeat="track in project.tracks" ng-click="sampleTrack(track)" class="md-raised" aria-label="button for track"><i class="fa fa-music "></i></md-button>
+                       </div>
+                       
+                    </md-card-footer>
+                </div>
+            </div>
+
+
+
+
+
+
+            <div class="col-xs-4" style="margin-left: 2em; padding-top: 2em; background-color: #202630; width: 30%; height: 100vh">
+
+                <article style="color: #EB315D" class="infoStats"><table class="infoStats__table sc-type-small">
+                      <tbody><tr>
+                        <td class="infoStats__stat sc-link-light sc-border-light-right">
+                            <h4 class="infoStats__title sc-font-light">Followers</h4>
+                            <div class="infoStats__value">{{myfollowers}}</div>
+                        </td>
+                        <td class="infoStats__stat sc-link-light sc-border-light-right">
+                            <h4 class="infoStats__title sc-font-light">Following</h4>
+                            <div class="infoStats__value">{{myfollowing}}</div>
+                        </td><td class="infoStats__stat sc-link-light sc-border-light-right">
+                            <h4 class="infoStats__title sc-font-light">Projects</h4>
+                            <div class="infoStats__value">{{myprojects}}</div>
+                        </td>
+                        </td>
+                      </tr>
+                    </tbody></table>
+
+                    <div class="web-profiles"><ul class="sc-list-nostyle sc-clearfix"></ul></div>
+                </article>
+
+
+                <!-- <div class="most-played" style="">
+                    <div class="mp-title">Most Played</div>
+
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+                    <div class="mp-row row" style="margin: 0px;">
+                        <div class="col-xs-9">title one</div>
+                        <div class="col-xs-3">1,425 plays</div>
+                    </div>
+
+                </div> -->
+
+            </div>
+        </md-content>
+    
 
 </div>
-
-
-
-<!-- div ng-repeat="track in project.tracks" ng-click="sampleTrack(track)"> {{track.name}} 
-                    
-                 </div>
-
-
-                <div ng-show="isLoggedIn()">
-                    <button ng-click="makeFork(project)">
-                        <i class="fa fa-code-fork"></i> Fork
-                    </button>
-                </div> -->
-	        <!-- <div id="viz" style="background: #202630;">
-            <canvas id="analyser" width="1200" height="50"></canvas> -->
-            <!-- <canvas id="wavedisplay" width="100" height="100"></canvas> -->
-        <!-- </div>
-        <div class="timeline-container" ng-controller="TimelineController">
-            <button class="btn btn-primary" ng-click="addTrack()">Add Track</button>
-            <button class="btn btn-info" ng-click="sendToAWS()">Save to AWS</button>
-            <div class="row">
-                <div class="col-xs-3">
-                    <div ng-repeat="track in tracks track by $index" class="tracks">
-                        <span>{{ track.name }}</span>
-                        <div id="controls">
-                            <button class="btn btn-primary" id="record" ng-click="record($event, $index)">record</button>
-                            <a id="save" href="#">DOWNLOAD</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="main-timeline col-xs-9">
-
-                    <canvas width="198" height="98" id="wavedisplay" class="item row1" style="position: absolute;" id="item1" draggable></canvas>
-
-                    <div ng-repeat="track in tracks" class="track-row row1" style="width: 12100px;">
-                        <div ng-repeat="measure in numMeasures" class="measures" droppable drop="handleDrop()">
-                        </div>
-                    </div>
-                </div>
-           </div>
-        </div>
-    
- -->

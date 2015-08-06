@@ -20,6 +20,6 @@ app.factory('userFactory', function($http){
 				return response.data;
 			});
 		}
-	}
+	};
 
 });

@@ -70,36 +70,59 @@ app.directive('droppable', function() {
           
           // upon drop, changing position and updating track.location array on scope 
           var item = document.getElementById(e.dataTransfer.getData('Text'));
+          var rowId, trackIndex;
+
+          //get trackId of droppable container
+          this.classList.forEach(function (name) {
+            if(name.includes("track")) {
+              trackIndex = name.split("track")[1];
+            }
+          });
+          //get trackId of draggable container
+          item.classList.forEach(function (name) {
+            if(name.includes("trackLoop")) {
+              console.log(name.split("trackLoop")[1]);
+              rowId = name.split("trackLoop")[1];
+            }
+          });
           var xposition = parseInt(this.attributes.xposition.value);
           var childNodes = this.childNodes;
           var oldTimelineId;
           var theCanvas;
 
-          for (var i = 0; i < childNodes.length; i++) {
-              if (childNodes[i].className === 'canvas-box') {
+          //if rowId = track.indexOf()
+          // if()
+          console.log('ROWID', rowId, "trackIndex", trackIndex);
+          if(parseInt(rowId) === parseInt(trackIndex)) {
+            for (var i = 0; i < childNodes.length; i++) {
+                if (childNodes[i].className === 'canvas-box') {
 
-                  this.childNodes[i].appendChild(item);
-                  scope.$parent.$parent.track.location.push(xposition);
-                  scope.$parent.$parent.track.location.sort();
+                    this.childNodes[i].appendChild(item);
+                    scope.$parent.$parent.track.location.push(xposition);
+                    scope.$parent.$parent.track.location.sort();
 
-                  var canvasNode = this.childNodes[i].childNodes;
+                    var canvasNode = this.childNodes[i].childNodes;
 
-                  for (var j = 0; j < canvasNode.length; j++) {
+                    for (var j = 0; j < canvasNode.length; j++) {
 
-                      if (canvasNode[j].nodeName === 'CANVAS') {
-                          canvasNode[j].attributes.position.value = xposition;
-                          oldTimelineId = canvasNode[j].attributes.timelineid.value;
-                          theCanvas = canvasNode[j];
+                        if (canvasNode[j].nodeName === 'CANVAS') {
+                            canvasNode[j].attributes.position.value = xposition;
+                            oldTimelineId = canvasNode[j].attributes.timelineId.value;
+                            // oldTimelineId = canvasNode[j].dataset.timelineId;
+                            console.log('OLD TIMELINE', oldTimelineId);
+                            theCanvas = canvasNode[j];
 
-                      }
-                  }
-              }     
+                        }
+                    }
+                }     
+            }
+
+            console.log('oldTimelineId', oldTimelineId);
+            scope.$parent.$parent.moveInTimeline(oldTimelineId, xposition).then(function (newTimelineId) {
+                theCanvas.attributes.timelineid.value = newTimelineId;
+            });
+            
           }
-          
-          console.log('oldTimelineId', oldTimelineId);
-          scope.$parent.$parent.moveInTimeline(oldTimelineId, xposition).then(function (newTimelineId) {
-              theCanvas.attributes.timelineid.value = newTimelineId;
-          });
 
           // call the drop passed drop function
           scope.$apply('drop()');

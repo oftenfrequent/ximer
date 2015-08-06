@@ -41,73 +41,81 @@ app.controller('ForkWebController', function($scope, $stateParams, $state, Proje
 		var nodes = nodeArr;
 		var links = linkArr;
 
-		var w = 900;
-		var h = 500;
-		var svg = d3.select('#ui') 
-		      .append('svg')
-		      .attr('width', w)
-		      .attr('height', h);
+		  var width = 960, height = 500;
 
+		  var color = d3.scale.category20();
 
-		// create force layout in memory
-		var force = d3.layout.force()
-		      .nodes(nodes)
-		      .links(links)
-		      .size([900, 500])
-		      .linkDistance([w /(nodeArr.length)]);
+		  var fisheye = d3.fisheye.circular()
+		      .radius(120);
+
+		  var force = d3.layout.force()
+		      .charge(-240)
+		      .linkDistance(40)
+		      .size([width, height]);
+
+		  var svg = d3.select("#ui").append("svg")
+		      .attr("width", width)
+		      .attr("height", height);
+
+		  svg.append("rect")
+		      .attr("class", "background")
+		      .attr("width", width)
+		      .attr("height", height);
+
+		    var n = nodes.length;
+
+		    force.nodes(nodes).links(links);
+
+		    // Initialize the positions deterministically, for better results.
+		    nodes.forEach(function(d, i) { d.x = d.y = width / n * i; });
+
+		    // Run the layout a fixed number of times.
+		    // The ideal number of times scales with graph complexity.
+		    // Of course, don't run too long—you'll hang the page!
+		    force.start();
+		    for (var i = n; i > 0; --i) force.tick();
+		    force.stop();
+
+		    // Center the nodes in the middle. 
+		    var ox = 0, oy = 0;
+		    nodes.forEach(function(d) { ox += d.x, oy += d.y; });
+		    ox = ox / n - width / 2, oy = oy / n - height / 2;
+		    nodes.forEach(function(d) { d.x -= ox, d.y -= oy; });
+
+		    var link = svg.selectAll(".link")
+		        .data(links)
+		      .enter().append("line")
+		        .attr("class", "link")
+		        .attr("x1", function(d) { return d.source.x; })
+		        .attr("y1", function(d) { return d.source.y; })
+		        .attr("x2", function(d) { return d.target.x; })
+		        .attr("y2", function(d) { return d.target.y; })
+		        .style("stroke-width", function(d) { return 2; });
+
+		    var node = svg.selectAll(".node")
+		        .data(nodes)
+		      .enter().append("circle")
+		        .attr("class", "node")
+		        .attr("cx", function(d) { return d.x; })
+		        .attr("cy", function(d) { return d.y; })
+		        .attr("r", 4.5)
+		        .style("fill", function(d) { return "blue"; })
+		        .call(force.drag);
+
+		    svg.on("mousemove", function() {
+		      fisheye.focus(d3.mouse(this));
+
+		      node.each(function(d) { d.fisheye = fisheye(d); })
+		          .attr("cx", function(d) { return d.fisheye.x; })
+		          .attr("cy", function(d) { return d.fisheye.y; })
+		          .attr("r", function(d) { return d.fisheye.z * 4.5; });
+
+		      link.attr("x1", function(d) { return d.source.fisheye.x; })
+		          .attr("y1", function(d) { return d.source.fisheye.y; })
+		          .attr("x2", function(d) { return d.target.fisheye.x; })
+		          .attr("y2", function(d) { return d.target.fisheye.y; });
+		    });
 		
-		var fisheye = d3.fisheye.circular()
-		    			.radius(200)
-		    			.distortion(2);
-
-
-		// append a group for each data element
-		var node = svg.selectAll('circle')
-		      .data(nodes).enter()
-		      .append('g')
-		      .call(force.drag)
-		      .attr("class", "nodeObj");
-
-		// append circle onto each 'g' node
-		node.append('circle')
-		      .attr('fill', "green")
-		      .attr('r', 10);
-
-
-		force.on('tick', function(e) {
-	      node.attr('transform', function(d, i) {
-	            return 'translate('+ d.x +', '+ d.y +')';
-	      })
-
-	      link
-	            .attr('x1', function(d) { return d.source.x })
-	            .attr('y1', function(d) { return d.source.y })
-	            .attr('x2', function(d) { return d.target.x })
-	            .attr('y2', function(d) { return d.target.y })
-		});
-
-
-
-		var link = svg.selectAll('line')
-		      .data(links).enter()
-		      .append('line')
-		      .attr('stroke', "grey")
-
-		force.start();
-		
-		svg.on("mousemove", function() {
-		  fisheye.focus(d3.mouse(this));
-
-		    node.each(function(d) { d.fisheye = fisheye(d); })
-		        .attr("cx", function(d) { return d.fisheye.x; })
-	  	        .attr("cy", function(d) { return d.fisheye.y; })
-		        .attr("r", function(d) { return d.fisheye.z * 4.5; });
-
-		    link.attr("x1", function(d) { return d.source.fisheye.x; })
-		        .attr("y1", function(d) { return d.source.fisheye.y; })
-		        .attr("x2", function(d) { return d.target.fisheye.x; })
-		        .attr("y2", function(d) { return d.target.fisheye.y; });
-		});
 	});
 	
 });

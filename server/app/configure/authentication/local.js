@@ -60,12 +60,12 @@ module.exports = function (app) {
                     req.logIn(user, function (err) {
                         if(err) return next(err);
                         res.status(200).send({ user: _.omit(user.toJSON(), ['password', 'salt']) });
-                    })
+                    });
                 }, function (err){
                     return next(err);
                 });
             }
-        })
-    })
+        });
+    });
 
 };

@@ -33,18 +33,18 @@ router.post('/', function (req, res, next) {
 			//the uuid generates a unique string of characters each time
 			var keyName = uuid.v4() + '.wav';
 			var url = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/' + keyName;
-			urlTracks.push(url)
+			urlTracks.push(url);
 			var params = {Bucket: bucketName, Key: keyName, Body: trackBuffer};
 
 			s3.putObject(params, function(err, data) {
 				if (err)
-				 console.log(err)
+				 console.log(err);
 				else
 				 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
 			});
 		}
 		
-	})
+	});
 
 	Project.findById(projectId).exec().then(function (project) {
 

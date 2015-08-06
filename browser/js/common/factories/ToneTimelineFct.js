@@ -16,8 +16,15 @@ app.factory('ToneTimelineFct', function ($http, $q) {
 					metronome.start();
 				}, '1m');
 				Tone.Transport.setInterval(function () {
-					$('#timelinePosition').val(Tone.Transport.position.substr(1));
-					$('#positionSelector').val(Tone.Transport.position.substr(0,1));
+					var posArr = Tone.Transport.position.split(":");
+					if(posArr.length === 3) {
+						$('#timelinePosition').val(posArr[1] + ":" + posArr[2]);
+						$('#positionSelector').val(posArr[0]);
+					} else {
+						$('#timelinePosition').val(posArr[1] + ":" + posArr[2]);
+						$('#positionSelector').val(posArr[0]);
+						
+					}
 					metronome.start();
 				}, '4n');
 				return resolve(metronome);
@@ -56,39 +63,39 @@ app.factory('ToneTimelineFct', function ($http, $q) {
         });
 	};
 
-	var addLoopToTimeline = function (player, startTimeArray) {
+	// var addLoopToTimeline = function (player, startTimeArray) {
 
-		if(startTimeArray.indexOf(0) === -1) {
-			Tone.Transport.setTimeline(function() {
-				player.stop();
-			}, "0m")
+	// 	if(startTimeArray.indexOf(0) === -1) {
+	// 		Tone.Transport.setTimeline(function() {
+	// 			player.stop();
+	// 		}, "0m")
 
-		}
+	// 	}
 
-		startTimeArray.forEach(function (startTime) {
+	// 	startTimeArray.forEach(function (startTime) {
 
-			var startTime = startTime.toString() + 'm';
+	// 		var startTime = startTime.toString() + 'm';
 
-			Tone.Transport.setTimeline(function () {
-				console.log('Start', Tone.Transport.position);
-				player.stop();
-				player.start();
-			}, startTime);
+	// 		Tone.Transport.setTimeline(function () {
+	// 			console.log('Start', Tone.Transport.position);
+	// 			player.stop();
+	// 			player.start();
+	// 		}, startTime);
 
-			// var stopTime = parseInt(startTime.substr(0, startTime.length-1)) + 1).toString() + startTime.substr(-1,1);
-			//// console.log('STOP', stop);
-			//// transport.setTimeline(function () {
-			//// 	player.stop();
-			//// }, stopTime);
+	// 		// var stopTime = parseInt(startTime.substr(0, startTime.length-1)) + 1).toString() + startTime.substr(-1,1);
+	// 		//// console.log('STOP', stop);
+	// 		//// transport.setTimeline(function () {
+	// 		//// 	player.stop();
+	// 		//// }, stopTime);
 
-		});
+	// 	});
 
-	};
+	// };
 	
     return {
         createTransport: createTransport,
         changeBpm: changeBpm,
-        addLoopToTimeline: addLoopToTimeline,
+        // addLoopToTimeline: addLoopToTimeline,
         createMetronome: createMetronome,
         stopAll: stopAll,
         muteAll: muteAll,

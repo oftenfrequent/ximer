@@ -17,7 +17,6 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				if($scope.loggedInUser._id === $stateParams.theID){
 					$state.go('project', {projectID: something._id});
 				}
-				console.log("displaying a project", $scope.parent);
 			}
 
 			$scope.makeFork = function(project){
@@ -38,6 +37,13 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 			}
 
 			$scope.deleteProject = function(project){
+				console.log($scope.user.projects);
+				for (var i = 0; i < $scope.user.projects.length; i++) {
+    				if($scope.user.projects[i]._id === project._id){
+    					var del = $scope.user.projects.splice(i, 1);
+    					console.log("delete", del, $scope.user.projects);
+    				}
+    			};
 				console.log('DeleteProject', project)
 				ProjectFct.deleteProject(project).then(function(response){
 					console.log('Delete request is', response);
@@ -48,8 +54,9 @@ app.controller('projectdirectiveController', function($scope, $stateParams, $sta
 				console.log('Uploading Project', project);
 				ProjectFct.uploadProject(project).then(function(response){
 					console.log('Upload Request is', response);
-				})
+				});
 			}
+
 
 		});
 	
