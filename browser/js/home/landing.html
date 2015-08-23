@@ -1,0 +1,77 @@
+<div id="fullpage" class="t-c">
+
+	<div id="lpSpaciousText" class="landing-top section">
+
+	    <div id="large-header" class="large-header">
+	    	<!-- inline styling to get the landing logo in center of canvas -->
+		    <div id="logo-cont">
+		        <div id="logo-inner-cont">
+
+		        	<fullstack-logo class="landing-logo"></fullstack-logo>
+					<!-- <h1>Welcome to Ximer</h1> -->
+					<h4>THE FIRST DAW OF ITS KIND</h4>
+				    <button class="btn btn-ximer btn-sm signup-button outline login-button" ng-click="goToForms()">Already a Member</button>
+				    <button class="btn btn-ximer btn-sm signup-button outline" ng-click="goToForms()">Enlist Yourself</button>
+
+		        </div>
+		    </div>
+			<canvas id="demo-canvas"></canvas>
+		</div>
+
+	    <!-- Magic Mouse -->
+		<div class="mouse hidden-xs" style="opacity: 1;"> 
+			<div class="wheel"></div> 
+		</div>
+	</div>
+
+
+	<div id="lpBackground" class="section">
+		<div></div>
+	</div>
+    <div id="sellingPoints" class="section">
+    	<h1>the power of music production right on your web browser</h1>
+    </div>
+    <div id="lpForms" class="section clearfix">
+    	<div class="half clearfix">
+    		<form id="login-form" name="loginForm" ng-submit="loginForm.$valid && sendLogin(login)">
+			    <alert type="danger" ng-show="error">
+			        {{ error }}
+			    </alert>
+			    <div class="form-group">
+			        <input type="text" ng-model="login.email" class="form-control" id="email" placeholder="Enter email">
+			    </div>
+			    <div class="form-group">
+			        <input type="password" ng-model="login.password" class="form-control" id="login-password" placeholder="Password">
+			    </div>
+			    <button type="submit" class="btn btn-default">Log In</button>
+			    <span>- or -</span>
+			    <button id="scOAuth" onClick="window.location='http://127.0.0.1:1337/auth/soundcloud';">SC</button>
+			</form>
+		</div>
+    	<div class="half">
+    		<form id="signup-form" name="signupForm" ng-submit="signupForm.$valid && sendSignup(signup)">
+			    <alert type="danger" ng-show="error">
+			        {{ error }}
+			    </alert>
+			    <div class="form-group">
+			        <input type="text" ng-model="signup.email" class="form-control" id="email" placeholder="Enter email" required>
+			    </div>
+			    <div class="form-group">
+			        <input type="text" ng-model="signup.username" class="form-control" id="username" placeholder="Enter Artist Name" required>
+			    </div>
+			    <div class="form-group">
+			        <input type="password" ng-model="signup.password" class="form-control" id="signup-password" placeholder="Password" required>
+			    </div>
+			    <button type="submit" id="signup" class="btn btn-default">Sign Up</button>
+			</form>
+		</div>
+	</div>
+</div>
+
+    <!-- Landing Page Animation -->
+    <script src="js/landing/TweenLite.min.js"></script>
+    <script src="js/landing/EasePack.min.js"></script>
+    <script src="js/landing/rAF.js"></script>
+    <script src="js/landing/landingweb.js"></script>
+
+

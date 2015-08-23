@@ -1,5 +1,5 @@
 'use strict';
-app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
+app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state, ProjectFct) {
 
     return {
         restrict: 'E',
@@ -8,21 +8,23 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
         link: function (scope) {
 
             var setNavbar = function(){
-                AuthService.getLoggedInUser().then(function(user){
-                    scope.userID = user._id;
-                    scope.items = [
-                        { label: 'Home', state: 'project' },
-                        { label: 'Members Only', state: 'userProfile({theID: userID})', auth: true }
-                    ];
+                AuthService.getLoggedInUser().then(function (user){
+                    if(user) {
+                        scope.userId = user._id;
+                        scope.items = [
+                            { label: 'Home', state: 'home' },
+                            { label: 'Profile', state: 'userProfile({theID: userId})', auth: true }
+                        ];
+                    }
                 });
-            }
+            };
             setNavbar();
 
-            scope.items = [
-                { label: 'Home', state: 'project' },
-                // { label: 'Sign Up', state: 'signup' },
-                { label: 'Members Only', state: 'userProfile', auth: true }
-            ];
+            // scope.items = [
+            //     // { label: 'Home', state: 'project' },
+            //     // { label: 'Sign Up', state: 'signup' },
+            //     { label: 'Members Only', state: 'userProfile', auth: true }
+            // ];
 
             scope.user = null;
 
@@ -44,6 +46,13 @@ app.directive('navbar', function($rootScope, AuthService, AUTH_EVENTS, $state) {
 
             var removeUser = function () {
                 scope.user = null;
+            };
+
+            scope.newProjectBut = function(){
+                ProjectFct.newProject(scope.user).then(function(projectId){
+                    $state.go('project', {projectID: projectId});       
+                });
+
             };
 
             setUser();

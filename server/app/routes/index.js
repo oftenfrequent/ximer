@@ -14,7 +14,7 @@ var ensureAdminAuthenticated = function(req, res, next) {
     } else {
         res.status(401).end();
     }
-}
+};
 
 
 //anything below this users need to be authenticated
@@ -35,12 +35,9 @@ router.use('/wav/:loopname', function (req, res, next) {
 router.use('/users', require('./users'));
 router.use('/projects', require('./projects'));
 router.use('/aws', require('./aws'));
+router.use('/forks', require('./forks'));
 
-router.use('/project/:projectId', function (req, res, next) {
-	Project.findById('5595a7faaa901ad63234f920').exec().then(function (project) {
-		res.send(project);
-	});
-});
+
 
 // Make sure this is after all of
 // the registered routes!

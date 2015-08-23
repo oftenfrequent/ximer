@@ -5,10 +5,12 @@ navbar {
   margin-bottom: -20px;
 
   fullstack-logo {
-    padding-top: 20px;
+    padding-top: 10px;
     margin: auto;
     width: 120px;
-    padding-bottom: 20px;
+          img {
+        width:100%;
+      }
   }
 
   a {
@@ -24,6 +26,7 @@ navbar {
       color: #f30046;
     }
     &:hover {
+      color: #eee;
       transition: color 0.2s;
     }
     &:focus {
@@ -35,6 +38,7 @@ navbar {
   .navbar-header {
     margin: auto;
     float: none;
+    height: 85px;
   }
 
   .login-button {
@@ -54,4 +58,10 @@ navbar {
     }
   }
 
+}
+
+
+.nav > li > a:hover, .nav > li > a:focus {
+  text-decoration: none;
+  background-color: #EB315D;
 }

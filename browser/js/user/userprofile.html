@@ -4,13 +4,18 @@
 			<div class="profile-sidebar">
 				<!-- SIDEBAR USERPIC -->
 				<div class="profile-userpic">
-					<img src="http://www.ssc.education.ed.ac.uk/aboutSSC/pictures/alisonbstaff.jpg" class="img-responsive" alt="">
+
+					<img src="{{user.profpic}}" class="img-responsive" alt="">
 				</div>
 				<!-- END SIDEBAR USERPIC -->
 				<!-- SIDEBAR USER TITLE -->
 				<div class="profile-usertitle">
 					<div class="profile-usertitle-name">
-						{{theUser.email}}
+						{{user.username}}
+					</div>
+					<div>
+						<button ng-show="loggedInUser._id !== user._id" ng-hide="followStatus" ng-click="follow(user)">Follow</button>
+						<button ng-show="followStatus">Following</button>
 					</div>
 				</div>
 				<!-- END SIDEBAR USER TITLE -->
@@ -18,21 +23,33 @@
 
 				<div class="profile-usermenu">
 					<ul class="nav">
-						<li ng-click="displaySettings()">
+						<!-- <li ui-sref="userProfile.artistInfo" ng-show="loggedInUser._id === user._id">
 							<a href="#">
+						<li ui-sref="userProfile.artistInfo" ng-show="loggedInUser._id === user._id">
+							<a class="statelink" href="#">
 							<i class="glyphicon glyphicon-cog"></i>
 							Account Settings </a>
-						</li>
-						<li ng-click="displayProjects()">
-							<a href="#">
+						</li> -->
+						<li ui-sref="userProfile.project">
+							<a class="statelink" href="#">
 							<i class="glyphicon glyphicon-cd"></i>
 							Projects </a>
 						</li>
-						<li ng-click="displayForks()">
+						<li ui-sref="userProfile.followers">
+							<a class="statelink" href="#">
+							<i class="glyphicon glyphicon-link"></i>
+							Followers      ({{user.followers.length}})</a>
+						</li>
+						<li ui-sref="userProfile.following">
+							<a class="statelink" href="#">
+							<i class="glyphicon glyphicon-headphones"></i>
+							Following      ({{user.following.length}})</a>
+						</li>
+						<!-- <li ng-click="displayForks()">
 							<a href="#">
 							<i class="glyphicon glyphicon-random"></i>
 							Forks </a>
-						</li>
+						</li> -->
 					</ul>
 				</div>
 				<!-- END MENU -->
@@ -40,29 +57,9 @@
 		</div>
 		<div class="col-md-9">
             <div class="profile-content">
-
-            	<form id="userSettingsEdit-form" name="userSettingsEdit" ng-show="showSettings">
-				    <alert type="danger" ng-show="error">
-				        {{ error }}
-				    </alert>
-
-				    <div class="form-group">
-				        <label for="email">Email address</label>
-				        <input type="text" class="form-control" id="email" ng-model="theUser.email">
-				    </div>
-				    <div class="form-group">
-				        <label for="userSettingsEdit-password">Password</label>
-				        <input type="password" class="form-control" id="userSettingsEdit-password" ng-model="theUser.password">
-				    </div>
-				    <button ng-click="submitUserEdit()" class="btn btn-default userSettingsEdit-btn">Submit</button>
-				    <br>
-				</form>
-				<div class="user-project" ng-click="goToProjects()" ng-show="showProjects">
-					<button ng-click="createAProject()">New Project</button>
-					<projectdirective></projectdirective>
-				</div>
-		
-
+           
+				<div ui-view></div>
+				
             </div>
 		</div>
 	</div>

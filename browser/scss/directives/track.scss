@@ -1,0 +1,56 @@
+xim-track {
+  .trackMainSection {
+    background: #202630;
+    width: 300px;
+    border: 1px solid #502640;
+    height: 100px;
+    float: left;
+    position:absolute;
+    z-index: 999999;
+  }
+  .trackAnalyser, .trackWave {
+    width:300px;
+    height:100px;
+  }
+  .trackControllsContainer {
+    width:300px;
+    height:100px;
+    position:absolute;
+    top:0px;
+      button.btn,
+      button.btn:hover,
+      button.btn:focus,
+      button.btn:active {
+        color: #ccc;
+        background-color:rgba(0,0,0,0);
+        border:0px;
+        margin-left: 26px;
+        padding: 6px 13px;
+      }
+  }
+  .grayed {
+    opacity: 0.2;
+  }
+  .effectContainers{
+    width:50%;
+    float:left;
+    font-size: 8px;
+    padding: 0px 5px;
+    margin-top: -10px;
+    margin-bottom: 1px;
+    md-slider .md-thumb:after{
+      border-color: #f30046;
+      background-color: #f30046;
+    }
+    md-slider .md-track.md-track-fill {
+      background-color: #ccc;
+    }
+
+    md-slider {
+      .md-slider-wrapper {
+        margin-top: -12px;
+
+      }
+    }
+  }
+}

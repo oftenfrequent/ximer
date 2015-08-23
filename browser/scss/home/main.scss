@@ -10,49 +10,247 @@
   }
 }
 
-.track-row {
-  font-size: 0;
-}
-
-.main-timeline {
-  overflow-x: scroll;
-  overflow-y: hidden;
-}
-
-.measures {
-  display: inline-block;
-  height: 100%;
-  border: 1px solid #502640;
-  min-height: 100px;
-  min-width: 200px;
-}
-
-.over {
-  background: #D63953;
-}
-
-.item {
-  min-height: 98px;
-  min-width: 198px;
-  background: #202630;
-  -webkit-box-shadow:inset 0px 0px 0px 1px #D63953;
-  -moz-box-shadow:inset 0px 0px 0px 1px #D63953;
-  box-shadow:inset 0px 0px 0px 1px #D63953;
-}
-
-.drag {
-  opacity: 0.5;
-}
-
-.tracks {
-  margin-left: 1em;
-  height: 100%;
-  border: 1px solid #502640;
-  min-height: 100px;
-  min-width: 200px;
-}
 
 div[class*="col-"] {
     padding-right: 0px;
     padding-left: 0px;
 }
+
+.collection {
+  background: #202630;
+}
+
+.infoStats__value {
+  font-family: 'Avenir Next','Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-size: 40px;
+}
+
+#lpBackground {
+  background-image: url(images/lpbackthin.png);
+  background-size: cover;
+  background-position: 0% 50%;
+  background-repeat: no-repeat;
+  height: 500px;
+  #lpBackgroundOverlay {
+    background-color:rgba(0,0,0,0.3);
+    height: 400px;
+
+  }
+}
+#fullpage {
+  background: #202630;
+  #lpSpaciousText {
+    #logo-cont {
+      position: absolute;
+      left: 50%;
+      padding-top:50px;
+      #logo-inner-cont {
+        position: relative;
+        left: -50%;
+      }
+    }
+    h1, h4 {
+      margin-bottom: 20px;
+    }
+    fullstack-logo {
+      width: 60%;
+      margin: 3em auto;
+    }
+    button {
+      margin-top: 2em;
+    }
+    letter-spacing: 10px;
+    overflow: hidden;
+  }
+  #sellingPoints {
+    background:#202630;
+    color: #C5C1C8;
+    padding:20px;
+    h1 {
+      font-style: italic;
+      font-weight: 200;
+      margin-top: 0px;
+      text-transform: uppercase;
+    }
+  }
+  #lpForms {
+    padding:80px 20px;
+    .half{
+      width: 50%;
+      float: left;
+      font-size: 35px;
+      button {
+        margin:0 auto;
+        height:34px;
+        width: 120px;
+        margin-bottom:15px;
+        font-size: 16px;
+        height:auto;
+        float:left;
+        border-radius:0px;
+        background-color:#eee;
+      }
+      #scOAuth {
+        background: #eee url('/images/soundcloud-black.png') center no-repeat;
+        border:0px;
+        background-size:87%;
+        float: right;
+        text-indent:-99999px;
+        font-size: 29px;
+      }
+      #signup {
+        float:none;
+      }
+    }
+    input[type="text"],input[type="password"] {
+      border:0px;
+      border-radius:0px;
+      background-color:#eee;
+      font-size:20px;
+      padding:8px;
+      height:auto;
+    }
+    ::-webkit-input-placeholder {
+       color: #bbb;
+    }
+
+    :-moz-placeholder { /* Firefox 18- */
+       color: #bbb;  
+    }
+
+    ::-moz-placeholder {  /* Firefox 19+ */
+       color: #bbb;  
+    }
+
+    :-ms-input-placeholder {  
+       color: #bbb;  
+    }
+  }
+}
+.t-c {
+  text-align: center;
+}
+
+.face {
+  border-radius: 30px;
+  border: 1px solid #ddd;
+  width: 48px;
+  margin: 16px; }   
+
+  .cardContent{
+    margin: 0em 2em;
+  } 
+
+.landing-top {
+  height:100vh;
+}
+
+md-content.row {
+  margin-right: 0px;
+  margin-left: 0px;
+}
+
+/* =Magic Mouse
+-------------------------------------------------------------- */
+
+.mouse {
+  position: relative;
+  width: 30px;
+  height: 44px;
+  border: 2px solid #EB315D;
+  border-radius: 15px;
+  background: transparent;
+  position: absolute;
+  bottom: 30px;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+.mouse .wheel {
+  width: 6px;
+  height: 6px;
+  background-color: #D63953;
+  border-radius: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 6px;
+  left: 0;
+  right: 0;
+  -webkit-animation: magic-mouse 1.7s infinite ease;
+  animation: magic-mouse 1.7s infinite ease;
+}
+
+@keyframes magic-mouse {
+  0% {
+    margin-top: 6px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    margin-top: 18px;
+    opacity: 0;
+  }
+}
+@-webkit-keyframes magic-mouse {
+  0% {
+    margin-top: 6px;
+    opacity: 0;
+  }
+  30% {
+    opacity: 1;
+  }
+  100% {
+    margin-top: 18px;
+    opacity: 0;
+  }
+}
+
+/***********************
+  OUTLINE BUTTONS
+************************/
+
+.btn.outline {
+    background: none;
+    padding: 12px 22px;
+}
+.btn-ximer.outline {
+    border: 1px solid #EB315D;
+    color: #EB315D;
+}
+.btn-ximer.outline:hover, .btn-ximer.outline:focus, .btn-ximer.outline:active, .btn-ximer.outline.active, .open > .dropdown-toggle.btn-ximer {
+    color: #BFBCC3;
+    border-color: #BFBCC3;
+}
+.btn-ximer.outline:active, .btn-ximer.outline.active {
+    border-color: #BFBCC3;
+    color: #BFBCC3;
+    box-shadow: none;
+}
+
+/***********************
+  CUSTON BTN VALUES
+************************/
+
+.btn {
+    padding: 14px 24px;
+    border: 0 none;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+#ui {
+  background-color: #202630;
+}
+
+.scplayer {
+
+}
+
+

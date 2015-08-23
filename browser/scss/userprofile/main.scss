@@ -1,5 +1,9 @@
-body {
-  background: #F1F3FA;
+.container {
+  max-width: 100%;
+}
+
+.nav > li > a.statelink:hover, .nav > li > a.statelink:focus {
+  background-color: #eee;
 }
 
 /* Profile container */

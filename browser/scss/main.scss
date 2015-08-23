@@ -8,6 +8,17 @@ body {
 	font-family: "Raleway", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
+::selection {
+  background: transparent; /* WebKit/Blink Browsers */
+}
+input::selection {
+  background: #8AC007 !important;
+}
+
+::-moz-selection {
+  background: transparent; /* Gecko Browsers */
+}
+
 @mixin clearfix {
   &:after {
     content: "";

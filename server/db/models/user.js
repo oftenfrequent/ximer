@@ -6,6 +6,17 @@ var schema = new mongoose.Schema({
     email: {
         type: String
     },
+    profpic: {
+        contentType: String
+    },
+    followers: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
+    following: [{
+        type:mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    }],
     username: {
         type: String
     },
@@ -26,6 +37,11 @@ var schema = new mongoose.Schema({
     },
     google: {
         id: String
+     },
+     soundcloud:{
+        id: String,
+        code: String,
+        accessToken: String
      },
     projects: [{
         type: mongoose.Schema.Types.ObjectId,

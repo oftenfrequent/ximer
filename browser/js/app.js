@@ -1,5 +1,10 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ngStorage']);
+var app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ngStorage', 'ngMaterial', 'ngKnob', 'plangular']);
+
+app.config(function(plangularConfigProvider){
+    plangularConfigProvider.clientId = '45c5e6212ac58c73e7d05f8636a9bf22';
+});
+
 
 app.config(function ($urlRouterProvider, $locationProvider) {
     // This turns off hashbang urls (/#about) and changes it to something normal (/about)
