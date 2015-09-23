@@ -54,6 +54,7 @@ router.post('/', function (req, res, next) {
 		project.name = projectName;
 
 		tracks.forEach(function (track, i) {
+			console.log('TRACK EFFECTS', track.effectsRack);
 
 			if (track.rawAudio) {
 
@@ -67,6 +68,7 @@ router.post('/', function (req, res, next) {
 
 			} else {
 				
+				project.tracks.push(track);
 				delete track.buffer;
 				delete track.effectsRack;
 				delete track.empty;
@@ -75,8 +77,9 @@ router.post('/', function (req, res, next) {
 				delete track.rawAudio;
 				delete track.previewing;
 				delete track.player;
-				project.tracks.push(track);
 			}
+			console.log('TRACK EFFECTS AFTER', project.tracks[i].effectsRack);
+
 		});
 
 		setTimeout(function () {
@@ -97,6 +100,7 @@ router.post('/', function (req, res, next) {
 	        });
 		}, 5000);
 		
+		console.log('TPROJECT B4 SAVE', project);
 
     	return project.save();
 

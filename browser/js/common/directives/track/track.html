@@ -28,7 +28,7 @@
 		<button class="btn btn-primary" ng-click="silence()" ng-show="!track.empty && track.onTimeline">
 			<span class="glyphicon glyphicon-minus-sign" aria-hidden="true"></span>
 		</button>
-		<div ng-repeat="effect in track.effectsRack" ng-show="track.onTimeline" class="effectContainers">
+		<div ng-repeat="effect in track.effectsRack track by $index" ng-show="track.onTimeline" class="effectContainers">
 			<span>{{effect.name}}</span>
 			<md-slider flex min="0" max="1000" ng-model="effectWetnesses[$index]" ng-change="changeWetness(effect, effectWetnesses[$index])" aria-label="red" id="red-slider" class="effectSliders">
 			</md-slider>
