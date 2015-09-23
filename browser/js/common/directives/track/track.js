@@ -3,7 +3,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 		restrict: 'E',
 		templateUrl: 'js/common/directives/track/track.html',
 		link: function(scope, element, attrs) {
-			console.log("TRCK", scope.track);
+			// console.log("TRCK", scope.track);
+			// TODO: not sure what this is
 			scope.effectWetnesses = scope.track.effectsRack.map(function (effect) {
 				return effect.wet.value * 1000;
 			});
@@ -90,6 +91,7 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 					effect.dispose();
 				});
 				scope.track.effectsRack = ToneTrackFct.effectsInitialize([0,0,0,0]);
+
 				scope.track.location = [];
 				//remove all loops from UI
 				var loopsUI = document.getElementsByClassName('trackLoop'+index.toString());
@@ -274,10 +276,8 @@ app.directive('ximTrack', function ($rootScope, $stateParams, $compile, Recorder
 			};
 
 			scope.changeWetness = function(effect, amount) {
-				console.log(effect);
-				console.log(amount);
-
 				effect.wet.value = amount / 1000;
+				effect.saveValue = amount / 1000;
 			};
 
 		}

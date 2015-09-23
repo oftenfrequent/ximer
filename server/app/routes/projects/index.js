@@ -108,7 +108,7 @@ router.delete('/:id', function(req, res, next) {
 	Project.findByIdAndRemove(req.params.id).exec().then(function (project) {
 		if(project.forkID){
 
-			//need to fill this up
+			// TODO: fill this up
 
 
 		}

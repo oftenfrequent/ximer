@@ -49,6 +49,7 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 	$scope.countNumber = 1;
 
 	ProjectFct.getProjectInfo($scope.projectId).then(function (project) {
+		console.log('PROJECT', JSON.stringify(project));
 		var loaded = 0;
 		$scope.projectName = project.name;
 		if (project.tracks.length) {
@@ -70,7 +71,7 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 						loaded++;
 
 						if(loaded === loadableTracks) {
-							$scope.loading = false;
+							finishLoading();
 							$scope.$digest();
 						}
 					};
@@ -124,7 +125,7 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
     				obj.location = [];
     				$scope.tracks.push(obj);
   			}
-  			$scope.loading = false;
+  			finishLoading();
 		}
 
 		//dynamically set measures
@@ -229,16 +230,24 @@ app.controller('ProjectController', function ($scope, $rootScope, $stateParams, 
 		}
 	};
 
-  $scope.sendToAWS = function () {
+	$scope.sendToAWS = function () {
+		startLoading();
+		RecorderFct.sendToAWS($scope.tracks, $scope.projectId, $scope.projectName).then(function (response) {
+		    // wave logic
+			finishLoading();
 
-    RecorderFct.sendToAWS($scope.tracks, $scope.projectId, $scope.projectName).then(function (response) {
-        // wave logic
-        console.log('response from sendToAWS', response);
-
-    });
-  };
+		    console.log('response from sendToAWS', response);
+		});
+	};
   
   $scope.isLoggedIn = function () {
         return AuthService.isAuthenticated();
     };
+
+    function startLoading() {
+		$scope.loading = true;
+    }
+    function finishLoading() {
+		$scope.loading = false;
+    }
 });

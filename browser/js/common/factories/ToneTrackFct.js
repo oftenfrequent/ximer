@@ -29,6 +29,7 @@ app.factory('ToneTrackFct', function ($http, $q) {
 
 	var effectsInitialize = function(arr) {
 
+		if(!arr.length) arr = [0,0,0,0];
 
 		var chorus = new Tone.Chorus();
 		chorus.name = "Chorus";
@@ -44,6 +45,11 @@ app.factory('ToneTrackFct', function ($http, $q) {
 			phaser.wet.value = arr[1];
 			distort.wet.value = arr[2];
 			pingpong.wet.value = arr[3];
+			//saveValue initiated
+			chorus.saveValue = arr[0];
+			phaser.saveValue = arr[1];
+			distort.saveValue = arr[2];
+			pingpong.saveValue = arr[3];
 		}
 		
 		chorus.connect(phaser);

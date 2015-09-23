@@ -24,7 +24,6 @@ app.run(function ($rootScope, AuthService, $state, RecorderFct) {
 
     //Initialize recorder on project load
     RecorderFct.recorderInit().then(function (retArr) {
-        console.log("ROOT SCOPE", $rootScope)
         $rootScope.recorder = retArr[0];
         $rootScope.analyserNode = retArr[1];
     }).catch(function (e){

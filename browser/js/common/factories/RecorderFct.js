@@ -123,17 +123,17 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                     if (storeData[i]) {
                         track.rawAudio = storeData[i];
                         track.effectsRack = track.effectsRack.map(function (effect) {
-                            console.log("EFFECT", effect, effect.wet.value);
-                            return effect.wet.value;
+                            console.log("EFFECT", effect, effect.saveValue);
+                            return effect.saveValue;
                         });
                     }
                 });
-
-                return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId, projectName : projectName })
-                    .then(function (response) {
-                        console.log('response in sendToAWSFactory', response);
-                        return response.data; 
-                });
+                console.log('BEFORE SAVE', tracksArray);
+                // return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId, projectName : projectName })
+                //     .then(function (response) {
+                //         console.log('response in sendToAWSFactory', response);
+                //         return response.data; 
+                // });
             });
             
         },
