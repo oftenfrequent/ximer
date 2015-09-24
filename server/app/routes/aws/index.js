@@ -33,7 +33,8 @@ router.post('/', function (req, res, next) {
 			//the uuid generates a unique string of characters each time
 			var keyName = uuid.v4() + '.wav';
 			var url = 'https://s3-us-west-2.amazonaws.com/fullstacktracks/' + keyName;
-			urlTracks.push(url);
+			// urlTracks.push(url);
+			track.url = url;
 			var params = {Bucket: bucketName, Key: keyName, Body: trackBuffer};
 
 			s3.putObject(params, function(err, data) {
@@ -43,6 +44,10 @@ router.post('/', function (req, res, next) {
 				 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
 			});
 		}
+		track.effectsRack = track.effectsRack.map(function (effect) {
+            return effect.saveValue;
+        });
+		// TODO: figure out why url is not stored when the project is saved a second time
 	});
 
 	Project.findById(projectId).exec().then(function (project) {
@@ -57,24 +62,15 @@ router.post('/', function (req, res, next) {
 			if (track.rawAudio) {
 
 				var newTrack = {};
-				newTrack.url = urlTracks[i];
+				newTrack.url = track.url;
+				// newTrack.url = urlTracks[i]; //this is what is WRONG = not always the index url
 				newTrack.location = track.location;
 				newTrack.img = track.img;
-                newTrack.effectsRack = track.effectsRack.map(function (effect) {
-                	console.log('EFFECT SV:', effect.saveValue);
-                    return effect.saveValue;
-                });
-                // console.log
-				// newTrack.effectsRack = track.effectsRack;
+				newTrack.effectsRack = track.effectsRack;
 				newTrack.name = track.name;
 				project.tracks.push(newTrack);
 
 			} else {
-				
-				track.effectsRack = track.effectsRack.map(function (effect) {
-                	console.log('EFFECT SV:', effect.saveValue);
-                    return effect.saveValue;
-                });
 				project.tracks.push(track);
 				delete track.buffer;
 				delete track.effectsRack;
@@ -106,8 +102,6 @@ router.post('/', function (req, res, next) {
 	            else console.log('stdout', stdout);
 	        });
 		}, 5000);
-		
-		console.log('TPROJECT B4 SAVE', project);
 
     	return project.save();
 
