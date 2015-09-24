@@ -43,7 +43,6 @@ router.post('/', function (req, res, next) {
 				 console.log("Successfully uploaded data to " + bucketName + "/" + keyName);
 			});
 		}
-		
 	});
 
 	Project.findById(projectId).exec().then(function (project) {
@@ -54,7 +53,6 @@ router.post('/', function (req, res, next) {
 		project.name = projectName;
 
 		tracks.forEach(function (track, i) {
-			console.log('TRACK EFFECTS', track.effectsRack);
 
 			if (track.rawAudio) {
 
@@ -62,12 +60,21 @@ router.post('/', function (req, res, next) {
 				newTrack.url = urlTracks[i];
 				newTrack.location = track.location;
 				newTrack.img = track.img;
-				newTrack.effectsRack = track.effectsRack;
+                newTrack.effectsRack = track.effectsRack.map(function (effect) {
+                	console.log('EFFECT SV:', effect.saveValue);
+                    return effect.saveValue;
+                });
+                // console.log
+				// newTrack.effectsRack = track.effectsRack;
 				newTrack.name = track.name;
 				project.tracks.push(newTrack);
 
 			} else {
 				
+				track.effectsRack = track.effectsRack.map(function (effect) {
+                	console.log('EFFECT SV:', effect.saveValue);
+                    return effect.saveValue;
+                });
 				project.tracks.push(track);
 				delete track.buffer;
 				delete track.effectsRack;
@@ -78,7 +85,7 @@ router.post('/', function (req, res, next) {
 				delete track.previewing;
 				delete track.player;
 			}
-			console.log('TRACK EFFECTS AFTER', project.tracks[i].effectsRack);
+			// console.log('TRACK EFFECTS AFTER', project.tracks[i].effectsRack);
 
 		});
 

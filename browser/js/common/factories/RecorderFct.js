@@ -123,10 +123,10 @@ app.factory('RecorderFct', function ($http, AuthService, $q, ToneTrackFct, Analy
                     if (storeData[i]) {
                         track.rawAudio = storeData[i];
                     }
-                    track.effectsRack = track.effectsRack.map(function (effect) {
-                        console.log("EFFECT", effect.saveValue);
-                        return effect.saveValue;
-                    });
+                    // track.effectsRack = track.effectsRack.map(function (effect) {
+                    //     console.log("EFFECT", effect.saveValue);
+                    //     return effect.saveValue;
+                    // });
                 });
                 console.log('BEFORE SAVE', tracksArray);
                 return $http.post('/api/aws/', { tracks : tracksArray, projectId : projectId, projectName : projectName })
