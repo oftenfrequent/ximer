@@ -11,7 +11,7 @@ body {
   /* WebKit/Blink Browsers */ }
 
 input::selection {
-  background: #8AC007 !important; }
+  background: #eee !important; }
 
 ::-moz-selection {
   background: transparent;
@@ -114,7 +114,8 @@ xim-track .effectContainers {
 .controls-third {
   display: inline-block;
   width: 33.33333%;
-  float: left; }
+  float: left;
+  margin-bottom: 3px; }
 
 #project-container {
   background: #202630;
@@ -160,7 +161,7 @@ xim-track .effectContainers {
   #projectHeader button {
     color: #f30046;
     background-color: transparent;
-    border: 0px; }
+    border: 1px transparent; }
   #projectHeader #metronome {
     background: url('/images/metronome.png') center no-repeat;
     text-indent: -9999px;
@@ -171,6 +172,12 @@ xim-track .effectContainers {
   #projectHeader #metronome.grey {
     background: url('/images/metronomeGrey.png') center no-repeat;
     background-size: 40%; }
+  #projectHeader input:focus {
+    outline: none !important;
+    box-shadow: 0 0 10px #f30046; }
+  #projectHeader button:focus {
+    outline: none !important;
+    box-shadow: 0 0 10px #f30046; }
   #projectHeader #projectName {
     font-size: 18px; }
     #projectHeader #projectName button {
@@ -180,10 +187,6 @@ xim-track .effectContainers {
       border: 0px;
       text-align: center;
       padding: 0px; }
-    #projectHeader #projectName input:focus {
-      outline: none !important;
-      border: 1px solid #f30046;
-      box-shadow: 0 0 10px #f30046; }
   #projectHeader #positionSelector {
     color: #ccc;
     background-color: #f30046;

@@ -8,6 +8,7 @@
 	display:inline-block;
 	width:33.33333%;
 	float: left;
+	margin-bottom: 3px;
 }
 
 #project-container {
@@ -66,7 +67,7 @@
 	button {
 		color: #f30046;
 		background-color:rgba(0,0,0,0);
-		border:0px;
+		border:1px rgba(0,0,0,0);
 	}
 	#metronome {
 		background:url('/images/metronome.png') center no-repeat;
@@ -80,6 +81,18 @@
 		background:url('/images/metronomeGrey.png') center no-repeat;
 		background-size:40%;
 	}
+	input:focus{
+	    outline: none !important;
+	    // border:1px solid #f30046;
+	    box-shadow: 0 0 10px #f30046;
+	}
+	button:focus {
+	    outline: none !important;
+	    box-shadow: 0 0 10px #f30046;
+	    // border:1px solid #f30046;
+	    // border:0px;
+	    // box-shadow: 0;
+	}
 	#projectName {
 		font-size: 18px;
 		button {
@@ -90,11 +103,6 @@
 			border:0px;
 			text-align:center;
 			padding:0px;
-		}
-		input:focus {
-		    outline: none !important;
-		    border:1px solid #f30046;
-		    box-shadow: 0 0 10px #f30046;
 		}
 	}
 	#positionSelector {
