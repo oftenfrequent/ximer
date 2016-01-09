@@ -1,9 +1,6 @@
 'use strict';
-var app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ngStorage', 'ngMaterial', 'ngKnob', 'plangular']);
+var app = angular.module('FullstackGeneratedApp', ['ui.router', 'ui.bootstrap', 'fsaPreBuilt', 'ngStorage', 'ngMaterial', 'ngKnob']);
 
-app.config(function(plangularConfigProvider){
-    plangularConfigProvider.clientId = '45c5e6212ac58c73e7d05f8636a9bf22';
-});
 
 
 app.config(function ($urlRouterProvider, $locationProvider) {
